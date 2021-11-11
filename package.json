@@ -1,0 +1,28 @@
+{
+  "name": "investors",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@heroicons/vue": "^1.0.4",
+    "@nuxtjs/apollo": "^4.0.1-rc.5",
+    "@nuxtjs/axios": "^5.13.6",
+    "@nuxtjs/toast": "^3.3.1",
+    "core-js": "^3.15.1",
+    "graphql-tag": "^2.12.5",
+    "nuxt": "^2.15.7",
+    "vue-form-generator": "^2.3.4"
+  },
+  "devDependencies": {
+    "@nuxt/types": "^2.15.7",
+    "@nuxt/typescript-build": "^2.1.0",
+    "@nuxtjs/tailwindcss": "^4.2.0",
+    "postcss": "^8.3.5",
+    "vue-cli-plugin-apollo": "~0.22.2"
+  }
+}

@@ -1,0 +1,8 @@
+query Client($uid:String!) {
+  Client(UID: $uid) {
+    UID
+    createdAt
+    updatedAt
+    name
+  }
+}

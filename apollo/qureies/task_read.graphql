@@ -1,0 +1,42 @@
+query LabelingTask(
+    $clientUID: String!,
+    $projectUID: String!,
+    $UID:String!,
+) {
+    LabelingTask(
+        clientUID: $clientUID,
+        projectUID: $projectUID,
+        UID: $UID,
+    ) {
+        UID
+        clientUID
+        projectUID
+        createdAt
+        updatedAt
+        name
+        description
+        instruction
+        labelingType
+        stats {
+            total
+            todo
+            done
+        }
+        userStats {
+            total
+            todo
+            done
+        }
+        classes {
+            UID
+            clientUID
+            projectUID
+            taskUID
+            name
+            shortName
+            description
+            color
+            keyboardKey
+        }
+    }
+}
