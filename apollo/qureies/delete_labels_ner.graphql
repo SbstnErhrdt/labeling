@@ -1,0 +1,3 @@
+mutation deleteLabelingLabelsNer($data: [LabelingLabelNerMutationObject]) {
+  deleteLabelingLabelsNer(data: $data)
+}

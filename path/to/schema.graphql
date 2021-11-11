@@ -708,6 +708,11 @@ type RootMutation {
     "The NER classification label object"
     data: LabelingLabelNerMutationObject
   ): Boolean
+  "Deletes NER classification labels"
+  deleteLabelingLabelsNer(
+    "The NER classification label objects"
+    data: [LabelingLabelNerMutationObject]
+  ): Boolean
   "deletes a classification task"
   deleteLabelingTask(
     "The classification task object"
