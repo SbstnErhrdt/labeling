@@ -35,6 +35,7 @@
             :itemUID="this.LabelingItemsNerNext[0].UID"
             :labels="this.LabelingItemsNerNext[0].labels"
             @results="handleResults"
+            @deleted="handleDeleteLabels"
           >
           </Annotator>
           <div v-if="loading"
@@ -54,7 +55,7 @@ import LabelingTask from '~/apollo/qureies/task_read'
 import Spinner from '~/components/Spinner';
 import LabelingItemsNerNext from '~/apollo/qureies/ner_item_read_next.graphql'
 import createLabelingLabelsNer from '@/apollo/qureies/create_labels_ner.graphql'
-import deleteLabelingLabelNer from '@/apollo/qureies/delete_label_ner.graphql'
+import deleteLabelingLabelsNer from '@/apollo/qureies/delete_labels_ner.graphql'
 
 export default {
   components: {Spinner},
@@ -67,13 +68,13 @@ export default {
     }
   },
   methods: {
-    async handleResults(value) {
+    async handleResults(obj) {
       this.loading = true;
       // send mutation
       await this.$apollo.mutate({
         mutation: createLabelingLabelsNer,
         variables: {
-          data: value.labels,
+          data: obj.labels,
         },
         update: (store, {data: {createLabelingLabelsNer}}) => {
           console.log(createLabelingLabelsNer);
@@ -90,15 +91,15 @@ export default {
       });
       this.loading = false;
     },
-    handleDeleteLabel(label) {
+    handleDeleteLabels(obj) {
       // send mutation
       this.$apollo.mutate({
-        mutation: deleteLabelingLabelNer,
+        mutation: deleteLabelingLabelsNer,
         variables: {
-          data: label,
+          data: obj.labels,
         },
         update: (store, {data: {createLabelingLabelsNer}}) => {
-          this.$toast.success('Saved', {
+          this.$toast.success('Deleted', {
             duration: 1000,
           })
           console.log(createLabelingLabelsNer);

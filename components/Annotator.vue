@@ -44,7 +44,8 @@
     </div> -->
     <div>
       <div v-for="(item, index) in newLabels" v-bind:key="index">
-        {{ item.representation.start }} - {{ item.representation.end }} - {{ item.classUID }} - {{ item.representation.text }}
+        {{ item.representation.start }} - {{ item.representation.end }} - {{ item.classUID }} -
+        {{ item.representation.text }}
         <button type="button"
                 class="bg-gray-50 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
                 aria-expanded="false"
@@ -96,7 +97,7 @@ export default {
       if (this.clsMap[clsUID] !== undefined) {
         return this.clsMap[clsUID].color || '#ccc';
       }
-      console.log("not in map",this.clsMap, clsUID);
+      console.log('not in map', this.clsMap, clsUID);
       return '#ccc';
     },
     createHighlightedString: function (ranges, text) {
@@ -114,7 +115,7 @@ export default {
           if (i >= currentAnnotation.representation.start && i < currentAnnotation.representation.end - 1) {
             // do nothing
           } else if (i === currentAnnotation.representation.end - 1) {
-            console.log("current anno",currentAnnotation);
+            console.log('current anno', currentAnnotation);
             result += '<span class="highlight" style="background:' + this.getClassColor(currentAnnotation.classUID) +
               '" data-index="' + j + '">' + currentAnnotation.representation.text +
               '</span>';
@@ -161,9 +162,7 @@ export default {
         }
         prevEnd = currentLabel.representation.end
       }
-      this.newLabels = this.newLabels.sort(function (a, b) {
-        return b.representation.start - a.representation.start;
-      });
+      this.newLabels = this.newLabels.sort(this.sortLabels);
       // console.log(prevEnd, newLabel)
     },
     selectClass: function (cls) {
@@ -244,22 +243,50 @@ export default {
       }
     },
     removeLabel: function (i) {
+      // propagate deleted label to parent
+      let deletedLabel = Object.assign({}, this.newLabels[i])
+      this.$emit('deleted', {
+        labels: [deletedLabel],
+      })
+      // remove the label from the array
       this.newLabels.splice(i, 1);
     },
     resetAllLabels: function () {
+      let deletedLabels = Object.assign([], this.newLabels)
+      this.$emit('deleted', {
+        labels: deletedLabels,
+      })
       this.newLabels = [];
     },
-    submit() {
+    submit: function () {
       this.$emit('results', {
         labels: this.newLabels,
         classes: this.classes,
         text: this.text,
       })
+    },
+    sortLabels: function (a, b) {
+      return b.representation.start - a.representation.start;
+    },
+    handleKeyPress: function (e) {
+      // use self instead of this in here
+      switch (e.keyCode) {
+        case 13: // enter
+          this.submit();
+          break;
+        case 27: // esc
+          this.resetAllLabels();
+          break;
+        default:
+          let key = String.fromCharCode(e.keyCode);
+          this.selectClassBasedOnKey(key);
+      }
     }
   },
   created() {
     // copy labels
     this.newLabels = this.labels;
+    this.newLabels = this.newLabels.sort(this.sortLabels);
     // set the first class as default
     if (this.classes && this.classes.length >= 0) {
       this.cls = this.classes[0];
@@ -268,22 +295,12 @@ export default {
         this.clsMap[element.UID] = element;
       });
     }
-    // add event listener
-    let that = this;
-    window.addEventListener('keypress', function (e) {
-      // use self instead of this in here
-      switch (e.keyCode) {
-        case 13: // enter
-          that.submit();
-          break;
-        case 27: // esc
-          that.resetAllLabels();
-          break;
-        default:
-          let key = String.fromCharCode(e.keyCode);
-          that.selectClassBasedOnKey(key);
-      }
-    });
+  },
+  beforeMount() {
+    window.addEventListener('keypress', this.handleKeyPress);
+  },
+  beforeDestroy() {
+    window.removeEventListener('keypress', this.handleKeyPress);
   },
   async mounted() {
   }

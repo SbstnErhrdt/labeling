@@ -88,5 +88,12 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {}
+  build: {},
+
+
+  purge: {
+    content: [
+      'node_modules/tv-*/dist/tv-*.umd.min.js',
+    ],
+  },
 }
