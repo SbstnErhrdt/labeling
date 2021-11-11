@@ -1,0 +1,15 @@
+query ProjectSearch($clientUID: String!, $keyword:String, $projectType:ProjectType) {
+  ProjectSearch(clientUID: $clientUID, keyword: $keyword, projectType: $projectType) {
+    amount
+    results {
+      UID
+      objective
+      status
+      createdAt
+      updatedAt
+      name
+      description
+      projectType
+    }
+  }
+}

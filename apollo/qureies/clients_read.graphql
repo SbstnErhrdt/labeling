@@ -1,0 +1,11 @@
+query ClientsSearch($keyword:String) {
+  ClientsSearch(keyword: $keyword) {
+    amount
+    results {
+      UID
+      createdAt
+      updatedAt
+      name
+    }
+  }
+}

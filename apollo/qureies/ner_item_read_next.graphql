@@ -1,0 +1,42 @@
+query LabelingItemNerNext(
+  $clientUID: String!,
+  $projectUID: String!,
+  $taskUID:String!,
+) {
+  LabelingItemsNerNext(
+    clientUID: $clientUID,
+    projectUID: $projectUID,
+    taskUID: $taskUID,
+  ) {
+    UID
+    text
+    stats {
+      done
+      todo
+      total
+    }
+    classes {
+      UID
+      color
+      keyboardKey
+      description
+      shortName
+      name
+    }
+    labels {
+      representation {
+        start
+        end
+        text
+        indexStart
+        indexEnd
+      }
+      clientUID
+      projectUID
+      taskUID
+      itemUID
+      classUID
+      UID
+    }
+  }
+}

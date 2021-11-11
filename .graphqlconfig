@@ -1,0 +1,16 @@
+{
+  "name": "Backend",
+  "schemaPath": "./path/to/schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "Default GraphQL Endpoint": {
+        "url": "http://label.local:8080/api/v1/graphql",
+        "headers": {
+          "user-agent": "JS GraphQL",
+          "Origin": "http://label.local:8080"
+        },
+        "introspect": true
+      }
+    }
+  }
+}

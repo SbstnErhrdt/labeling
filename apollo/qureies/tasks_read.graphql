@@ -1,0 +1,28 @@
+query LabelingTasksSearch(
+    $clientUID: String!,
+    $projectUID: String!,
+    $keyword:String,
+    $from: Int,
+    $size: Int,
+) {
+    LabelingTasksSearch(
+        clientUID: $clientUID,
+        projectUID: $projectUID,
+        keyword: $keyword,
+        from: $from,
+        size: $size
+    ) {
+        amount
+        results {
+            UID
+            clientUID
+            projectUID
+            createdAt
+            updatedAt
+            name
+            description
+            instruction
+            labelingType
+        }
+    }
+}

@@ -1,0 +1,10 @@
+mutation createLabelingLabelsNer($data: [LabelingLabelNerMutationObject]) {
+  createLabelingLabelsNer(data: $data) {
+    UID
+    clientUID
+    projectUID
+    taskUID
+    itemUID
+    classUID
+  }
+}

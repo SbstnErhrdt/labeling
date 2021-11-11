@@ -1,0 +1,12 @@
+query Project($clientUID: String!, $UID:String) {
+  Project(clientUID: $clientUID, UID: $UID) {
+    UID
+    objective
+    status
+    createdAt
+    updatedAt
+    name
+    description
+    projectType
+  }
+}
