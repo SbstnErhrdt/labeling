@@ -27,10 +27,6 @@
         </div>
       </main>
     </div>
-
-
-
-    <Annotator text="web-based annotation app has been carefully designed to be as efficient as possible. The manual interface lets you label entities by highlighting spans of text by hand. Your annotations snap to token boundaries, and you can mark single-word entities by double-clicking."></Annotator>
   </div>
 </template>
 
