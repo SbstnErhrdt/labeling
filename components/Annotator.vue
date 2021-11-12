@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="labeling-classes px-5 pb-2">
-      <ul role="list" class="mt-3 grid grid-cols-1 gap-2 sm:gap-2 sm:grid-cols-3 lg:grid-cols-8">
+    <div class="labeling-classes pb-2">
+      <ul role="list" class="mt-3 grid grid-cols-1 gap-2 sm:gap-2 sm:grid-cols-3 lg:grid-cols-6">
         <li
           v-if="classes && cls"
           v-for="(c, index) in classes" class="col-span-1 flex shadow-sm rounded-md cursor-pointer"
@@ -14,19 +14,12 @@
             <kbd>{{ c.keyboardKey }}</kbd>
           </div>
           <div
-            class="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate">
-            <div class="flex-1 px-4 py-2 text-sm truncate">
-              <span href="#" class="text-gray-900 font-medium hover:text-gray-600">{{ c.shortName }}</span><br>
+            class="flex-1 items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate">
+            <div class="px-1 py-0 text-sm truncate">
+              <span class="text-gray-900 font-medium">{{ c.shortName }}</span>
             </div>
-            <div class="flex-shrink-0 pr-2">
-              <span
-                class="w-8 h-8 bg-white inline-flex items-center justify-center text-gray-400 rounded-full bg-transparent hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sr-only ">Open options</span>
-              <!-- Heroicon name: solid/dots-vertical
-              <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                   aria-hidden="true">
-                <path
-                  d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
-              </svg> -->
+            <div class="px-1 text-xs text-gray-500 truncate">
+              {{ c.name }}
             </div>
           </div>
         </li>
@@ -35,34 +28,61 @@
 
     <hr>
 
-    <div class="text-md p-5" v-on:mouseup="selectText">
+    <div class="text-md pt-5" v-on:mouseup="selectText" style="min-height: 25vh">
       <div class="label-text" v-html="display"></div>
     </div>
+
+    <hr>
+
+    <div class="py-5">
+      <button class="bg-gray-50 hover:bg-gray-200 text-black font-bold py-2 px-4 border border-gray-200 rounded"
+              v-on:click="resetAllLabels()">
+        <kbd>-</kbd>
+        <span class="inline-block pl-2">Reset All</span>
+      </button>
+
+      <button class="bg-green-400 text-white font-bold py-2 px-4 border border-green-500 rounded hover:bg-green-600"
+              v-on:click="submit()">
+        <kbd>↩</kbd>
+        <span class="inline-block pl-2">Ok</span>
+      </button>
+    </div>
+
+    <hr>
 
     <!-- <div class="my-4 p-4 bg-gray-200">
       {{ this.renderedText }}
     </div> -->
     <div>
-      <div v-for="(item, index) in newLabels" v-bind:key="index">
-        {{ item.representation.start }} - {{ item.representation.end }} - {{ item.classUID }} -
-        {{ item.representation.text }}
-        <button type="button"
-                class="bg-gray-50 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
-                aria-expanded="false"
-                v-on:click="removeLabel(index)">
-          x
-        </button>
-      </div>
-    </div>
-    <button class="bg-gray-50 hover:bg-gray-200 text-black font-bold py-2 px-4 border border-gray-200 rounded"
-            v-on:click="resetAllLabels()">
-      Reset All
-    </button>
 
-    <button class="bg-green-400 text-white font-bold py-2 px-4 border border-green-900 rounded hover:bg-green-600"
-            v-on:click="submit()">
-      Ok
-    </button>
+      <div>
+        <ul role="list" class="divide-y divide-gray-200">
+          <li v-for="(item, index) in newLabels" v-bind:key="index" class="py-5">
+            <div class="relative">
+              <h3 class="text-sm font-semibold text-gray-800">
+                  <span :style="{ 'color': getClassColor(item.classUID)}">{{getClass(item.classUID).shortName}}</span> - {{ getClass(item.classUID).name }}
+              </h3>
+              <p class="mt-1 text-sm text-gray-600 line-clamp-2">
+                {{ item.representation.text }}
+              </p>
+              <div class="text-gray-400 text-xs font-mono mt-2">
+                <strong>Start:</strong>{{ item.representation.start }} - <strong>End:</strong>{{ item.representation.end }}
+              </div>
+              <button type="button"
+                      class="absolute right-0 top-0 bg-gray-50 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                      aria-expanded="false"
+                      v-on:click="removeLabel(index)">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </button>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
   </div>
 </template>
 
@@ -97,8 +117,15 @@ export default {
       if (this.clsMap[clsUID] !== undefined) {
         return this.clsMap[clsUID].color || '#ccc';
       }
-      console.log('not in map', this.clsMap, clsUID);
+      console.error('class not in map', this.clsMap, clsUID);
       return '#ccc';
+    },
+    getClass: function (clsUID) {
+      if (this.clsMap[clsUID] !== undefined) {
+        return this.clsMap[clsUID] || null;
+      }
+      console.error('class not in map', this.clsMap, clsUID);
+      return null;
     },
     createHighlightedString: function (ranges, text) {
       if (!this.newLabels) {
@@ -162,7 +189,9 @@ export default {
         }
         prevEnd = currentLabel.representation.end
       }
-      this.newLabels = this.newLabels.sort(this.sortLabels);
+      this.newLabels = this.newLabels.sort(function (a, b) {
+        return b.representation.start - a.representation.start;
+      });
       // console.log(prevEnd, newLabel)
     },
     selectClass: function (cls) {
@@ -265,16 +294,14 @@ export default {
         text: this.text,
       })
     },
-    sortLabels: function (a, b) {
-      return b.representation.start - a.representation.start;
-    },
     handleKeyPress: function (e) {
+      console.log(e.keyCode);
       // use self instead of this in here
       switch (e.keyCode) {
         case 13: // enter
           this.submit();
           break;
-        case 27: // esc
+        case 45: // -
           this.resetAllLabels();
           break;
         default:
@@ -286,7 +313,9 @@ export default {
   created() {
     // copy labels
     this.newLabels = this.labels;
-    this.newLabels = this.newLabels.sort(this.sortLabels);
+    this.newLabels = this.newLabels.sort(function (a, b) {
+      return b.representation.start - a.representation.start;
+    });
     // set the first class as default
     if (this.classes && this.classes.length >= 0) {
       this.cls = this.classes[0];
@@ -313,14 +342,14 @@ kbd {
   cursor: pointer;
   position: relative;
   display: inline-block;
-  font: bold 14px arial;
+  font: bold 13px arial;
   font-family: monospace;
   text-decoration: none;
   text-align: center;
   font-weight: normal;
-  width: 26px;
-  height: 25px;
-  line-height: 25px;
+  width: 30px;
+  height: 27px;
+  line-height: 27px;
   border-radius: 4px;
   border-top: 1px solid rgba(255, 255, 255, 0.8);
   margin: 0;
