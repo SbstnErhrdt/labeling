@@ -14,7 +14,7 @@
                     class="items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1 mr-2 h-5 w-5 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              <path  strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             Back
           </NuxtLink>
@@ -84,7 +84,12 @@ export default {
           this.$toast.success('Saved', {
             duration: 1000,
           })
+          // remove the first element from the array
           this.LabelingItemsNerNext.splice(0,1);
+          // refetch if array is empty
+          if(this.LabelingItemsNerNext.length === 0) {
+            this.$apollo.queries.LabelingItemsNerNext.refetch()
+          }
         },
         error(error) {
           console.log('errors', error.graphQLErrors)
@@ -134,7 +139,9 @@ export default {
       },
       error(error) {
         console.log('errors', error.graphQLErrors)
-        this.$toast.error(error.graphQLErrors)
+        this.$toast.error(error.graphQLErrors, {
+          duration: 1000,
+        })
       }
     },
     // Project
@@ -149,7 +156,9 @@ export default {
       },
       error(error) {
         console.log('errors', error.graphQLErrors)
-        this.$toast.error(error.graphQLErrors)
+        this.$toast.error(error.graphQLErrors, {
+          duration: 1000,
+        })
       }
     },
     // Tasks
@@ -165,7 +174,9 @@ export default {
       },
       error(error) {
         console.log('errors', error.graphQLErrors)
-        this.$toast.error(error.graphQLErrors)
+        this.$toast.error(error.graphQLErrors, {
+          duration: 1000,
+        })
       }
     },
     // Next
@@ -181,7 +192,9 @@ export default {
       },
       error(error) {
         console.log('errors', error.graphQLErrors)
-        this.$toast.error(error.graphQLErrors)
+        this.$toast.error(error.graphQLErrors, {
+          duration: 1000,
+        })
       }
     }
   },
