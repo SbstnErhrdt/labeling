@@ -82,7 +82,6 @@
       </div>
 
     </div>
-
   </div>
 </template>
 
@@ -286,11 +285,16 @@ export default {
       this.newLabels = [];
     },
     submit: function () {
+      let cls = Object.assign([], this.classes);
+      let lbs = Object.assign([], this.newLabels);
+      let text = Object.assign("", this.text);
+      // emit values
       this.$emit('results', {
-        labels: this.newLabels,
-        classes: this.classes,
-        text: this.text,
+        labels: lbs,
+        classes: cls,
+        text: text,
       })
+      // reset labels
       this.newLabels = [];
     },
     handleKeyPress: function (e) {
@@ -310,7 +314,7 @@ export default {
   },
   created() {
     // copy labels
-    this.newLabels = this.labels;
+    this.newLabels = Object.assign([], this.labels);
     this.newLabels = this.newLabels.sort(function (a, b) {
       return b.representation.start - a.representation.start;
     });
@@ -328,6 +332,8 @@ export default {
   },
   beforeDestroy() {
     window.removeEventListener('keypress', this.handleKeyPress);
+    // reset labels
+    this.newLabels = [];
   },
   async mounted() {
     console.log("mounted");

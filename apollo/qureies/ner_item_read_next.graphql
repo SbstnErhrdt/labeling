@@ -7,6 +7,7 @@ query LabelingItemNerNext(
     clientUID: $clientUID,
     projectUID: $projectUID,
     taskUID: $taskUID,
+    size:10,
   ) {
     UID
     text

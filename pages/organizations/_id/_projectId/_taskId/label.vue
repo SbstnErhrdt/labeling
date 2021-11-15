@@ -24,8 +24,6 @@
       <div v-if="$apollo.loading">
         <Spinner></Spinner>
       </div>
-
-
       <div v-if="!$apollo.loading && this.LabelingItemsNerNext && this.LabelingItemsNerNext.length > 0"
            class="container max-w-4xl mx-auto">
         <div class="relative">
@@ -72,12 +70,13 @@ export default {
   },
   methods: {
     async handleResults(obj) {
+      let d = Object.assign({}, obj);
       this.loading = true;
       // send mutation
       await this.$apollo.mutate({
         mutation: createLabelingLabelsNer,
         variables: {
-          data: obj.labels,
+          data: d.labels,
         },
         update: (store, {data: {createLabelingLabelsNer}}) => {
           console.log(createLabelingLabelsNer);
