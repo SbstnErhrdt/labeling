@@ -1,6 +1,6 @@
 <template>
   <div>
-    <mainhandleResults>
+    <main>
       <header class="bg-white shadow">
         <div class="max-w-4xl mx-auto py-6">
           <NuxtLink :to="{
@@ -47,7 +47,7 @@
           </div>
         </div>
       </div>
-    </mainhandleResults>
+    </main>
   </div>
 </template>
 
@@ -84,6 +84,7 @@ export default {
           this.$toast.success('Saved', {
             duration: 1000,
           })
+          this.LabelingItemsNerNext.splice(0,1);
         },
         error(error) {
           console.log('errors', error.graphQLErrors)

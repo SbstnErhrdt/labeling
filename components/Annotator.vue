@@ -142,7 +142,6 @@ export default {
           if (i >= currentAnnotation.representation.start && i < currentAnnotation.representation.end - 1) {
             // do nothing
           } else if (i === currentAnnotation.representation.end - 1) {
-            console.log('current anno', currentAnnotation);
             result += '<span class="highlight" style="background:' + this.getClassColor(currentAnnotation.classUID) +
               '" data-index="' + j + '">' + currentAnnotation.representation.text +
               '</span>';
@@ -174,7 +173,6 @@ export default {
         // if the new label is surrounding another label
         // todo: there is a bug with span wrapping
         if (newLabel.representation.start <= currentLabel.representation.start && currentLabel.representation.end <= newLabel.representation.end) {
-          console.log('wrap')
           return
         }
         // prev label end
@@ -293,9 +291,9 @@ export default {
         classes: this.classes,
         text: this.text,
       })
+      this.newLabels = [];
     },
     handleKeyPress: function (e) {
-      console.log(e.keyCode);
       // use self instead of this in here
       switch (e.keyCode) {
         case 13: // enter
@@ -332,6 +330,7 @@ export default {
     window.removeEventListener('keypress', this.handleKeyPress);
   },
   async mounted() {
+    console.log("mounted");
   }
 };
 </script>
