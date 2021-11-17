@@ -53,8 +53,15 @@ export default {
         const res = await this.$apollo.mutate({
           mutation: login,
           variables: credentials
-        }).then(({data}) => data && data.login)
-        await this.$apolloHelpers.onLogin(res)
+        })
+        if(res?.data?.login) {
+          console.log("login - store token")
+          await this.$apolloHelpers.onLogin(res.data.login)
+        } else {
+          this.$toast.error("can not parse response", {
+            duration: 1000,
+          })
+        }
       } catch (e) {
         console.log('errors', e.graphQLErrors)
         this.$toast.error(e.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
