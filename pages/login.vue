@@ -56,7 +56,10 @@ export default {
         }).then(({data}) => data && data.login)
         await this.$apolloHelpers.onLogin(res)
       } catch (e) {
-        console.error(e)
+        console.log('errors', e.graphQLErrors)
+        this.$toast.error(e.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
+          duration: 1000,
+        })
       }
     },
   }
