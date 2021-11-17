@@ -80,12 +80,14 @@ export default {
         inMemoryCacheOptions: {
           addTypename: false,
         },
+        // LocalStorage token
+        tokenName: 'auth-token',
       },
     },
     // Sets the authentication type for any authorized request.
     authenticationType: 'Bearer',
     // Token name for the cookie which will be set in case of authentication
-    tokenName: 'apollo-token',
+    tokenName: 'auth-token',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
