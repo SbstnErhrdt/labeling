@@ -41,19 +41,31 @@
 
         <hr>
 
+        <div>
+          <div class="pt-5">
+            <h4 class="text-lg mb-3">Stats</h4>
+            <div class="mb-4 text-gray-500">
+              Done: <span class="font-mono">{{ this.LabelingTask.stats.done }}</span>
+            </div>
 
-        <div class="pt-5">
-          <h4>Classes</h4>
-          <!-- This example requires Tailwind CSS v2.0+ -->
-          <ul role="list" class="space-y-3">
-            <li v-for="item in this.LabelingTask.classes" :key="item.UID"
-                class="">
-              <span class="text-sm font-medium text-gray-900">{{ item.name }}</span><br>
-              <span class="text-sm font-medium " :style="{ 'color': item.color}">{{ item.shortName }}</span>
-              <p class="text-sm text-gray-500">{{ item.description }}</p>
-            </li>
-            <!-- More items... -->
-          </ul>
+          </div>
+
+          <hr>
+          <div class="pt-5">
+            <h4 class="text-lg mb-3">Classes</h4>
+            <!-- This example requires Tailwind CSS v2.0+ -->
+            <ul role="list"
+                class="space-y-4 sm:space-y-0 sm:grid sm:grid-cols-1 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-4">
+              <li v-for="item in this.LabelingTask.classes" :key="item.UID"
+                  class="p-3 shadow-md rounded-md">
+                <span class="text-sm font-medium text-gray-900">{{ item.name }}</span><br>
+                <span class="text-sm font-medium " :style="{ 'color': item.color}">{{ item.shortName }}</span>
+                <p class="text-sm text-gray-500">{{ item.description }}</p>
+              </li>
+              <!-- More items... -->
+            </ul>
+          </div>
+
         </div>
       </div>
       <!-- This example requires Tailwind CSS v2.0+
