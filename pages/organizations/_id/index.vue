@@ -44,8 +44,8 @@
 </template>
 
 <script>
-import Client from '~/apollo/qureies/client_read'
-import ProjectSearch from '~/apollo/qureies/projects_read.graphql'
+import Client from '~/apollo/queries/client_read'
+import ProjectSearch from '~/apollo/queries/projects_read.graphql'
 import Spinner from '~/components/Spinner';
 
 export default {
