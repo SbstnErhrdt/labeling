@@ -50,13 +50,13 @@
 </template>
 
 <script>
-import Client from '~/apollo/qureies/client_read'
-import Project from '~/apollo/qureies/project_read'
-import LabelingTask from '~/apollo/qureies/task_read'
+import Client from '~/apollo/queries/client_read'
+import Project from '~/apollo/queries/project_read'
+import LabelingTask from '~/apollo/queries/task_read'
 import Spinner from '~/components/Spinner';
-import LabelingItemsNerNext from '~/apollo/qureies/ner_item_read_next.graphql'
-import createLabelingLabelsNer from '@/apollo/qureies/create_labels_ner.graphql'
-import deleteLabelingLabelsNer from '@/apollo/qureies/delete_labels_ner.graphql'
+import LabelingItemsNerNext from '~/apollo/queries/ner_item_read_next.graphql'
+import createLabelingLabelsNer from '@/apollo/queries/create_labels_ner.graphql'
+import deleteLabelingLabelsNer from '@/apollo/queries/delete_labels_ner.graphql'
 
 export default {
   components: {Spinner},

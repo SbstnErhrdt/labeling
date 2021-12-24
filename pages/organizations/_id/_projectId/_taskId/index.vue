@@ -77,9 +77,9 @@
 </template>
 
 <script>
-import Client from '~/apollo/qureies/client_read'
-import Project from '~/apollo/qureies/project_read'
-import LabelingTask from '~/apollo/qureies/task_read'
+import Client from '~/apollo/queries/client_read'
+import Project from '~/apollo/queries/project_read'
+import LabelingTask from '~/apollo/queries/task_read'
 import Spinner from '~/components/Spinner';
 
 export default {

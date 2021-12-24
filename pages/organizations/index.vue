@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import ClientsSearch from '~/apollo/qureies/clients_read'
+import ClientsSearch from '~/apollo/queries/clients_read'
 import Spinner from '~/components/Spinner';
 
 export default {
