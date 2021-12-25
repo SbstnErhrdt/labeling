@@ -44,13 +44,19 @@ import Identity from '~/apollo/queries/identity_current'
 export default {
   data() {
     return {
-      loading: false,
+      loading: true,
       credentials: {
         'identity': '',
         'password': '',
       },
       routeParamId: this.$route.params.id
     }
+  },
+  async mounted() {
+    if (this.$store.state.identity.currentUser !== null) {
+      await this.$router.push('/app')
+    }
+    this.loading = false;
   },
   methods: {
     async onSubmit() {
