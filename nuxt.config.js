@@ -90,6 +90,11 @@ export default {
     tokenName: 'auth-token',
   },
 
+  router: {
+    middleware: ['identity'],
+  },
+
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 
