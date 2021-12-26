@@ -23,7 +23,7 @@
 
         <div class="py-4 mb-3">
           <NuxtLink :to="{
-                name: 'organizations-id-projectId-taskId-label',
+                name: 'app-organizations-id-projectId-taskId-label',
                 params: {
                   id: routeParamId,
                   projectId: routeParamProjectId,
@@ -83,6 +83,7 @@ import LabelingTask from '~/apollo/queries/task_read'
 import Spinner from '~/components/Spinner';
 
 export default {
+  middleware: 'authenticated',
   components: {Spinner},
   data() {
     return {

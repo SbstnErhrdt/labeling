@@ -4,7 +4,7 @@
       <header class="bg-white shadow">
         <div class="max-w-4xl mx-auto py-6">
           <NuxtLink :to="{
-                name: 'organizations-id-projectId-taskId',
+                name: 'app-organizations-id-projectId-taskId',
                 params: {
                   id: routeParamId,
                   projectId: routeParamProjectId,
@@ -59,6 +59,7 @@ import createLabelingLabelsNer from '@/apollo/queries/create_labels_ner.graphql'
 import deleteLabelingLabelsNer from '@/apollo/queries/delete_labels_ner.graphql'
 
 export default {
+  middleware: 'authenticated',
   components: {Spinner},
   data() {
     return {

@@ -26,10 +26,13 @@
           <!-- <NuxtLink to="/_projectId" class="hover:bg-gray-700 hover:text-white text-gray-300 px-3 py-2 rounded-md text-sm font-medium">
             Projects
           </NuxtLink>-->
-          <NuxtLink to="/organizations" class="hover:bg-gray-700 hover:text-white text-gray-300 px-3 py-2 rounded-md text-sm font-medium">
+          <NuxtLink v-if="this.$store.state.identity.currentUser != null" to="/app/organizations" class="hover:bg-gray-700 hover:text-white text-gray-300 px-3 py-2 rounded-md text-sm font-medium">
             Organizations
           </NuxtLink>
-          <NuxtLink to="/login" class="hover:bg-gray-700 hover:text-white text-gray-300 px-3 py-2 rounded-md text-sm font-medium">
+          <NuxtLink v-if="this.$store.state.identity.currentUser != null" to="/identity/logout" class="hover:bg-gray-700 hover:text-white text-gray-300 px-3 py-2 rounded-md text-sm font-medium">
+            Logout
+          </NuxtLink>
+          <NuxtLink v-if="this.$store.state.identity.currentUser == null" to="/identity/login" class="hover:bg-gray-700 hover:text-white text-gray-300 px-3 py-2 rounded-md text-sm font-medium">
             Login
           </NuxtLink>
         </div>
