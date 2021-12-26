@@ -23,7 +23,7 @@
           <ul role="list" class="space-y-3">
             <li v-for="item in this.ClientsSearch.results" :key="item.UID"
                 >
-              <NuxtLink :to="{ name: 'organizations-id', params: { id: item.UID }}"
+              <NuxtLink :to="{ name: 'app-organizations-id', params: { id: item.UID }}"
                         class="block bg-white shadow overflow-hidden rounded-md px-6 py-4 text-gray-600 font-medium hover:text-black hover:bg-gray-200">
                 {{ item.name }}
               </NuxtLink>
@@ -41,6 +41,7 @@ import ClientsSearch from '~/apollo/queries/clients_read'
 import Spinner from '~/components/Spinner';
 
 export default {
+  middleware: 'authenticated',
   components: {Spinner},
   data() {
     return {
