@@ -1,0 +1,3 @@
+mutation register($identity: String!, $password: String!, $passwordConfirmation: String!, $acceptTermsAndConditions: Boolean!) {
+  register(identity: $identity, password: $password, passwordConfirmation: $passwordConfirmation, acceptTermsAndConditions: $acceptTermsAndConditions )
+}
