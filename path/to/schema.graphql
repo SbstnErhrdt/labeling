@@ -395,10 +395,14 @@ type LabelingLabelNer {
   classUID: String
   "The client uid"
   clientUID: String
+  "The human, which has confirmed the label"
+  confirmerUID: String
   "The creation date"
   createdAt: DateTime
   "The item uid"
   itemUID: String
+  "The source of the label"
+  labelSource: String
   "The project uid"
   projectUID: String
   "The labels"
@@ -1318,7 +1322,9 @@ input LabelingLabelNerMutationObject {
   UID: String
   classUID: String!
   clientUID: String!
+  confirmerUID: String
   itemUID: String!
+  labelSource: String = "human"
   projectUID: String!
   representation: LabelingLabelNerRepresentationMutationObject
   taskUID: String!

@@ -67,6 +67,10 @@
               </p>
               <div class="text-gray-400 text-xs font-mono mt-2">
                 <strong>Start:</strong>{{ item.representation.start }} - <strong>End:</strong>{{ item.representation.end }}
+                <br>
+                <strong>Source:</strong>{{item.labelSource}}
+                <br>
+                <strong>Confirmed:</strong>{{item.confirmerUID !== null}}
               </div>
               <button type="button"
                       class="absolute right-0 top-0 bg-gray-50 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"

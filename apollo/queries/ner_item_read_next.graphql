@@ -32,6 +32,8 @@ query LabelingItemNerNext(
         indexStart
         indexEnd
       }
+      confirmerUID
+      labelSource
       clientUID
       projectUID
       taskUID
