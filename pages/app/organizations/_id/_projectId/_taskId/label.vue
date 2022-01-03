@@ -93,7 +93,7 @@ export default {
         },
         error(error) {
           console.log('errors', error.graphQLErrors)
-          this.$toast.error(e.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
+          this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
             duration: 1000,
           })
         }
@@ -115,7 +115,7 @@ export default {
         },
         error(error) {
           console.log('errors', error.graphQLErrors)
-          this.$toast.error(e.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
+          this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
             duration: 1000,
           })
         }
@@ -139,7 +139,7 @@ export default {
       },
       error(error) {
         console.log('errors', error.graphQLErrors)
-        this.$toast.error(e.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
+        this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
           duration: 1000,
         })
       }
@@ -156,7 +156,7 @@ export default {
       },
       error(error) {
         console.log('errors', error.graphQLErrors)
-        this.$toast.error(e.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
+        this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
           duration: 1000,
         })
       }
@@ -174,7 +174,7 @@ export default {
       },
       error(error) {
         console.log('errors', error.graphQLErrors)
-        this.$toast.error(e.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
+        this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
           duration: 1000,
         })
       }
@@ -192,7 +192,7 @@ export default {
       },
       error(error) {
         console.log('errors', error.graphQLErrors)
-        this.$toast.error(e.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
+        this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
           duration: 1000,
         })
       }
