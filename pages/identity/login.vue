@@ -41,8 +41,8 @@
 
 <script>
 
-import login from '~/apollo/queries/identity_login'
-import Identity from '~/apollo/queries/identity_current'
+import login from './apollo/mutations/identity_login.graphql'
+import Identity from './apollo/queries/identity_current.graphql'
 
 export default {
   data() {

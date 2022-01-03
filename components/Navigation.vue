@@ -29,6 +29,9 @@
           <NuxtLink v-if="this.$store.state.identity.currentUser != null" to="/app/organizations" class="hover:bg-gray-700 hover:text-white text-gray-300 px-3 py-2 rounded-md text-sm font-medium">
             Organizations
           </NuxtLink>
+          <NuxtLink v-if="this.$store.state.identity.currentUser != null" to="/identity/profile" class="hover:bg-gray-700 hover:text-white text-gray-300 px-3 py-2 rounded-md text-sm font-medium">
+            {{this.$store.state.identity.currentUser.firstName || 'Profile'}}
+          </NuxtLink>
           <NuxtLink v-if="this.$store.state.identity.currentUser != null" to="/identity/logout" class="hover:bg-gray-700 hover:text-white text-gray-300 px-3 py-2 rounded-md text-sm font-medium">
             Logout
           </NuxtLink>
