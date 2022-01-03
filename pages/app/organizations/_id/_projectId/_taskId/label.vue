@@ -28,11 +28,11 @@
            class="container max-w-4xl mx-auto">
         <div class="relative">
           <Annotator
-            :text="this.LabelingItemsNerNext[0].text"
-            :classes="this.LabelingItemsNerNext[0].classes"
             :clientUID="this.routeParamId"
             :projectUID="this.routeParamProjectId"
             :taskUID="this.routeParamTaskId"
+            :text="this.LabelingItemsNerNext[0].text"
+            :classes="this.LabelingItemsNerNext[0].classes"
             :itemUID="this.LabelingItemsNerNext[0].UID"
             :labels="this.LabelingItemsNerNext[0].labels"
             @results="handleResults"
