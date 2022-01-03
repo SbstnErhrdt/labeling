@@ -316,9 +316,20 @@ export default {
       }
     }
   },
+  watch: {
+    labels: function(newVal, oldVal) { // watch it
+      // console.log('Prop changed: ', newVal, ' | was: ', oldVal)
+      let labels = Object.assign([], newVal);
+      labels = labels.sort(function (a, b) {
+        return b.representation.start - a.representation.start;
+      });
+      this.newLabels = labels;
+    }
+  },
   created() {
     // copy labels
     this.newLabels = Object.assign([], this.labels);
+    // sort labels
     this.newLabels = this.newLabels.sort(function (a, b) {
       return b.representation.start - a.representation.start;
     });
