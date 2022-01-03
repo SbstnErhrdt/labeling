@@ -16,7 +16,7 @@
 
 <script>
 
-import registrationConfirmation from '~/apollo/queries/identity_register_confirm'
+import registrationConfirmation from '~/pages/identity/apollo/mutations/identity_register_confirm'
 
 export default {
   data() {

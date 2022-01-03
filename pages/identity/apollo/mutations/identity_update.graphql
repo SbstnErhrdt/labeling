@@ -1,0 +1,12 @@
+mutation updateIdentity($data: IdentityMutationObject!) {
+  updateIdentity(data: $data) {
+    UID
+    email
+    firstName
+    lastName
+    salutation
+    phone
+    backupPhone
+    backupEmail
+  }
+}

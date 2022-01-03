@@ -1,4 +1,4 @@
-import Identity from '~/apollo/queries/identity_current'
+import Identity from '~/pages/identity/apollo/queries/identity_current'
 
 const getCookieValue = (name) => (
   document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || ''

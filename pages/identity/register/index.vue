@@ -63,7 +63,7 @@
 
 <script>
 
-import register from '~/apollo/queries/identity_register'
+import register from '~/pages/identity/apollo/mutations/identity_register'
 
 export default {
   data() {
