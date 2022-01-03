@@ -134,7 +134,7 @@ export default {
     }
   },
   head: {
-    title: 'Project'
+    title: 'Task'
   }
 }
 
