@@ -200,7 +200,7 @@ export default {
     }
   },
   head: {
-    title: 'Project'
+    title: 'Labeling'
   }
 }
 
