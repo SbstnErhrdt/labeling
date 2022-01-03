@@ -71,6 +71,7 @@ export default {
   },
   methods: {
     async handleResults(obj) {
+      console.log("save labels");
       let d = Object.assign({}, obj);
       this.loading = true;
       // send mutation
@@ -80,13 +81,12 @@ export default {
           data: d.labels,
         },
         update: (store, {data: {createLabelingLabelsNer}}) => {
-          console.log(createLabelingLabelsNer);
           this.$toast.success('Saved', {
             duration: 1000,
           })
           // remove the first element from the array
           this.LabelingItemsNerNext.splice(0,1);
-          // refetch if array is empty
+          // re-fetch if array is empty
           if(this.LabelingItemsNerNext.length === 0) {
             this.$apollo.queries.LabelingItemsNerNext.refetch()
           }
@@ -101,6 +101,7 @@ export default {
       this.loading = false;
     },
     handleDeleteLabels(obj) {
+      console.log("delete label");
       // send mutation
       this.$apollo.mutate({
         mutation: deleteLabelingLabelsNer,
