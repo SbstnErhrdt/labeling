@@ -18,6 +18,7 @@ export default async function ({app, store, apollo, redirect}) {
       const identity = await app.apolloProvider.defaultClient.query({
         query: Identity,
         variables: {},
+        fetchPolicy: 'no-cache',
       })
       // console.log("identity", identity)
       // set current user

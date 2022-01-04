@@ -135,6 +135,7 @@ export default {
         const res = await this.$apollo.query({
           query: Identity,
           variables: {},
+          fetchPolicy: 'no-cache',
         });
         this.identity = res.data.Identity;
         // set current user
