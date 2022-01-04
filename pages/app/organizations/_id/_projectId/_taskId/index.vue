@@ -112,10 +112,7 @@ export default {
       routeParamTaskId: this.$route.params.taskId,
     }
   },
-  async mounted() {
-    console.log(this.$router);
-    console.log(this.$route.params.projectId);
-  },
+  async mounted() { },
   computed: {},
   apollo: {
     // Client
