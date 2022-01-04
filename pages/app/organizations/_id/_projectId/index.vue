@@ -1,6 +1,7 @@
 <template>
   <div>
     <Navigation/>
+    <Breadcrumbs home="/app" :crumbs="crumbs"/>
     <main>
       <header class="bg-white shadow">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -63,6 +64,20 @@ export default {
   components: {Spinner},
   data() {
     return {
+      crumbs: [
+        {
+          'name': 'Organizations',
+          'link': '/app/organizations',
+        },
+        {
+          'name': 'Organization',
+          'link': null,
+        },
+        {
+          'name': 'Project',
+          'link': null,
+        },
+      ],
       keyword: '',
       routeParamId: this.$route.params.id,
       routeParamProjectId: this.$route.params.projectId
@@ -83,6 +98,14 @@ export default {
           uid: this.$route.params.id,
         }
       },
+      result(ApolloQueryResult, key) {
+        let crumbs = Object.assign([], this.crumbs);
+        crumbs[1] = {
+          'name': ApolloQueryResult.data[key].name,
+          'link': '/app/organizations/' + ApolloQueryResult.data[key].UID,
+        }
+        this.crumbs = crumbs;
+      },
     },
     // Project
     Project: {
@@ -93,6 +116,14 @@ export default {
           clientUID: this.$route.params.id,
           UID: this.$route.params.projectId,
         }
+      },
+      result(ApolloQueryResult, key) {
+        let crumbs = Object.assign([], this.crumbs);
+        crumbs[2] = {
+          'name': ApolloQueryResult.data[key].name,
+          'link': '/app/organizations/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].UID,
+        }
+        this.crumbs = crumbs;
       },
     },
     // Tasks

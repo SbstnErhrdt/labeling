@@ -1,6 +1,7 @@
 <template>
   <div>
     <Navigation/>
+    <Breadcrumbs home="/app" :crumbs="crumbs"/>
     <div class="container mx-auto pt-10">
       <div class="text-md bg-gray-50 p-10">
         Hello
@@ -22,7 +23,9 @@
 export default {
   middleware: 'authenticated',
   data() {
-    return {}
+    return {
+      crumbs: []
+    }
   },
   computed: {},
   head: {

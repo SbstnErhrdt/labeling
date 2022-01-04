@@ -1,5 +1,6 @@
 query Project($clientUID: String!, $UID:String) {
   Project(clientUID: $clientUID, UID: $UID) {
+    clientUID
     UID
     objective
     status

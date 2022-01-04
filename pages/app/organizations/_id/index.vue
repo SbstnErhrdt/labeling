@@ -1,6 +1,7 @@
 <template>
   <div>
     <Navigation/>
+    <Breadcrumbs home="/app" :crumbs="crumbs"/>
     <main>
       <header class="bg-white shadow">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -54,6 +55,16 @@ export default {
   data() {
     return {
       keyword: '',
+      crumbs: [
+        {
+          'name': 'Organizations',
+          'link': '/app/organizations',
+        },
+        {
+          'name': 'Organization',
+          'link': null,
+        },
+      ],
       routeParamId: this.$route.params.id
     }
   },
@@ -71,6 +82,15 @@ export default {
         return {
           uid: this.$route.params.id,
         }
+      },
+      result(ApolloQueryResult, key) {
+        console.log(ApolloQueryResult.data[key].name, key)
+        let crumbs = Object.assign([], this.crumbs);
+        crumbs[1] = {
+          'name': ApolloQueryResult.data[key].name,
+          'link': "/app/organizations/" + ApolloQueryResult.data[key].UID,
+        }
+        this.crumbs = crumbs;
       },
     },
     ProjectSearch: {
