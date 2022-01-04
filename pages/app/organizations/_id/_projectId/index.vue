@@ -84,8 +84,6 @@ export default {
     }
   },
   async mounted() {
-    console.log(this.$router);
-    console.log(this.$route.params.projectId);
   },
   computed: {},
   apollo: {

@@ -69,7 +69,6 @@ export default {
     }
   },
   async mounted() {
-    console.log(this.$route.params.id);
   },
   computed: {},
   apollo: {
@@ -84,11 +83,10 @@ export default {
         }
       },
       result(ApolloQueryResult, key) {
-        console.log(ApolloQueryResult.data[key].name, key)
         let crumbs = Object.assign([], this.crumbs);
         crumbs[1] = {
           'name': ApolloQueryResult.data[key].name,
-          'link': "/app/organizations/" + ApolloQueryResult.data[key].UID,
+          'link': '/app/organizations/' + ApolloQueryResult.data[key].UID,
         }
         this.crumbs = crumbs;
       },
