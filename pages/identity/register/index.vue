@@ -48,8 +48,8 @@
           <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded" type="button" v-on:click="onSubmit()">
             Register
           </button>
-          <NuxtLink to="/identity/login" class="bg-gray-100 text-black py-2 px-4 rounded" type="button"
-                    v-on:click="onSubmit()">
+          <NuxtLink to="/identity/login" class="text-black py-2 px-4"
+                    >
             To Login
           </NuxtLink>
         </div>
