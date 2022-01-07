@@ -45,7 +45,6 @@ export default {
   },
   watch: {
     crumbs: function(newVal, oldVal) { // watch it
-      console.log('Prop changed: ', newVal, ' | was: ', oldVal)
       let crumbs = Object.assign([], newVal);
       this.newCrumbs = crumbs;
     }
