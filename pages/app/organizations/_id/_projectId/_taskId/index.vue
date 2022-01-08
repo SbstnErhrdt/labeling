@@ -33,7 +33,7 @@
                   taskId: routeParamTaskId,
                 }
               }"
-                    class="bg-indigo-700 shadow overflow-hidden rounded-md text-white font-medium px-6 py-4 hover:bg-indigo-900">
+                    class="bg-sky-700 hover:bg-sky-500 shadow overflow-hidden rounded-md text-white font-medium px-6 py-4">
             Start Labeling
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24"
                  stroke="currentColor">
