@@ -1,5 +1,5 @@
 <template>
-  <nav id="navigation" class="w-full p-6 bg-sky-900">
+  <nav id="navigation" class="w-full p-6 bg-gradient-to-r from-sky-900 to-sky-700">
     <div class="flex items-center justify-between">
 
       <!-- Header logo -->
