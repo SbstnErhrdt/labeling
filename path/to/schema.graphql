@@ -1,1414 +1,1628 @@
 # This file was generated based on ".graphqlconfig". Do not edit manually.
 
 schema {
-  query: RootQuery
-  mutation: RootMutation
-  subscription: RootSubscription
+    query: RootQuery
+    mutation: RootMutation
+    subscription: RootSubscription
 }
 
 "A client"
 type Clients {
-  "The total amount of clients"
-  amount: Int
-  "list of clients"
-  results: [ConfirmationUserAgent]
+    "The total amount of clients"
+    amount: Int
+    "list of clients"
+    results: [ConfirmationUserAgent]
 }
 
 "ConfirmationUserAgent"
 type ConfirmationUserAgent {
-  "The uid"
-  UID: String
-  "The creation date"
-  createdAt: DateTime
-  "The name of the client"
-  name: String
-  "The update date"
-  updatedAt: DateTime
+    "The uid"
+    UID: String
+    "The creation date"
+    createdAt: DateTime
+    "The name of the client"
+    name: String
+    "The update date"
+    updatedAt: DateTime
 }
 
 "A database"
 type Database {
-  "The uid"
-  UID: String
-  "The amount of documents in the database"
-  count: Int
-  "The description of the database"
-  description: String
-  "The name of the database"
-  name: String
-  "The description of the database"
-  stats(
-    "The amount of days"
-    days: Int = 30
-  ): [DatabaseStat]
+    "The uid"
+    UID: String
+    "The amount of documents in the database"
+    count: Int
+    "The description of the database"
+    description: String
+    "The name of the database"
+    name: String
+    "The description of the database"
+    stats(
+        "The amount of days"
+        days: Int = 30
+    ): [DatabaseStat]
 }
 
 "Statistics of a database"
 type DatabaseStat {
-  "The amount of documents"
-  count: Int
-  "The datetime of the stat"
-  date: DateTime
+    "The amount of documents"
+    count: Int
+    "The datetime of the stat"
+    date: DateTime
 }
 
 "Companies of the German Bafin database"
 type DeBafinCompanies {
-  "The total amount of documents"
-  amount: Int
-  "list of documents"
-  results: [DeBafinCompany]
+    "The total amount of documents"
+    amount: Int
+    "list of documents"
+    results: [DeBafinCompany]
 }
 
 "A company of the German Bafin database"
 type DeBafinCompany {
-  "The address of the company"
-  address: String
-  "The arbitration board of the company"
-  arbitrationBoard: String
-  "The bafin id"
-  bafinId: String
-  "The creation date in the search database"
-  createdAt: DateTime
-  "The name of the company"
-  name: String
-  "The permissions of the company"
-  permissions: [DeBafinPermission]
-  "The publication date in the search database"
-  publishedAt: DateTime
-  "The services of the company"
-  services: DeBafinServices
-  "The type of the company"
-  type: String
+    "The address of the company"
+    address: String
+    "The arbitration board of the company"
+    arbitrationBoard: String
+    "The bafin id"
+    bafinId: String
+    "The creation date in the search database"
+    createdAt: DateTime
+    "The name of the company"
+    name: String
+    "The permissions of the company"
+    permissions: [DeBafinPermission]
+    "The publication date in the search database"
+    publishedAt: DateTime
+    "The services of the company"
+    services: DeBafinServices
+    "The type of the company"
+    type: String
 }
 
 "A permission granted to a company by the German Bafin"
 type DeBafinPermission {
-  "The end date of the permission"
-  endDate: DateTime
-  "The end reason"
-  endReason: String
-  "The start date of the permission"
-  startDate: DateTime
-  "The type of the company"
-  type: String
+    "The end date of the permission"
+    endDate: DateTime
+    "The end reason"
+    endReason: String
+    "The start date of the permission"
+    startDate: DateTime
+    "The type of the company"
+    type: String
 }
 
 "A service offered by a company under the supervision of the German Bafin"
 type DeBafinService {
-  "The financial instrument of the service"
-  financialInstrument: String
-  "The name of the service"
-  name: String
-  "The is the company offering this service"
-  offering: Boolean
-  "The x coordinate of the service offering in the matrix"
-  x: Int
-  "The y coordinate of the service offering in the matrix"
-  y: Int
+    "The financial instrument of the service"
+    financialInstrument: String
+    "The name of the service"
+    name: String
+    "The is the company offering this service"
+    offering: Boolean
+    "The x coordinate of the service offering in the matrix"
+    x: Int
+    "The y coordinate of the service offering in the matrix"
+    y: Int
 }
 
 "An overview of services offered by a company under the supervision of the German Bafin"
 type DeBafinServices {
-  "The creation date of the first entry in the service offering matrix"
-  createdAt: DateTime
-  "The services offered by the company"
-  list: [DeBafinService]
-  "The update date of the last entry in the service offering matrix"
-  updatedAt: DateTime
+    "The creation date of the first entry in the service offering matrix"
+    createdAt: DateTime
+    "The services offered by the company"
+    list: [DeBafinService]
+    "The update date of the last entry in the service offering matrix"
+    updatedAt: DateTime
 }
 
 "A Document of the German Bundesanzeiger"
 type DeBundesanzeigerDocument {
-  "The uid"
-  UID: String
-  "The company name of the document"
-  companyName: String
-  "The creation date in the search database"
-  createdAt: DateTime
-  "The type of the document"
-  docType: String
-  "The label of the document"
-  label: String
-  "The publication date in the search database"
-  publishedAt: DateTime
-  "The raw content of the document"
-  raw: String
-  "The title of the document"
-  title: String
+    "The uid"
+    UID: String
+    "The company name of the document"
+    companyName: String
+    "The creation date in the search database"
+    createdAt: DateTime
+    "The type of the document"
+    docType: String
+    "The label of the document"
+    label: String
+    "The publication date in the search database"
+    publishedAt: DateTime
+    "The raw content of the document"
+    raw: String
+    "The title of the document"
+    title: String
 }
 
 "Documents of the German Bundesanzeiger"
 type DeBundesanzeigerDocuments {
-  "The total amount of documents"
-  amount: Int
-  "list of documents"
-  results: [DeBundesanzeigerDocument]
+    "The total amount of documents"
+    amount: Int
+    "list of documents"
+    results: [DeBundesanzeigerDocument]
 }
 
 "A document from the Germany Handelsregister"
 type DeHandelsregister {
-  "The uid"
-  UID: String
-  "The creation date"
-  createdAt: DateTime
-  "The name of the project"
-  document: String
+    "The uid"
+    UID: String
+    "The creation date"
+    createdAt: DateTime
+    "The name of the project"
+    document: String
 }
 
 "A Document of the German Handelsregister"
 type DeHandelsregisterDocument {
-  "The uid"
-  UID: String
-  "The creation date in the search database"
-  createdAt: DateTime
-  "The label of the document"
-  label: String
-  "The publication date in the search database"
-  publishedAt: DateTime
-  "The raw content of the document"
-  raw: String
-  "The title of the document"
-  title: String
+    "The uid"
+    UID: String
+    "The creation date in the search database"
+    createdAt: DateTime
+    "The label of the document"
+    label: String
+    "The publication date in the search database"
+    publishedAt: DateTime
+    "The raw content of the document"
+    raw: String
+    "The title of the document"
+    title: String
 }
 
 "Documents of the German Handelsregister"
 type DeHandelsregisterDocuments {
-  "The total amount of documents"
-  amount: Int
-  "list of documents"
-  results: [DeHandelsregisterDocument]
+    "The total amount of documents"
+    amount: Int
+    "list of documents"
+    results: [DeHandelsregisterDocument]
 }
 
 "A Document of the German Patent Office"
 type DePatentDocument {
-  "The uid"
-  UID: String
-  "The application date of the patent"
-  appliedAt: DateTime
-  "The creation date in the search database (currently the application data)"
-  createdAt: DateTime
-  "The description of the patent"
-  description: String
-  "The inventor of the patent"
-  inventor: [Entity]
-  "The main class of the patent"
-  mainClass: String
-  "The owner of the patent"
-  owner: [Entity]
-  "The protection type of the patent"
-  protectionType: String
-  "The publication date in the search database"
-  publishedAt: DateTime
-  "The reference number of the patent"
-  referenceNumber: String
-  "The registration date of the patent"
-  registeredAt: DateTime
-  "The representative of the patent"
-  representative: [Entity]
-  "The status type of the patent"
-  status: String
-  "The sub classes of the patent"
-  subClasses: [String]
+    "The uid"
+    UID: String
+    "The application date of the patent"
+    appliedAt: DateTime
+    "The creation date in the search database (currently the application data)"
+    createdAt: DateTime
+    "The description of the patent"
+    description: String
+    "The inventor of the patent"
+    inventor: [Entity]
+    "The main class of the patent"
+    mainClass: String
+    "The owner of the patent"
+    owner: [Entity]
+    "The protection type of the patent"
+    protectionType: String
+    "The publication date in the search database"
+    publishedAt: DateTime
+    "The reference number of the patent"
+    referenceNumber: String
+    "The registration date of the patent"
+    registeredAt: DateTime
+    "The representative of the patent"
+    representative: [Entity]
+    "The status type of the patent"
+    status: String
+    "The sub classes of the patent"
+    subClasses: [String]
 }
 
 "Documents of the German Patent Office"
 type DePatentsDocuments {
-  "The total amount of patents"
-  amount: Int
-  "list of patents"
-  results: [DePatentDocument]
+    "The total amount of patents"
+    amount: Int
+    "list of patents"
+    results: [DePatentDocument]
 }
 
 "Document"
 type Document {
-  "The uid"
-  UID: String
-  "The content of the document"
-  content: String
-  "The raw content of the document"
-  raw: String
-  "The source of the document"
-  source: String
-  "The subtitle of the document"
-  subTitle: String
-  "The title of the document"
-  title: String
-  "The name of the document"
-  type: String
+    "The uid"
+    UID: String
+    "The content of the document"
+    content: String
+    "The raw content of the document"
+    raw: String
+    "The source of the document"
+    source: String
+    "The subtitle of the document"
+    subTitle: String
+    "The title of the document"
+    title: String
+    "The name of the document"
+    type: String
 }
 
 "A document"
 type Documents {
-  "The total amount of documents"
-  amount: Int
-  "list of documents"
-  results: [Document]
+    "The total amount of documents"
+    amount: Int
+    "list of documents"
+    results: [Document]
 }
 
 "Entity"
 type Entity {
-  "The country"
-  city: String
-  "The country representation"
-  country: String
-  "The full representation"
-  full: String
-  "The name"
-  name: String
-  "The postal code"
-  postalCode: String
+    "The country"
+    city: String
+    "The country representation"
+    country: String
+    "The full representation"
+    full: String
+    "The name"
+    name: String
+    "The postal code"
+    postalCode: String
 }
 
 "The identity"
 type Identity {
-  "the unique ID of the identity"
-  UID: String
-  "the backup email of the identity"
-  backupEmail: Int
-  "the backup phone of the identity"
-  backupPhone: Int
-  "the email of the identity"
-  email: String
-  "the first name of the identity"
-  firstName: String
-  "the last name of the identity"
-  lastName: String
-  "the phone number of the identity"
-  phone: String
-  "the salutation of the identity"
-  salutation: String
+    "the unique ID of the identity"
+    UID: String
+    "the backup email of the identity"
+    backupEmail: Int
+    "the backup phone of the identity"
+    backupPhone: Int
+    "the email of the identity"
+    email: String
+    "the first name of the identity"
+    firstName: String
+    "the last name of the identity"
+    lastName: String
+    "the phone number of the identity"
+    phone: String
+    "the salutation of the identity"
+    salutation: String
+}
+
+"Investment companies"
+type InvestmentCompanies {
+    "The total amount of investment companies"
+    amount: Int
+    "list of investment companies"
+    results: [InvestmentCompany]
+}
+
+"An investment company"
+type InvestmentCompany {
+    "The uid"
+    UID: String
+    "The position of the manager of the company"
+    creatorPosition: String
+    "The founding date of the company"
+    foundedAt: DateTime
+    "A fund of the investment company"
+    fund(
+        "The uid of the investment company fund"
+        UID: String!
+    ): InvestmentCompanyFund
+    "The funds of the investment company"
+    funds(
+        "The start of the pagination of the page"
+        from: Int = 0,
+        "The searchable keyword"
+        keyword: String = "",
+        "Order by operation of the pagination"
+        orderBy: String = "",
+        "The size of the page of the pagination"
+        size: Int = 30
+    ): InvestmentCompanyFunds
+    "The address of the headquarter of the company"
+    headquarterAddress: String
+    "The investment type of the company"
+    investmentCompanyType: [String]
+    "The name"
+    name: String
+    "The purpose of the company"
+    purpose: String
+    "The website of the company"
+    website: String
+}
+
+"A investment company fund"
+type InvestmentCompanyFund {
+    "The uid"
+    UID: String
+    "The assets under management of the fund"
+    aum: Int
+    "If closing date of the fundraising process"
+    closingAt: DateTime
+    "If final closing date of the fundraising process"
+    finalClosingAt: DateTime
+    "The asset types of the fund"
+    fundAssetType: [String]
+    "The geographical focus of the fund"
+    geographicalFocus: [String]
+    "The industry focus of the fund"
+    industryFocus: [String]
+    "The investment company uid of the fund"
+    investmentCompanyUID: String
+    "If the fund is currently fundraising"
+    isFundraising: Boolean
+    "The name"
+    name: String
+    "The email of the point of contact of the fund"
+    pointOfContactEmail: String
+    "The name of the point of contact of the fund"
+    pointOfContactName: String
+    "The reminder interval"
+    reminderDays: Int
+    "The send a reminder"
+    sendReminder: Boolean
+    "The tracking interval of the fund"
+    trackingInterval: String
+    "The vintage of the fund"
+    vintage: Int
+    "Send information if no report has been submitted"
+    wantInformationIfNotSubmitted: Boolean
+    "Want a report"
+    wantReport: Boolean
+    "The website of the fund"
+    website: String
+}
+
+"Funds of investment companies"
+type InvestmentCompanyFunds {
+    "The total amount of investment companies"
+    amount: Int
+    "list of investment companies"
+    results: [InvestmentCompanyFund]
 }
 
 "Job"
 type Job {
-  "The uid"
-  UID: String
-  "The creation date"
-  createdAt: DateTime
-  "The name of the job"
-  name: String
-  "The status of the job"
-  status: String
-  "The type of the job"
-  type: String
-  "The update date"
-  updatedAt: DateTime
+    "The uid"
+    UID: String
+    "The creation date"
+    createdAt: DateTime
+    "The name of the job"
+    name: String
+    "The status of the job"
+    status: String
+    "The type of the job"
+    type: String
+    "The update date"
+    updatedAt: DateTime
 }
 
 "A job"
 type Jobs {
-  "The total amount of jobs"
-  amount: Int
-  "list of jobs"
-  results: [Job]
+    "The total amount of jobs"
+    amount: Int
+    "list of jobs"
+    results: [Job]
 }
 
 "The NER label object"
 type LabelNer {
-  "the end index of the character of the token in the text"
-  end: Int
-  "the end index of token itself in the text"
-  indexEnd: Int
-  "the start index of token itself in the text"
-  indexStart: Int
-  "the start index of the character of the token in the text"
-  start: Int
-  "the raw text of the token"
-  text: String
+    "the end index of the character of the token in the text"
+    end: Int
+    "the end index of token itself in the text"
+    indexEnd: Int
+    "the start index of token itself in the text"
+    indexStart: Int
+    "the start index of the character of the token in the text"
+    start: Int
+    "the raw text of the token"
+    text: String
 }
 
 "A classification item"
 type LabelingClass {
-  "The uid"
-  UID: String
-  "The client uid"
-  clientUID: String
-  "The color of the class"
-  color: String
-  "The creation date"
-  createdAt: DateTime
-  "The description of the classification class"
-  description: String
-  "The key to press on the keyboard"
-  keyboardKey: String
-  "The name of the classification class"
-  name: String
-  "The project uid"
-  projectUID: String
-  "The short name of the classification class"
-  shortName: String
-  "The project uid"
-  taskUID: String
-  "The update date"
-  updatedAt: DateTime
+    "The uid"
+    UID: String
+    "The client uid"
+    clientUID: String
+    "The color of the class"
+    color: String
+    "The creation date"
+    createdAt: DateTime
+    "The description of the classification class"
+    description: String
+    "The key to press on the keyboard"
+    keyboardKey: String
+    "The name of the classification class"
+    name: String
+    "The project uid"
+    projectUID: String
+    "The short name of the classification class"
+    shortName: String
+    "The project uid"
+    taskUID: String
+    "The update date"
+    updatedAt: DateTime
 }
 
 "The classification classes"
 type LabelingClasses {
-  "The total amount of classification tasks"
-  amount: Int
-  "list of classification tasks"
-  results: [LabelingTask]
+    "The total amount of classification tasks"
+    amount: Int
+    "list of classification tasks"
+    results: [LabelingTask]
 }
 
 "A named entity recognition classification item"
 type LabelingItemNer {
-  "The uid"
-  UID: String
-  "The classes of the labeling item"
-  classes: [LabelingClass]
-  "The client uid"
-  clientUID: String
-  "The creation date"
-  createdAt: DateTime
-  "The labels of the labeling item"
-  labels: [LabelingLabelNer]
-  "The project uid"
-  projectUID: String
-  "The stats of the labeling task"
-  stats: LabelingTaskStats
-  "The project uid"
-  taskUID: String
-  "The name of the classification item"
-  text: String
-  "The tokens of the item"
-  tokens: [NerToken]
-  "The update date"
-  updatedAt: DateTime
-  "The user stats of the labeling task"
-  userStats: LabelingTaskStats
+    "The uid"
+    UID: String
+    "The classes of the labeling item"
+    classes: [LabelingClass]
+    "The client uid"
+    clientUID: String
+    "The creation date"
+    createdAt: DateTime
+    "The labels of the labeling item"
+    labels: [LabelingLabelNer]
+    "The project uid"
+    projectUID: String
+    "The stats of the labeling task"
+    stats: LabelingTaskStats
+    "The project uid"
+    taskUID: String
+    "The name of the classification item"
+    text: String
+    "The tokens of the item"
+    tokens: [NerToken]
+    "The update date"
+    updatedAt: DateTime
+    "The user stats of the labeling task"
+    userStats: LabelingTaskStats
 }
 
 "The named entity recognition classification items"
 type LabelingItemsNer {
-  "The total amount of classification items"
-  amount: Int
-  "list of classification items"
-  results: [LabelingItemNer]
+    "The total amount of classification items"
+    amount: Int
+    "list of classification items"
+    results: [LabelingItemNer]
 }
 
 "A named entity recognition classification label"
 type LabelingLabelNer {
-  "The uid"
-  UID: String
-  "The item uid"
-  classUID: String
-  "The client uid"
-  clientUID: String
-  "The human, which has confirmed the label"
-  confirmerUID: String
-  "The creation date"
-  createdAt: DateTime
-  "The item uid"
-  itemUID: String
-  "The source of the label"
-  labelSource: String
-  "The project uid"
-  projectUID: String
-  "The labels"
-  representation: LabelNer
-  "The task uid"
-  taskUID: String
-  "The update date"
-  updatedAt: DateTime
+    "The uid"
+    UID: String
+    "The item uid"
+    classUID: String
+    "The client uid"
+    clientUID: String
+    "The human, which has confirmed the label"
+    confirmerUID: String
+    "The creation date"
+    createdAt: DateTime
+    "The item uid"
+    itemUID: String
+    "The source of the label"
+    labelSource: String
+    "The project uid"
+    projectUID: String
+    "The labels"
+    representation: LabelNer
+    "The task uid"
+    taskUID: String
+    "The update date"
+    updatedAt: DateTime
 }
 
 "The named entity recognition classification labels"
 type LabelingLabelsNer {
-  "The total amount of classification labels"
-  amount: Int
-  "list of classification labels"
-  results: [LabelingLabelNer]
+    "The total amount of classification labels"
+    amount: Int
+    "list of classification labels"
+    results: [LabelingLabelNer]
+}
+
+"The leaderboard entry"
+type LabelingLeaderboardEntry {
+    "the uid of the user"
+    UID: String
+    "the amount of items that have already been labeled by the user"
+    count: Int
+    "the email of the user"
+    email: String
+    "the first name of the user"
+    firstName: String
+    "the last name of the user"
+    lastName: String
 }
 
 "A classification task"
 type LabelingTask {
-  "The uid"
-  UID: String
-  "The classes of the labeling task"
-  classes: [LabelingClass]
-  "The uid"
-  clientUID: String
-  "The creation date"
-  createdAt: DateTime
-  "The description of the classification task"
-  description: String
-  "The instruction of the classification task"
-  instruction: String
-  "The type of the labeling task"
-  labelingType: String
-  "The name of the classification task"
-  name: String
-  "The uid"
-  projectUID: String
-  "The stats of the labeling task"
-  stats: LabelingTaskStats
-  "The update date"
-  updatedAt: DateTime
-  "The user stats of the labeling task"
-  userStats: LabelingTaskStats
+    "The uid"
+    UID: String
+    "The classes of the labeling task"
+    classes: [LabelingClass]
+    "The uid"
+    clientUID: String
+    "The creation date"
+    createdAt: DateTime
+    "The description of the classification task"
+    description: String
+    "The instruction of the classification task"
+    instruction: String
+    "The type of the labeling task"
+    labelingType: String
+    "The leaderboard of the labeling task"
+    leaderboard: [LabelingLeaderboardEntry]
+    "The name of the classification task"
+    name: String
+    "The uid"
+    projectUID: String
+    "The stats of the labeling task"
+    stats: LabelingTaskStats
+    "The update date"
+    updatedAt: DateTime
+    "The user stats of the labeling task"
+    userStats: LabelingTaskStats
 }
 
 "The stats of a task"
 type LabelingTaskStats {
-  "the amount of items that have already been labeled"
-  done: Int
-  "the amount of items that are still to label"
-  todo: Int
-  "the total amount of items to label"
-  total: Int
+    "the amount of items that have already been labeled"
+    done: Int
+    "the amount of items that are still to label"
+    todo: Int
+    "the total amount of items to label"
+    total: Int
 }
 
 "The classification tasks"
 type LabelingTasks {
-  "The total amount of classification tasks"
-  amount: Int
-  "list of classification tasks"
-  results: [LabelingTask]
+    "The total amount of classification tasks"
+    amount: Int
+    "list of classification tasks"
+    results: [LabelingTask]
 }
 
 "A list"
 type List {
-  "The elements of the list"
-  ListElementsSearch(
-    "The start of the pagination of the page"
-    from: Int = 0,
-    "The searchable keyword"
-    keyword: String = "",
-    "Order by operation of the pagination"
-    orderBy: String = "",
-    "The size of the page of the pagination"
-    size: Int = 30
-  ): ListElements
-  "The uid"
-  UID: String
-  "The UID of the client of the list"
-  clientUID: String
-  "The creation date"
-  createdAt: DateTime
-  "The description of the list"
-  description: String
-  "The name of the list"
-  name: String
-  "The objective of the list"
-  objective: String
-  "The project uid"
-  projectUID: String
-  "The status of the list"
-  status: String
-  "The update date"
-  updatedAt: DateTime
+    "The elements of the list"
+    ListElementsSearch(
+        "The start of the pagination of the page"
+        from: Int = 0,
+        "The searchable keyword"
+        keyword: String = "",
+        "Order by operation of the pagination"
+        orderBy: String = "",
+        "The size of the page of the pagination"
+        size: Int = 30
+    ): ListElements
+    "The uid"
+    UID: String
+    "The UID of the client of the list"
+    clientUID: String
+    "The creation date"
+    createdAt: DateTime
+    "The description of the list"
+    description: String
+    "The name of the list"
+    name: String
+    "The objective of the list"
+    objective: String
+    "The project uid"
+    projectUID: String
+    "The status of the list"
+    status: String
+    "The update date"
+    updatedAt: DateTime
 }
 
 "A list element"
 type ListElement {
-  "The uid"
-  UID: String
-  "The UID of the client of the list"
-  clientUID: String
-  "The creation date"
-  createdAt: DateTime
-  "The aliases / identifiers of the list element"
-  identifiers: [String]
-  "The list uid"
-  listUID: String
-  "The name of the list element"
-  name: String
-  "The project uid"
-  projectUID: String
-  "The status of the list element"
-  status: String
-  "The update date"
-  updatedAt: DateTime
+    "The uid"
+    UID: String
+    "The UID of the client of the list"
+    clientUID: String
+    "The creation date"
+    createdAt: DateTime
+    "The aliases / identifiers of the list element"
+    identifiers: [String]
+    "The list uid"
+    listUID: String
+    "The name of the list element"
+    name: String
+    "The project uid"
+    projectUID: String
+    "The status of the list element"
+    status: String
+    "The update date"
+    updatedAt: DateTime
 }
 
 "A list elements result object"
 type ListElements {
-  "The total amount of list elements"
-  amount: Int
-  "list of elements"
-  results: [ListElement]
+    "The total amount of list elements"
+    amount: Int
+    "list of elements"
+    results: [ListElement]
 }
 
 "A project list result object"
 type Lists {
-  "The total amount of lists"
-  amount: Int
-  "list of projects"
-  results: [List]
+    "The total amount of lists"
+    amount: Int
+    "list of projects"
+    results: [List]
 }
 
 "Mandate"
 type Mandate {
-  "The uid"
-  UID: String
-  "The creation date"
-  createdAt: DateTime
-  "The name of the project"
-  name: String
-  "The update date"
-  updatedAt: DateTime
+    "The uid"
+    UID: String
+    "The creation date"
+    createdAt: DateTime
+    "The name of the project"
+    name: String
+    "The update date"
+    updatedAt: DateTime
 }
 
 "A project"
 type Mandates {
-  "The total amount of mandates"
-  amount: Int
-  "list of projects"
-  results: [Mandate]
+    "The total amount of mandates"
+    amount: Int
+    "list of projects"
+    results: [Mandate]
 }
 
 "The NER token object"
 type NerToken {
-  "the end index of the character of the token in the text"
-  end: Int
-  "the index of token itself in the text"
-  index: Int
-  "the start index of the character of the token in the text"
-  start: Int
-  "the raw text of the token"
-  text: String
-  "the token class of token itself in the text"
-  tokenClass: String
+    "the end index of the character of the token in the text"
+    end: Int
+    "the index of token itself in the text"
+    index: Int
+    "the start index of the character of the token in the text"
+    start: Int
+    "the raw text of the token"
+    text: String
+    "the token class of token itself in the text"
+    tokenClass: String
 }
 
 "Project"
 type Project {
-  "The project list of the project"
-  ProjectsList(
-    "The UID of the project list"
-    UID: String = ""
-  ): List
-  "The project lists of the client"
-  ProjectsLists(
-    "The start of the pagination of the page"
-    from: Int = 0,
-    "The searchable keyword"
-    keyword: String = "",
-    "Order by operation of the pagination"
-    orderBy: String = "",
-    "The size of the page of the pagination"
-    size: Int = 30
-  ): Lists
-  "The uid"
-  UID: String
-  "The UID of the client of the project"
-  clientUID: String
-  "The creation date"
-  createdAt: DateTime
-  "The name of the project"
-  description: String
-  "The name of the project"
-  name: String
-  "The name of the project"
-  objective: String
-  "The UID of the owner of the project"
-  ownerUID: String
-  "The type of the project"
-  projectType: String
-  "The name of the project"
-  status: String
-  "The update date"
-  updatedAt: DateTime
+    "The project list of the project"
+    ProjectsList(
+        "The UID of the project list"
+        UID: String = ""
+    ): List
+    "The project lists of the client"
+    ProjectsLists(
+        "The start of the pagination of the page"
+        from: Int = 0,
+        "The searchable keyword"
+        keyword: String = "",
+        "Order by operation of the pagination"
+        orderBy: String = "",
+        "The size of the page of the pagination"
+        size: Int = 30
+    ): Lists
+    "The uid"
+    UID: String
+    "The UID of the client of the project"
+    clientUID: String
+    "The creation date"
+    createdAt: DateTime
+    "The name of the project"
+    description: String
+    "The name of the project"
+    name: String
+    "The name of the project"
+    objective: String
+    "The UID of the owner of the project"
+    ownerUID: String
+    "The type of the project"
+    projectType: String
+    "The name of the project"
+    status: String
+    "The update date"
+    updatedAt: DateTime
 }
 
 "A project result object"
 type Projects {
-  "The total amount of projects"
-  amount: Int
-  "list of projects"
-  results: [Project]
+    "The total amount of projects"
+    amount: Int
+    "list of projects"
+    results: [Project]
 }
 
 type RootMutation {
-  "The current version"
-  Version: String
-  "Create a new client"
-  createClient(
-    "The client object"
-    data: ClientMutationObject
-  ): ConfirmationUserAgent
-  "Create a new web crawl job"
-  createJob(
-    "The client object"
-    data: JobMutationObject
-  ): Job
-  "Create a new classification class"
-  createLabelingClassNer(
-    "The classification class object"
-    data: LabelingClassMutationObject
-  ): LabelingClass
-  "Create a new NER classification item"
-  createLabelingItemNer(
-    "The NER classification item object"
-    data: LabelingItemNerMutationObject
-  ): LabelingItemNer
-  "Create a new NER classification label"
-  createLabelingLabelNer(
-    "The NER classification label object"
-    data: LabelingLabelNerMutationObject
-  ): LabelingLabelNer
-  "Create a new NER classification labels"
-  createLabelingLabelsNer(
-    "The NER classification labels object"
-    data: [LabelingLabelNerMutationObject]
-  ): [LabelingLabelNer]
-  "Create a new classification task"
-  createLabelingTask(
-    "The classification task object"
-    data: LabelingTaskMutationObject
-  ): LabelingTask
-  "Create a new project list"
-  createList(
-    "The project list object"
-    data: ListMutationObject
-  ): List
-  "Create a new project list element"
-  createListElement(
-    "The project list element object"
-    data: ListElementMutationObject
-  ): ListElement
-  "Create a new mandate"
-  createMandate(
-    "The mandate object"
-    data: MandateMutationObject
-  ): Mandate
-  "Create a new project"
-  createProject(
-    "The project object"
-    data: ProjectMutationObject
-  ): Project
-  "Create a new web crawl job"
-  createWebCrawlJob(
-    "client uid"
-    clientUID: String!,
-    "The web crawl object"
-    data: WebCrawlJobMutationObject,
-    "uid of the project"
-    projectUID: String!
-  ): Job
-  "deletes a client"
-  deleteClient(
-    "The client object"
-    data: ClientMutationObject
-  ): Boolean
-  "deletes a client"
-  deleteJob(
-    "The client object"
-    data: JobMutationObject
-  ): Boolean
-  "deletes a classification class"
-  deleteLabelingClassNer(
-    "The classification class object"
-    data: LabelingClassMutationObject
-  ): Boolean
-  "Deletes a NER classification item"
-  deleteLabelingItemNer(
-    "The NER classification item object"
-    data: LabelingItemNerMutationObject
-  ): Boolean
-  "Deletes a NER classification label"
-  deleteLabelingLabelNer(
-    "The NER classification label object"
-    data: LabelingLabelNerMutationObject
-  ): Boolean
-  "Deletes NER classification labels"
-  deleteLabelingLabelsNer(
-    "The NER classification label objects"
-    data: [LabelingLabelNerMutationObject]
-  ): Boolean
-  "deletes a classification task"
-  deleteLabelingTask(
-    "The classification task object"
-    data: LabelingTaskMutationObject
-  ): Boolean
-  "deletes a project list"
-  deleteList(
-    "The project list object"
-    data: ListMutationObject
-  ): Boolean
-  "deletes a project list element"
-  deleteListElement(
-    "The project list element object"
-    data: ListElementMutationObject
-  ): Boolean
-  "deletes a mandate"
-  deleteMandate(
-    "The mandate object"
-    data: MandateMutationObject
-  ): Boolean
-  "deletes a project"
-  deleteProject(
-    "The client object"
-    data: ProjectMutationObject
-  ): Boolean
-  "Submit identity and password to retrieve a token"
-  login(
-    "The identity"
-    identity: String!,
-    "The password"
-    password: String!
-  ): String
-  "Submit identity and password to retrieve a token"
-  register(
-    "The confirmation of the acceptance of the terms and conditions"
-    acceptTermsAndConditions: Boolean!,
-    "The identity"
-    identity: String!,
-    "The password"
-    password: String!,
-    "The password confirmation"
-    passwordConfirmation: String!
-  ): Boolean
-  "Confirm the token that was received via email"
-  registrationConfirmation(
-    "The confirmation token"
-    token: String!
-  ): Boolean
-  "Updates a client"
-  updateClient(
-    "The client object"
-    data: ClientMutationObject
-  ): ConfirmationUserAgent
-  "Update the identity of the current identity"
-  updateIdentity(
-    "The identity"
-    data: IdentityMutationObject
-  ): Identity
-  "Updates a client"
-  updateJob(
-    "The client object"
-    data: JobMutationObject
-  ): Job
-  "Updates a classification class"
-  updateLabelingClassNer(
-    "The classification class object"
-    data: LabelingClassMutationObject
-  ): LabelingClass
-  "Updates a NER classification item"
-  updateLabelingItemNer(
-    "The NER classification item object"
-    data: LabelingItemNerMutationObject
-  ): LabelingItemNer
-  "Updates a NER classification label"
-  updateLabelingLabelNer(
-    "The NER classification label object"
-    data: LabelingLabelNerMutationObject
-  ): LabelingLabelNer
-  "Updates a classification task"
-  updateLabelingTask(
-    "The classification task object"
-    data: LabelingTaskMutationObject
-  ): LabelingTask
-  "Updates a project list"
-  updateList(
-    "The project list object"
-    data: ListMutationObject
-  ): List
-  "Updates a project list element"
-  updateListElement(
-    "The project list elementobject"
-    data: ListElementMutationObject
-  ): ListElement
-  "Updates a mandate"
-  updateMandate(
-    "The mandate object"
-    data: MandateMutationObject
-  ): Mandate
-  "Updates a project"
-  updateProject(
-    "The project object"
-    data: ProjectMutationObject
-  ): Project
+    "The current version"
+    Version: String
+    "Create a new client"
+    createClient(
+        "The client object"
+        data: ClientMutationObject
+    ): ConfirmationUserAgent
+    "Create a new investment company"
+    createInvestmentCompany(
+        "The investment company object"
+        data: InvestmentCompanyMutationObject
+    ): InvestmentCompany
+    "Create a new fund of an investment company"
+    createInvestmentCompanyFund(
+        "The investment company fund object"
+        data: InvestmentCompanyFundMutationObject
+    ): InvestmentCompanyFund
+    "Create a new web crawl job"
+    createJob(
+        "The client object"
+        data: JobMutationObject
+    ): Job
+    "Create a new classification class"
+    createLabelingClassNer(
+        "The classification class object"
+        data: LabelingClassMutationObject
+    ): LabelingClass
+    "Create a new NER classification item"
+    createLabelingItemNer(
+        "The NER classification item object"
+        data: LabelingItemNerMutationObject
+    ): LabelingItemNer
+    "Create a new NER classification label"
+    createLabelingLabelNer(
+        "The NER classification label object"
+        data: LabelingLabelNerMutationObject
+    ): LabelingLabelNer
+    "Create a new NER classification labels"
+    createLabelingLabelsNer(
+        "The NER classification labels object"
+        data: [LabelingLabelNerMutationObject]
+    ): [LabelingLabelNer]
+    "Create a new classification task"
+    createLabelingTask(
+        "The classification task object"
+        data: LabelingTaskMutationObject
+    ): LabelingTask
+    "Create a new project list"
+    createList(
+        "The project list object"
+        data: ListMutationObject
+    ): List
+    "Create a new project list element"
+    createListElement(
+        "The project list element object"
+        data: ListElementMutationObject
+    ): ListElement
+    "Create a new mandate"
+    createMandate(
+        "The mandate object"
+        data: MandateMutationObject
+    ): Mandate
+    "Create a new project"
+    createProject(
+        "The project object"
+        data: ProjectMutationObject
+    ): Project
+    "Create a new web crawl job"
+    createWebCrawlJob(
+        "client uid"
+        clientUID: String!,
+        "The web crawl object"
+        data: WebCrawlJobMutationObject,
+        "uid of the project"
+        projectUID: String!
+    ): Job
+    "deletes a client"
+    deleteClient(
+        "The client object"
+        data: ClientMutationObject
+    ): Boolean
+    "deletes a investment company"
+    deleteInvestmentCompany(
+        "The investment company object"
+        data: InvestmentCompanyMutationObject
+    ): Boolean
+    "deletes a investment company"
+    deleteInvestmentCompanyFund(
+        "The investment company object"
+        data: InvestmentCompanyFundMutationObject
+    ): Boolean
+    "deletes a client"
+    deleteJob(
+        "The client object"
+        data: JobMutationObject
+    ): Boolean
+    "deletes a classification class"
+    deleteLabelingClassNer(
+        "The classification class object"
+        data: LabelingClassMutationObject
+    ): Boolean
+    "Deletes a NER classification item"
+    deleteLabelingItemNer(
+        "The NER classification item object"
+        data: LabelingItemNerMutationObject
+    ): Boolean
+    "Deletes a NER classification label"
+    deleteLabelingLabelNer(
+        "The NER classification label object"
+        data: LabelingLabelNerMutationObject
+    ): Boolean
+    "Deletes NER classification labels"
+    deleteLabelingLabelsNer(
+        "The NER classification label objects"
+        data: [LabelingLabelNerMutationObject]
+    ): Boolean
+    "deletes a classification task"
+    deleteLabelingTask(
+        "The classification task object"
+        data: LabelingTaskMutationObject
+    ): Boolean
+    "deletes a project list"
+    deleteList(
+        "The project list object"
+        data: ListMutationObject
+    ): Boolean
+    "deletes a project list element"
+    deleteListElement(
+        "The project list element object"
+        data: ListElementMutationObject
+    ): Boolean
+    "deletes a mandate"
+    deleteMandate(
+        "The mandate object"
+        data: MandateMutationObject
+    ): Boolean
+    "deletes a project"
+    deleteProject(
+        "The client object"
+        data: ProjectMutationObject
+    ): Boolean
+    "Submit identity and password to retrieve a token"
+    login(
+        "The identity"
+        identity: String!,
+        "The password"
+        password: String!
+    ): String
+    "Submit identity and password to retrieve a token"
+    register(
+        "The confirmation of the acceptance of the terms and conditions"
+        acceptTermsAndConditions: Boolean!,
+        "The identity"
+        identity: String!,
+        "The password"
+        password: String!,
+        "The password confirmation"
+        passwordConfirmation: String!
+    ): Boolean
+    "Confirm the token that was received via email"
+    registrationConfirmation(
+        "The confirmation token"
+        token: String!
+    ): Boolean
+    "Updates a client"
+    updateClient(
+        "The client object"
+        data: ClientMutationObject
+    ): ConfirmationUserAgent
+    "Update the identity of the current identity"
+    updateIdentity(
+        "The identity"
+        data: IdentityMutationObject
+    ): Identity
+    "Updates a investment company"
+    updateInvestmentCompany(
+        "The investment company object"
+        data: InvestmentCompanyMutationObject
+    ): InvestmentCompany
+    "Updates a investment company"
+    updateInvestmentCompanyFund(
+        "The investment company object"
+        data: InvestmentCompanyFundMutationObject
+    ): InvestmentCompanyFund
+    "Updates a client"
+    updateJob(
+        "The client object"
+        data: JobMutationObject
+    ): Job
+    "Updates a classification class"
+    updateLabelingClassNer(
+        "The classification class object"
+        data: LabelingClassMutationObject
+    ): LabelingClass
+    "Updates a NER classification item"
+    updateLabelingItemNer(
+        "The NER classification item object"
+        data: LabelingItemNerMutationObject
+    ): LabelingItemNer
+    "Updates a NER classification label"
+    updateLabelingLabelNer(
+        "The NER classification label object"
+        data: LabelingLabelNerMutationObject
+    ): LabelingLabelNer
+    "Updates a classification task"
+    updateLabelingTask(
+        "The classification task object"
+        data: LabelingTaskMutationObject
+    ): LabelingTask
+    "Updates a project list"
+    updateList(
+        "The project list object"
+        data: ListMutationObject
+    ): List
+    "Updates a project list element"
+    updateListElement(
+        "The project list elementobject"
+        data: ListElementMutationObject
+    ): ListElement
+    "Updates a mandate"
+    updateMandate(
+        "The mandate object"
+        data: MandateMutationObject
+    ): Mandate
+    "Updates a project"
+    updateProject(
+        "The project object"
+        data: ProjectMutationObject
+    ): Project
 }
 
 type RootQuery {
-  "Get a client"
-  Client(
-    "The uid of the client"
-    UID: String!
-  ): ConfirmationUserAgent
-  "Search all clients"
-  ClientsSearch(
-    "The start of the pagination of the page"
-    from: Int = 0,
-    "The searchable keyword"
-    keyword: String = "",
-    "uid of the mandate"
-    mandateUID: String = "",
-    "Order by operation of the pagination"
-    orderBy: String = "",
-    "The size of the page of the pagination"
-    size: Int = 30
-  ): Clients
-  "Get a database"
-  Database(
-    "The id of the database"
-    UID: String = ""
-  ): DeHandelsregister
-  "All databases"
-  Databases: [Database]
-  "Search all German Bafin documents"
-  DeBafinCompaniesSearch(
-    "The start of the pagination of the page"
-    from: Int = 0,
-    "The name of the document"
-    keyword: String = "",
-    "The size of the page of the pagination"
-    size: Int = 30
-  ): DeBafinCompanies
-  "Get a German Bafin company"
-  DeBafinCompany(
-    "The id of the company"
-    uid: String!
-  ): DeBafinCompany
-  "Get a German Bundesanzeiger document"
-  DeBundesanzeigerDocument(
-    "The id of the document"
-    uid: String!
-  ): DeBundesanzeigerDocument
-  "Search all German Bundesanzeiger documents"
-  DeBundesanzeigerDocumentsSearch(
-    "The exact name of the company"
-    companyName: String = "",
-    "The type of the document. E.g. Rechnungslegung / Finanzberichte Bundesanzeiger"
-    docType: String = "",
-    "The start of the pagination of the page"
-    from: Int = 0,
-    "A keyword in the document or the company name"
-    keyword: String = "",
-    "The size of the page of the pagination"
-    size: Int = 30
-  ): DeBundesanzeigerDocuments
-  "Get a German Handelsregister document"
-  DeHandelsregisterDocument(
-    "The id of the document"
-    uid: String!
-  ): DeHandelsregisterDocument
-  "Search all German Handelsregister documents"
-  DeHandelsregisterDocumentsSearch(
-    "The start of the pagination of the page"
-    from: Int = 0,
-    "The name of the document"
-    keyword: String = "",
-    "The size of the page of the pagination"
-    size: Int = 30
-  ): DeHandelsregisterDocuments
-  "Get a German Patent document"
-  DePatentDocument(
-    "The id of the document"
-    uid: String!
-  ): DePatentDocument
-  "Search all German Patent documents"
-  DePatentDocumentsSearch(
-    "The start of the pagination of the page"
-    from: Int = 0,
-    "The exact name of the owner"
-    inventorName: String = "",
-    "A keyword in the document or the company name"
-    keyword: String = "",
-    "The exact name of the owner"
-    ownerName: String = "",
-    "The exact name of the representative"
-    representativeName: String = "",
-    "The size of the page of the pagination"
-    size: Int = 30,
-    "The status of the document"
-    status: String = ""
-  ): DePatentsDocuments
-  "Get a document"
-  Document(
-    "The id of the document"
-    ID: String!,
-    "The document type"
-    type: DocType = DE_PATENT
-  ): Document
-  "Search all documents"
-  DocumentsSearch(
-    "The name of the document"
-    keyword: String = "",
-    "The document type"
-    type: DocType = DE_PATENT
-  ): Documents
-  "Search all entities"
-  EntitiesSearch(
-    "The searchable keyword"
-    keyword: String = ""
-  ): [Entity]
-  "returns the xml document of a corresponding epo patent id"
-  EpoXml(
-    "The id of the patent"
-    patentId: String!
-  ): String
-  "Retrieve the identity of the current user"
-  Identity: Identity
-  "Get a job"
-  Job(
-    "The uid of the job"
-    UID: String!,
-    "client uid"
-    clientUID: String!,
-    "uid of the project"
-    projectUID: String!
-  ): Job
-  "Search all jobs"
-  JobsSearch(
-    "client uid"
-    clientUID: String = "",
-    "The start of the pagination of the page"
-    from: Int = 0,
-    "The searchable keyword"
-    keyword: String = "",
-    "Order by operation of the pagination"
-    orderBy: String = "",
-    "uid of the project"
-    projectUID: String = "",
-    "The size of the page of the pagination"
-    size: Int = 30
-  ): Jobs
-  "Get a classification task"
-  LabelingClass(
-    "The uid of the client"
-    UID: String!,
-    "The client uid"
-    clientUID: String! = "",
-    "The project uid"
-    projectUID: String! = "",
-    "The task uid"
-    taskUID: String! = ""
-  ): LabelingClass
-  "Search all classification classes"
-  LabelingClassesSearch(
-    "The client uid"
-    clientUID: String! = "",
-    "The start of the pagination of the page"
-    from: Int = 0,
-    "The searchable keyword"
-    keyword: String = "",
-    "Order by operation of the pagination"
-    orderBy: String = "",
-    "The project uid"
-    projectUID: String! = "",
-    "The size of the page of the pagination"
-    size: Int = 30,
-    "The task uid"
-    taskUID: String! = ""
-  ): LabelingClasses
-  "Get a NER classification item"
-  LabelingItemNer(
-    "The uid of the client"
-    UID: String!,
-    "The client uid"
-    clientUID: String! = "",
-    "The project uid"
-    projectUID: String! = "",
-    "The task uid"
-    taskUID: String! = ""
-  ): LabelingItemNer
-  "Get the next NER classification items"
-  LabelingItemsNerNext(
-    "The client uid"
-    clientUID: String! = "",
-    "The project uid"
-    projectUID: String! = "",
-    "The size of the page of the pagination"
-    size: Int = 30,
-    "The task uid"
-    taskUID: String! = ""
-  ): [LabelingItemNer]
-  "Search all NER classification items"
-  LabelingItemsNerSearch(
-    "The client uid"
-    clientUID: String! = "",
-    "The start of the pagination of the page"
-    from: Int = 0,
-    "The searchable keyword"
-    keyword: String = "",
-    "Order by operation of the pagination"
-    orderBy: String = "",
-    "The project uid"
-    projectUID: String! = "",
-    "The size of the page of the pagination"
-    size: Int = 30,
-    "The task uid"
-    taskUID: String! = ""
-  ): LabelingItemsNer
-  "Get a NER classification label"
-  LabelingLabelNer(
-    "The uid of the client"
-    UID: String!,
-    "The client uid"
-    clientUID: String! = "",
-    "The item uid"
-    itemUID: String! = "",
-    "The project uid"
-    projectUID: String! = "",
-    "The task uid"
-    taskUID: String! = ""
-  ): LabelingLabelNer
-  "Search all NER classification labels"
-  LabelingLabelNerSearch(
-    "The client uid"
-    clientUID: String! = "",
-    "The start of the pagination of the page"
-    from: Int = 0,
-    "The item uid"
-    itemUID: String! = "",
-    "The searchable keyword"
-    keyword: String = "",
-    "Order by operation of the pagination"
-    orderBy: String = "",
-    "The project uid"
-    projectUID: String! = "",
-    "The size of the page of the pagination"
-    size: Int = 30,
-    "The task uid"
-    taskUID: String! = ""
-  ): LabelingLabelsNer
-  "Get a classification task"
-  LabelingTask(
-    "The uid of the client"
-    UID: String!,
-    "The client uid"
-    clientUID: String! = "",
-    "The project uid"
-    projectUID: String! = ""
-  ): LabelingTask
-  "Search all classification tasks"
-  LabelingTasksSearch(
-    "The client uid"
-    clientUID: String! = "",
-    "The start of the pagination of the page"
-    from: Int = 0,
-    "The searchable keyword"
-    keyword: String = "",
-    "Order by operation of the pagination"
-    orderBy: String = "",
-    "The project uid"
-    projectUID: String! = "",
-    "The size of the page of the pagination"
-    size: Int = 30
-  ): LabelingTasks
-  "Get a list"
-  List(
-    "The list uid"
-    UID: String! = "",
-    "The client uid"
-    clientUID: String! = "",
-    "The project uid"
-    projectUID: String! = ""
-  ): List
-  "Get a list element"
-  ListElement(
-    "The list element uid"
-    UID: String! = "",
-    "The client uid"
-    clientUID: String! = "",
-    "The list uid"
-    listUID: String! = "",
-    "The project uid"
-    projectUID: String! = ""
-  ): ListElement
-  "Search all list elements"
-  ListElementSearch(
-    "The client uid"
-    clientUID: String! = "",
-    "The start of the pagination of the page"
-    from: Int = 0,
-    "The searchable keyword"
-    keyword: String = "",
-    "The list uid"
-    listUID: String! = "",
-    "Order by operation of the pagination"
-    orderBy: String = "",
-    "The project uid"
-    projectUID: String! = "",
-    "The size of the page of the pagination"
-    size: Int = 30
-  ): ListElements
-  "Search all lists"
-  ListSearch(
-    "The client uid"
-    clientUID: String! = "",
-    "The start of the pagination of the page"
-    from: Int = 0,
-    "The searchable keyword"
-    keyword: String = "",
-    "Order by operation of the pagination"
-    orderBy: String = "",
-    "The project uid"
-    projectUID: String! = "",
-    "The size of the page of the pagination"
-    size: Int = 30
-  ): Lists
-  "Get a mandate"
-  Mandate(
-    "The uid of the mandate"
-    UID: String!
-  ): Mandate
-  "Search all mandates"
-  MandatesSearch(
-    "The start of the pagination of the page"
-    from: Int = 0,
-    "The searchable keyword"
-    keyword: String = "",
-    "Order by operation of the pagination"
-    orderBy: String = "",
-    "The size of the page of the pagination"
-    size: Int = 30
-  ): Mandates
-  "Get a project"
-  Project(
-    "The searchable keyword"
-    UID: String = "",
-    "The client uid"
-    clientUID: String! = ""
-  ): Project
-  "Search all projects"
-  ProjectSearch(
-    "The client uid"
-    clientUID: String! = "",
-    "The start of the pagination of the page"
-    from: Int = 0,
-    "The searchable keyword"
-    keyword: String = "",
-    "Order by operation of the pagination"
-    orderBy: String = "",
-    "The type of the projects"
-    projectType: ProjectType = COMPANY_LISTS,
-    "The size of the page of the pagination"
-    size: Int = 30
-  ): Projects
-  "Get a UK Companies House company"
-  UkCompaniesHouseCompany(
-    "The id of the company"
-    uid: String!
-  ): UkCompaniesHouseDocument
-  "Search all UK Companies House data"
-  UkCompaniesHouseCompanySearch(
-    "The exact name of the company"
-    companyName: String = "",
-    "The number of the company"
-    companyNumber: String = "",
-    "The start of the pagination of the page"
-    from: Int = 0,
-    "A keyword in the document or the company name"
-    keyword: String = "",
-    "The size of the page of the pagination"
-    size: Int = 30
-  ): UkCompaniesHouseDocuments
-  "The current version"
-  Version: String
+    "Get a client"
+    Client(
+        "The uid of the client"
+        UID: String!
+    ): ConfirmationUserAgent
+    "Search all clients"
+    ClientsSearch(
+        "The start of the pagination of the page"
+        from: Int = 0,
+        "The searchable keyword"
+        keyword: String = "",
+        "uid of the mandate"
+        mandateUID: String = "",
+        "Order by operation of the pagination"
+        orderBy: String = "",
+        "The size of the page of the pagination"
+        size: Int = 30
+    ): Clients
+    "Get a database"
+    Database(
+        "The id of the database"
+        UID: String = ""
+    ): DeHandelsregister
+    "All databases"
+    Databases: [Database]
+    "Search all German Bafin documents"
+    DeBafinCompaniesSearch(
+        "The start of the pagination of the page"
+        from: Int = 0,
+        "The name of the document"
+        keyword: String = "",
+        "The size of the page of the pagination"
+        size: Int = 30
+    ): DeBafinCompanies
+    "Get a German Bafin company"
+    DeBafinCompany(
+        "The id of the company"
+        uid: String!
+    ): DeBafinCompany
+    "Get a German Bundesanzeiger document"
+    DeBundesanzeigerDocument(
+        "The id of the document"
+        uid: String!
+    ): DeBundesanzeigerDocument
+    "Search all German Bundesanzeiger documents"
+    DeBundesanzeigerDocumentsSearch(
+        "The exact name of the company"
+        companyName: String = "",
+        "The type of the document. E.g. Rechnungslegung / Finanzberichte Bundesanzeiger"
+        docType: String = "",
+        "The start of the pagination of the page"
+        from: Int = 0,
+        "A keyword in the document or the company name"
+        keyword: String = "",
+        "The size of the page of the pagination"
+        size: Int = 30
+    ): DeBundesanzeigerDocuments
+    "Get a German Handelsregister document"
+    DeHandelsregisterDocument(
+        "The id of the document"
+        uid: String!
+    ): DeHandelsregisterDocument
+    "Search all German Handelsregister documents"
+    DeHandelsregisterDocumentsSearch(
+        "The start of the pagination of the page"
+        from: Int = 0,
+        "The name of the document"
+        keyword: String = "",
+        "The size of the page of the pagination"
+        size: Int = 30
+    ): DeHandelsregisterDocuments
+    "Get a German Patent document"
+    DePatentDocument(
+        "The id of the document"
+        uid: String!
+    ): DePatentDocument
+    "Search all German Patent documents"
+    DePatentDocumentsSearch(
+        "The start of the pagination of the page"
+        from: Int = 0,
+        "The exact name of the owner"
+        inventorName: String = "",
+        "A keyword in the document or the company name"
+        keyword: String = "",
+        "The exact name of the owner"
+        ownerName: String = "",
+        "The exact name of the representative"
+        representativeName: String = "",
+        "The size of the page of the pagination"
+        size: Int = 30,
+        "The status of the document"
+        status: String = ""
+    ): DePatentsDocuments
+    "Get a document"
+    Document(
+        "The id of the document"
+        ID: String!,
+        "The document type"
+        type: DocType = DE_PATENT
+    ): Document
+    "Search all documents"
+    DocumentsSearch(
+        "The name of the document"
+        keyword: String = "",
+        "The document type"
+        type: DocType = DE_PATENT
+    ): Documents
+    "Search all entities"
+    EntitiesSearch(
+        "The searchable keyword"
+        keyword: String = ""
+    ): [Entity]
+    "returns the xml document of a corresponding epo patent id"
+    EpoXml(
+        "The id of the patent"
+        patentId: String!
+    ): String
+    "Retrieve the identity of the current user"
+    Identity: Identity
+    "Search all investment companies"
+    InvestmentCompanies(
+        "The start of the pagination of the page"
+        from: Int = 0,
+        "The searchable keyword"
+        keyword: String = "",
+        "uid of the mandate"
+        mandateUID: String = "",
+        "Order by operation of the pagination"
+        orderBy: String = "",
+        "The size of the page of the pagination"
+        size: Int = 30
+    ): InvestmentCompanies
+    "An investment company"
+    InvestmentCompany(
+        "The uid of the investment company"
+        UID: String!
+    ): InvestmentCompany
+    "A fund of an investment company"
+    InvestmentCompanyFund(
+        "The uid of the investment company fund"
+        UID: String!,
+        "The uid of the investment company"
+        investmentCompanyFundUID: String!
+    ): InvestmentCompanyFund
+    "Search all funds of an investment company"
+    InvestmentCompanyFunds(
+        "The start of the pagination of the page"
+        from: Int = 0,
+        "uid of the investment company mandate"
+        investmentCompanyUID: String = "",
+        "The searchable keyword"
+        keyword: String = "",
+        "uid of the mandate"
+        mandateUID: String = "",
+        "Order by operation of the pagination"
+        orderBy: String = "",
+        "The size of the page of the pagination"
+        size: Int = 30
+    ): InvestmentCompanies
+    "Get a job"
+    Job(
+        "The uid of the job"
+        UID: String!,
+        "client uid"
+        clientUID: String!,
+        "uid of the project"
+        projectUID: String!
+    ): Job
+    "Search all jobs"
+    JobsSearch(
+        "client uid"
+        clientUID: String = "",
+        "The start of the pagination of the page"
+        from: Int = 0,
+        "The searchable keyword"
+        keyword: String = "",
+        "Order by operation of the pagination"
+        orderBy: String = "",
+        "uid of the project"
+        projectUID: String = "",
+        "The size of the page of the pagination"
+        size: Int = 30
+    ): Jobs
+    "Get a classification task"
+    LabelingClass(
+        "The uid of the client"
+        UID: String!,
+        "The client uid"
+        clientUID: String! = "",
+        "The project uid"
+        projectUID: String! = "",
+        "The task uid"
+        taskUID: String! = ""
+    ): LabelingClass
+    "Search all classification classes"
+    LabelingClassesSearch(
+        "The client uid"
+        clientUID: String! = "",
+        "The start of the pagination of the page"
+        from: Int = 0,
+        "The searchable keyword"
+        keyword: String = "",
+        "Order by operation of the pagination"
+        orderBy: String = "",
+        "The project uid"
+        projectUID: String! = "",
+        "The size of the page of the pagination"
+        size: Int = 30,
+        "The task uid"
+        taskUID: String! = ""
+    ): LabelingClasses
+    "Get a NER classification item"
+    LabelingItemNer(
+        "The uid of the client"
+        UID: String!,
+        "The client uid"
+        clientUID: String! = "",
+        "The project uid"
+        projectUID: String! = "",
+        "The task uid"
+        taskUID: String! = ""
+    ): LabelingItemNer
+    "Get the next NER classification items"
+    LabelingItemsNerNext(
+        "The client uid"
+        clientUID: String! = "",
+        "The project uid"
+        projectUID: String! = "",
+        "The size of the page of the pagination"
+        size: Int = 30,
+        "The task uid"
+        taskUID: String! = ""
+    ): [LabelingItemNer]
+    "Search all NER classification items"
+    LabelingItemsNerSearch(
+        "The client uid"
+        clientUID: String! = "",
+        "The start of the pagination of the page"
+        from: Int = 0,
+        "The searchable keyword"
+        keyword: String = "",
+        "Order by operation of the pagination"
+        orderBy: String = "",
+        "The project uid"
+        projectUID: String! = "",
+        "The size of the page of the pagination"
+        size: Int = 30,
+        "The task uid"
+        taskUID: String! = ""
+    ): LabelingItemsNer
+    "Get a NER classification label"
+    LabelingLabelNer(
+        "The uid of the client"
+        UID: String!,
+        "The client uid"
+        clientUID: String! = "",
+        "The item uid"
+        itemUID: String! = "",
+        "The project uid"
+        projectUID: String! = "",
+        "The task uid"
+        taskUID: String! = ""
+    ): LabelingLabelNer
+    "Search all NER classification labels"
+    LabelingLabelNerSearch(
+        "The client uid"
+        clientUID: String! = "",
+        "The start of the pagination of the page"
+        from: Int = 0,
+        "The item uid"
+        itemUID: String! = "",
+        "The searchable keyword"
+        keyword: String = "",
+        "Order by operation of the pagination"
+        orderBy: String = "",
+        "The project uid"
+        projectUID: String! = "",
+        "The size of the page of the pagination"
+        size: Int = 30,
+        "The task uid"
+        taskUID: String! = ""
+    ): LabelingLabelsNer
+    "Get a classification task"
+    LabelingTask(
+        "The uid of the client"
+        UID: String!,
+        "The client uid"
+        clientUID: String! = "",
+        "The project uid"
+        projectUID: String! = ""
+    ): LabelingTask
+    "Search all classification tasks"
+    LabelingTasksSearch(
+        "The client uid"
+        clientUID: String! = "",
+        "The start of the pagination of the page"
+        from: Int = 0,
+        "The searchable keyword"
+        keyword: String = "",
+        "Order by operation of the pagination"
+        orderBy: String = "",
+        "The project uid"
+        projectUID: String! = "",
+        "The size of the page of the pagination"
+        size: Int = 30
+    ): LabelingTasks
+    "Get a list"
+    List(
+        "The list uid"
+        UID: String! = "",
+        "The client uid"
+        clientUID: String! = "",
+        "The project uid"
+        projectUID: String! = ""
+    ): List
+    "Get a list element"
+    ListElement(
+        "The list element uid"
+        UID: String! = "",
+        "The client uid"
+        clientUID: String! = "",
+        "The list uid"
+        listUID: String! = "",
+        "The project uid"
+        projectUID: String! = ""
+    ): ListElement
+    "Search all list elements"
+    ListElementSearch(
+        "The client uid"
+        clientUID: String! = "",
+        "The start of the pagination of the page"
+        from: Int = 0,
+        "The searchable keyword"
+        keyword: String = "",
+        "The list uid"
+        listUID: String! = "",
+        "Order by operation of the pagination"
+        orderBy: String = "",
+        "The project uid"
+        projectUID: String! = "",
+        "The size of the page of the pagination"
+        size: Int = 30
+    ): ListElements
+    "Search all lists"
+    ListSearch(
+        "The client uid"
+        clientUID: String! = "",
+        "The start of the pagination of the page"
+        from: Int = 0,
+        "The searchable keyword"
+        keyword: String = "",
+        "Order by operation of the pagination"
+        orderBy: String = "",
+        "The project uid"
+        projectUID: String! = "",
+        "The size of the page of the pagination"
+        size: Int = 30
+    ): Lists
+    "Get a mandate"
+    Mandate(
+        "The uid of the mandate"
+        UID: String!
+    ): Mandate
+    "Search all mandates"
+    MandatesSearch(
+        "The start of the pagination of the page"
+        from: Int = 0,
+        "The searchable keyword"
+        keyword: String = "",
+        "Order by operation of the pagination"
+        orderBy: String = "",
+        "The size of the page of the pagination"
+        size: Int = 30
+    ): Mandates
+    "Get a project"
+    Project(
+        "The searchable keyword"
+        UID: String = "",
+        "The client uid"
+        clientUID: String! = ""
+    ): Project
+    "Search all projects"
+    ProjectSearch(
+        "The client uid"
+        clientUID: String! = "",
+        "The start of the pagination of the page"
+        from: Int = 0,
+        "The searchable keyword"
+        keyword: String = "",
+        "Order by operation of the pagination"
+        orderBy: String = "",
+        "The type of the projects"
+        projectType: ProjectType = COMPANY_LISTS,
+        "The size of the page of the pagination"
+        size: Int = 30
+    ): Projects
+    "Get a UK Companies House company"
+    UkCompaniesHouseCompany(
+        "The id of the company"
+        uid: String!
+    ): UkCompaniesHouseDocument
+    "Search all UK Companies House data"
+    UkCompaniesHouseCompanySearch(
+        "The exact name of the company"
+        companyName: String = "",
+        "The number of the company"
+        companyNumber: String = "",
+        "The start of the pagination of the page"
+        from: Int = 0,
+        "A keyword in the document or the company name"
+        keyword: String = "",
+        "The size of the page of the pagination"
+        size: Int = 30
+    ): UkCompaniesHouseDocuments
+    "The current version"
+    Version: String
 }
 
 type RootSubscription {
-  "A project"
-  Projects(
-    "The client uid"
-    clientUID: String! = ""
-  ): Project
-  "The current time"
-  Time: String
+    "A project"
+    Projects(
+        "The client uid"
+        clientUID: String! = ""
+    ): Project
+    "The current time"
+    Time: String
 }
 
 "A company of the UK companies house"
 type UkCompaniesHouseDocument {
-  "The uid"
-  UID: String
-  "The company category"
-  companyCategory: String
-  "The company name"
-  companyName: String
-  "The company status"
-  companyStatus: String
-  "The company country of origin"
-  countryOfOrigin: String
-  "The dissolution date of the company"
-  dissolutionDate: DateTime
-  "The incorporation date of the company"
-  incorporationDate: DateTime
-  "The SIC codes of the company"
-  sicCodes: [String]
+    "The uid"
+    UID: String
+    "The company category"
+    companyCategory: String
+    "The company name"
+    companyName: String
+    "The company status"
+    companyStatus: String
+    "The company country of origin"
+    countryOfOrigin: String
+    "The dissolution date of the company"
+    dissolutionDate: DateTime
+    "The incorporation date of the company"
+    incorporationDate: DateTime
+    "The SIC codes of the company"
+    sicCodes: [String]
 }
 
 "Documents of the UK Companies House"
 type UkCompaniesHouseDocuments {
-  "The total amount of documents"
-  amount: Int
-  "list of documents"
-  results: [UkCompaniesHouseDocument]
+    "The total amount of documents"
+    amount: Int
+    "list of documents"
+    results: [UkCompaniesHouseDocument]
 }
 
 enum DocType {
-  DE_BRAND
-  DE_BUNDESANZEIGER
-  DE_DESIGN
-  DE_HANDELSREGISTER
-  DE_PATENT
+    DE_BRAND
+    DE_BUNDESANZEIGER
+    DE_DESIGN
+    DE_HANDELSREGISTER
+    DE_PATENT
 }
 
 enum ProjectType {
-  COMPANY_LISTS
-  LABELING
-  WEB_CRAWLING_JOBS
+    COMPANY_LISTS
+    LABELING
+    WEB_CRAWLING_JOBS
 }
 
 enum priorityStrategy {
-  PAGERANK
-  URL_PATH_LEVEL
+    PAGERANK
+    URL_PATH_LEVEL
 }
-
-input ClientMutationObject {
-  UID: String
-  mandateUID: String = ""
-  name: String!
-}
-
-input IdentityMutationObject {
-  UID: String
-  backupEmail: String
-  backupPhone: String
-  email: String
-  firstName: String
-  lastName: String
-  phone: String
-  salutation: String
-}
-
-input JobMutationObject {
-  UID: String
-  clientUID: String
-  name: String!
-  projectUID: String
-}
-
-input LabelingClassMutationObject {
-  UID: String
-  clientUID: String!
-  color: String!
-  description: String!
-  keyboardKey: String!
-  name: String!
-  projectUID: String!
-  shortName: String!
-  taskUID: String!
-}
-
-input LabelingItemNerMutationObject {
-  UID: String
-  clientUID: String!
-  documentId: String
-  projectUID: String!
-  representation: LabelingItemNerRepresentationMutationObject
-  source: String
-  taskUID: String!
-  text: String!
-}
-
-input LabelingItemNerRepresentationMutationObject {
-  text: String!
-  tokenizer: String!
-  tokens: LabelingItemNerTokenMutationObject
-}
-
-input LabelingItemNerTokenMutationObject {
-  end: Int!
-  index: Int!
-  start: Int!
-  text: String!
-}
-
-input LabelingLabelNerMutationObject {
-  UID: String
-  classUID: String!
-  clientUID: String!
-  confirmerUID: String
-  itemUID: String!
-  labelSource: String = "human"
-  projectUID: String!
-  representation: LabelingLabelNerRepresentationMutationObject
-  taskUID: String!
-}
-
-input LabelingLabelNerRepresentationMutationObject {
-  end: Int!
-  indexEnd: Int!
-  indexStart: Int!
-  start: Int!
-  text: String!
-}
-
-input LabelingTaskMutationObject {
-  UID: String
-  clientUID: String!
-  description: String!
-  instruction: String!
-  labelingType: String!
-  name: String!
-  projectUID: String!
-}
-
-input ListElementMutationObject {
-  UID: String
-  clientUID: String
-  listUID: String
-  name: String!
-  projectUID: String
-  status: String
-}
-
-input ListMutationObject {
-  UID: String
-  clientUID: String
-  description: String!
-  name: String!
-  objective: String
-  projectUID: String
-  status: String
-}
-
-input MandateMutationObject {
-  UID: String
-  name: String!
-}
-
-input ProjectMutationObject {
-  UID: String
-  clientUID: String
-  createdAt: DateTime
-  deletedAt: DateTime
-  description: String!
-  name: String!
-  objective: String
-  ownerUID: String
-  projectType: ProjectType
-  status: String
-  updatedAt: DateTime
-}
-
-input WebCrawlJobMutationObject {
-  blacklist: [String]
-  languages: [String]
-  settings: settings
-  "where to store the data"
-  targetBucket: String
-  "the url of the website to crawl"
-  url: String
-}
-
-input settings {
-  "Adds a timestamp to the identifier of the saved document"
-  addTimeStampToIdentifier: Boolean = false
-  "Allow the crawler to follow external links if set to true"
-  followExternalLinks: Boolean = false
-  "How many sub-sites of a website the crawler should crawl until it stops"
-  maxPages: Int = 100
-  "Overwrites the data in the database if there is already something"
-  overwriteData: Boolean = false
-  "Is the strategy which the crawler uses to prioritize the ingestion of the sub-sites of a website"
-  priorityStrategy: priorityStrategy = PAGERANK
-}
-
 
 "The `DateTime` scalar type represents a DateTime. The DateTime is serialized as an RFC 3339 quoted string"
 scalar DateTime
+
+input ClientMutationObject {
+    UID: String
+    mandateUID: String = ""
+    name: String!
+}
+
+input IdentityMutationObject {
+    UID: String
+    backupEmail: String
+    backupPhone: String
+    email: String
+    firstName: String
+    lastName: String
+    phone: String
+    salutation: String
+}
+
+input InvestmentCompanyFundMutationObject {
+    UID: String
+    aum: Int!
+    closingAt: DateTime
+    finalClosingAt: DateTime
+    fundAssetType: [String]
+    geographicalFocus: [String]
+    industryFocus: [String]
+    investmentCompanyUID: String!
+    isFundraising: Boolean
+    mandateUID: String
+    name: String!
+    pointOfContactEmail: String!
+    pointOfContactName: String!
+    reminderDays: Int!
+    sendReminder: Boolean = true
+    trackingInterval: String
+    vintage: Int!
+    wantInformationIfNotSubmitted: Boolean = true
+    wantReport: Boolean = true
+    website: String!
+}
+
+input InvestmentCompanyMutationObject {
+    UID: String
+    creatorPosition: String!
+    foundedAt: DateTime!
+    headquarterAddress: String!
+    investmentCompanyType: [String]
+    mandateUID: String
+    name: String!
+    purpose: String
+    website: String!
+}
+
+input JobMutationObject {
+    UID: String
+    clientUID: String
+    name: String!
+    projectUID: String
+}
+
+input LabelingClassMutationObject {
+    UID: String
+    clientUID: String!
+    color: String!
+    description: String!
+    keyboardKey: String!
+    name: String!
+    projectUID: String!
+    shortName: String!
+    taskUID: String!
+}
+
+input LabelingItemNerMutationObject {
+    UID: String
+    clientUID: String!
+    documentId: String
+    projectUID: String!
+    representation: LabelingItemNerRepresentationMutationObject
+    source: String
+    taskUID: String!
+    text: String!
+}
+
+input LabelingItemNerRepresentationMutationObject {
+    text: String!
+    tokenizer: String!
+    tokens: LabelingItemNerTokenMutationObject
+}
+
+input LabelingItemNerTokenMutationObject {
+    end: Int!
+    index: Int!
+    start: Int!
+    text: String!
+}
+
+input LabelingLabelNerMutationObject {
+    UID: String
+    classUID: String!
+    clientUID: String!
+    confirmerUID: String
+    itemUID: String!
+    labelSource: String = "human"
+    projectUID: String!
+    representation: LabelingLabelNerRepresentationMutationObject
+    taskUID: String!
+}
+
+input LabelingLabelNerRepresentationMutationObject {
+    end: Int!
+    indexEnd: Int!
+    indexStart: Int!
+    start: Int!
+    text: String!
+}
+
+input LabelingTaskMutationObject {
+    UID: String
+    clientUID: String!
+    description: String!
+    instruction: String!
+    labelingType: String!
+    name: String!
+    projectUID: String!
+}
+
+input ListElementMutationObject {
+    UID: String
+    clientUID: String
+    listUID: String
+    name: String!
+    projectUID: String
+    status: String
+}
+
+input ListMutationObject {
+    UID: String
+    clientUID: String
+    description: String!
+    name: String!
+    objective: String
+    projectUID: String
+    status: String
+}
+
+input MandateMutationObject {
+    UID: String
+    name: String!
+}
+
+input ProjectMutationObject {
+    UID: String
+    clientUID: String
+    createdAt: DateTime
+    deletedAt: DateTime
+    description: String!
+    name: String!
+    objective: String
+    ownerUID: String
+    projectType: ProjectType
+    status: String
+    updatedAt: DateTime
+}
+
+input WebCrawlJobMutationObject {
+    blacklist: [String]
+    languages: [String]
+    settings: settings
+    "where to store the data"
+    targetBucket: String
+    "the url of the website to crawl"
+    url: String
+}
+
+input settings {
+    "Adds a timestamp to the identifier of the saved document"
+    addTimeStampToIdentifier: Boolean = false
+    "Allow the crawler to follow external links if set to true"
+    followExternalLinks: Boolean = false
+    "How many sub-sites of a website the crawler should crawl until it stops"
+    maxPages: Int = 100
+    "Overwrites the data in the database if there is already something"
+    overwriteData: Boolean = false
+    "Is the strategy which the crawler uses to prioritize the ingestion of the sub-sites of a website"
+    priorityStrategy: priorityStrategy = PAGERANK
+}
