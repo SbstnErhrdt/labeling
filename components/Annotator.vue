@@ -50,6 +50,21 @@
 
     <hr>
 
+    <div class="py-3">
+      <button @click="showDev =!showDev" class="rounded bg-gray-50 hover:bg-gray-200 py-1 px-2 text-xs">
+        {{ showDev ? 'Close' : 'Show Raw Data' }}
+      </button>
+      <div v-if="showDev" class="py-3 text-xs">
+        <strong>TEXT:</strong> <br>
+        <pre style="white-space: pre-wrap;">{{ text }}</pre>
+        <div class="py-2"></div>
+        <strong>METADATA:</strong> <br>
+        <pre>{{ metadata }}</pre>
+      </div>
+    </div>
+
+    <hr>
+
     <!-- <div class="my-4 p-4 bg-gray-200">
       {{ this.renderedText }}
     </div> -->
@@ -60,24 +75,29 @@
           <li v-for="(item, index) in newLabels" v-bind:key="index" class="py-5">
             <div class="relative">
               <h3 class="text-sm font-semibold text-gray-800">
-                  <span :style="{ 'color': getClassColor(item.classUID)}">{{getClass(item.classUID).shortName}}</span> - {{ getClass(item.classUID).name }}
+                <span :style="{ 'color': getClassColor(item.classUID)}">{{ getClass(item.classUID).shortName }}</span> -
+                {{ getClass(item.classUID).name }}
               </h3>
               <p class="mt-1 text-sm text-gray-600 line-clamp-2">
                 {{ item.representation.text }}
               </p>
               <div class="text-gray-400 text-xs font-mono mt-2">
-                <strong>Start:</strong>{{ item.representation.start }} - <strong>End:</strong>{{ item.representation.end }}
+                <strong>Start:</strong>{{ item.representation.start }} - <strong>End:</strong>{{
+                  item.representation.end
+                }}
                 <br>
-                <strong>Source:</strong>{{item.labelSource}}
+                <strong>Source:</strong>{{ item.labelSource }}
                 <br>
-                <strong>Confirmed:</strong>{{item.confirmerUID !== null}}
+                <strong>Confirmed:</strong>{{ item.confirmerUID !== null }}
               </div>
               <button type="button"
                       class="absolute right-0 top-0 bg-gray-50 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
                       aria-expanded="false"
                       v-on:click="removeLabel(index)">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                 </svg>
               </button>
             </div>
@@ -97,6 +117,7 @@ export default {
       cls: null,
       newLabels: [],
       clsMap: {},
+      showDev: false,
     };
   },
   computed: {
@@ -114,6 +135,7 @@ export default {
     text: '',
     classes: [],
     labels: [],
+    metadata: {},
   },
   methods: {
     getClassColor: function (clsUID) {
@@ -291,7 +313,7 @@ export default {
     submit: function () {
       let cls = Object.assign([], this.classes);
       let lbs = Object.assign([], this.newLabels);
-      let text = Object.assign("", this.text);
+      let text = Object.assign('', this.text);
       // emit values
       this.$emit('results', {
         labels: lbs,
@@ -317,7 +339,7 @@ export default {
     }
   },
   watch: {
-    labels: function(newVal, oldVal) { // watch it
+    labels: function (newVal, oldVal) { // watch it
       // console.log('Prop changed: ', newVal, ' | was: ', oldVal)
       let labels = Object.assign([], newVal);
       labels = labels.sort(function (a, b) {
@@ -351,7 +373,7 @@ export default {
     this.newLabels = [];
   },
   async mounted() {
-    console.log("mounted");
+    console.log('mounted');
   }
 };
 </script>

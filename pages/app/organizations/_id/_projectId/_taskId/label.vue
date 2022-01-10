@@ -13,8 +13,9 @@
               }"
                     class="items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-700 hover:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1 mr-2 h-5 w-5 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path  strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1 mr-2 h-5 w-5 inline" fill="none" viewBox="0 0 24 24"
+                 stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7"/>
             </svg>
             Back
           </NuxtLink>
@@ -35,6 +36,10 @@
             :classes="this.LabelingItemsNerNext[0].classes"
             :itemUID="this.LabelingItemsNerNext[0].UID"
             :labels="this.LabelingItemsNerNext[0].labels"
+            :metadata="{
+              'source':this.LabelingItemsNerNext[0].source,
+              'documentID':this.LabelingItemsNerNext[0].documentID,
+            }"
             @results="handleResults"
             @deleted="handleDeleteLabels"
           >
@@ -71,7 +76,7 @@ export default {
   },
   methods: {
     async handleResults(obj) {
-      console.log("save labels");
+      console.log('save labels');
       let d = Object.assign({}, obj);
       this.loading = true;
       // send mutation
@@ -85,9 +90,9 @@ export default {
             duration: 1000,
           })
           // remove the first element from the array
-          this.LabelingItemsNerNext.splice(0,1);
+          this.LabelingItemsNerNext.splice(0, 1);
           // re-fetch if array is empty
-          if(this.LabelingItemsNerNext.length === 0) {
+          if (this.LabelingItemsNerNext.length === 0) {
             this.$apollo.queries.LabelingItemsNerNext.refetch()
           }
         },
@@ -101,7 +106,7 @@ export default {
       this.loading = false;
     },
     handleDeleteLabels(obj) {
-      console.log("delete label");
+      console.log('delete label');
       // send mutation
       this.$apollo.mutate({
         mutation: deleteLabelingLabelsNer,

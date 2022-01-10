@@ -11,6 +11,8 @@ query LabelingItemNerNext(
   ) {
     UID
     text
+    source
+    documentID
     stats {
       done
       todo
