@@ -172,7 +172,8 @@ export default {
             // do nothing
           } else if (i === currentAnnotation.representation.end - 1) {
             result += '<span class="highlight" style="background:' + this.getClassColor(currentAnnotation.classUID) +
-              '" data-index="' + j + '">' + currentAnnotation.representation.text +
+              // todo: fix text '" data-index="' + j + '">' + currentAnnotation.representation.text +
+              '" data-index="' + j + '">' + this.text.substring(currentAnnotation.representation.start, currentAnnotation.representation.end) +
               '</span>';
             // next annotation
             currentAnnotation = labelStack.pop();
