@@ -60,6 +60,10 @@
         <div class="py-2"></div>
         <strong>METADATA:</strong> <br>
         <pre>{{ metadata }}</pre>
+        <strong>INITIAL LABELS:</strong> <br>
+        <pre>{{ JSON.stringify(this.labels, null, "\t") }}</pre>
+        <strong>CURRENT LABELS:</strong> <br>
+        <pre>{{ JSON.stringify(this.newLabels, null, "\t") }}</pre>
       </div>
     </div>
 
