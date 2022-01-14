@@ -61,9 +61,9 @@
         <strong>METADATA:</strong> <br>
         <pre>{{ metadata }}</pre>
         <strong>INITIAL LABELS:</strong> <br>
-        <pre>{{ JSON.stringify(this.labels, null, "\t") }}</pre>
+        <pre>{{ JSON.stringify(this.labels, null, '\t') }}</pre>
         <strong>CURRENT LABELS:</strong> <br>
-        <pre>{{ JSON.stringify(this.newLabels, null, "\t") }}</pre>
+        <pre>{{ JSON.stringify(this.newLabels, null, '\t') }}</pre>
       </div>
     </div>
 
@@ -139,6 +139,7 @@ export default {
     text: '',
     classes: [],
     labels: [],
+    flags: [],
     metadata: {},
   },
   methods: {
@@ -222,6 +223,10 @@ export default {
       });
       // console.log(prevEnd, newLabel)
     },
+    addFlag: function (newFlag) {
+      // if its an empty list
+
+    },
     selectClass: function (cls) {
       this.cls = cls;
     },
@@ -256,6 +261,12 @@ export default {
           this.removeLabel(index)
         }
         return
+      }
+
+      // prevent the selection of overlapping nodes
+      if (selection.anchorNode !== selection.focusNode) {
+        console.warn('can not select text of different nodes')
+        return;
       }
 
 
