@@ -1,0 +1,14 @@
+mutation markLabelingItemAsSeen($clientUID: String!,$projectUID: String!,$taskUID: String!,$itemUID: String!) {
+  markLabelingItemAsSeen(
+    clientUID: $clientUID,
+    projectUID:$projectUID,
+    taskUID:$taskUID,
+    itemUID:$itemUID,
+  ) {
+    UID
+    clientUID
+    projectUID
+    taskUID
+    itemUID
+  }
+}

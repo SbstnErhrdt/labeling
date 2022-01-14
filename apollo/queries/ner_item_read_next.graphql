@@ -13,19 +13,6 @@ query LabelingItemNerNext(
     text
     source
     documentID
-    stats {
-      done
-      todo
-      total
-    }
-    classes {
-      UID
-      color
-      keyboardKey
-      description
-      shortName
-      name
-    }
     labels {
       representation {
         start

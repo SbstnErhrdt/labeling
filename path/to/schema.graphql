@@ -397,6 +397,24 @@ type Jobs {
   results: [Job]
 }
 
+"The flag of a label object"
+type LabelItemFlag {
+  "The uid"
+  UID: String
+  "The client uid"
+  clientUID: String
+  "The task uid"
+  itemUID: String
+  "key of the flag"
+  key: String
+  "The project uid"
+  projectUID: String
+  "The task uid"
+  taskUID: String
+  "the value of the flag"
+  value: String
+}
+
 "The NER label object"
 type LabelNer {
   "the end index of the character of the token in the text"
@@ -442,7 +460,7 @@ type LabelingClasses {
   "The total amount of classification tasks"
   amount: Int
   "list of classification tasks"
-  results: [LabelingTask]
+  results: [LabelingClass]
 }
 
 "A named entity recognition classification item"
@@ -672,6 +690,14 @@ type Mandates {
   results: [Mandate]
 }
 
+"The model"
+type Miraculix {
+  "the id"
+  id: Int
+  "the name"
+  name: String
+}
+
 "The NER token object"
 type NerToken {
   "the end index of the character of the token in the text"
@@ -684,6 +710,26 @@ type NerToken {
   text: String
   "the token class of token itself in the text"
   tokenClass: String
+}
+
+"Portfolio companies"
+type PortfolioCompanies {
+  "The total amount of Portfolio companies"
+  amount: Int
+  "list of Portfolio companies"
+  results: [PortfolioCompany]
+}
+
+"A portfolio company"
+type PortfolioCompany {
+  "The uid"
+  UID: String
+  "The founding date"
+  foundedAt: DateTime
+  "The name"
+  name: String
+  "The website"
+  website: String
 }
 
 "Project"
@@ -797,6 +843,11 @@ type RootMutation {
     "The mandate object"
     data: MandateMutationObject
   ): Mandate
+  "Create a new Portfolio company"
+  createPortfolioCompany(
+    "The Portfolio company object"
+    data: PortfolioCompanyMutationObject
+  ): PortfolioCompany
   "Create a new project"
   createProject(
     "The project object"
@@ -871,6 +922,11 @@ type RootMutation {
     "The mandate object"
     data: MandateMutationObject
   ): Boolean
+  "deletes a Portfolio company"
+  deletePortfolioCompany(
+    "The Portfolio company object"
+    data: PortfolioCompanyMutationObject
+  ): Boolean
   "deletes a project"
   deleteProject(
     "The client object"
@@ -883,6 +939,17 @@ type RootMutation {
     "The password"
     password: String!
   ): String
+  "Marks an item as seen. In case there are labeling tasks where no labels are necessary"
+  markLabelingItemAsSeen(
+    "The client uid"
+    clientUID: String! = "",
+    "The item uid"
+    itemUID: String! = "",
+    "The project uid"
+    projectUID: String! = "",
+    "The task uid"
+    taskUID: String! = ""
+  ): LabelItemFlag
   "Submit identity and password to retrieve a token"
   register(
     "The confirmation of the acceptance of the terms and conditions"
@@ -959,6 +1026,11 @@ type RootMutation {
     "The mandate object"
     data: MandateMutationObject
   ): Mandate
+  "Updates a Portfolio company"
+  updatePortfolioCompany(
+    "The Portfolio company object"
+    data: PortfolioCompanyMutationObject
+  ): PortfolioCompany
   "Updates a project"
   updateProject(
     "The project object"
@@ -1341,6 +1413,43 @@ type RootQuery {
     "The size of the page of the pagination"
     size: Int = 30
   ): Mandates
+  "Get a autocomplete result"
+  MiraculixAutocomplete(
+    "The amount of suggestions"
+    amount: Int = 20,
+    "The autocomplete string"
+    name: String! = ""
+  ): [Miraculix]
+  "Get similarity result based on multiple reference documents"
+  MiraculixMultiSimilarity(
+    "The amount of suggestions"
+    amount: Int = 20,
+    ids: [Int] = []
+  ): [Miraculix]
+  "Get a similarity result"
+  MiraculixSimilarity(
+    "The amount of suggestions"
+    amount: Int = 20,
+    id: Int!
+  ): [Miraculix]
+  "Search all Portfolio companies"
+  PortfolioCompanies(
+    "The start of the pagination of the page"
+    from: Int = 0,
+    "The searchable keyword"
+    keyword: String = "",
+    "uid of the mandate"
+    mandateUID: String = "",
+    "Order by operation of the pagination"
+    orderBy: String = "",
+    "The size of the page of the pagination"
+    size: Int = 30
+  ): PortfolioCompanies
+  "An Portfolio company"
+  PortfolioCompany(
+    "The uid of the Portfolio company"
+    UID: String!
+  ): PortfolioCompany
   "Get a project"
   Project(
     "The searchable keyword"
@@ -1592,6 +1701,15 @@ input ListMutationObject {
 input MandateMutationObject {
   UID: String
   name: String!
+}
+
+input PortfolioCompanyMutationObject {
+  UID: String
+  country: String!
+  foundedAt: DateTime!
+  mandateUID: String
+  name: String!
+  website: String!
 }
 
 input ProjectMutationObject {
