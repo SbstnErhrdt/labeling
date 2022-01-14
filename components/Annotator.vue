@@ -83,12 +83,11 @@
                 {{ getClass(item.classUID).name }}
               </h3>
               <p class="mt-1 text-sm text-gray-600 line-clamp-2">
-                {{ item.representation.text }}
+                {{ text.substring(item.representation.start, item.representation.end) }}
               </p>
               <div class="text-gray-400 text-xs font-mono mt-2">
-                <strong>Start:</strong>{{ item.representation.start }} - <strong>End:</strong>{{
-                  item.representation.end
-                }}
+                <strong>Start:</strong>{{ item.representation.start }} -
+                <strong>End:</strong>{{ item.representation.end }}
                 <br>
                 <strong>Source:</strong>{{ item.labelSource }}
                 <br>
