@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="bg-gray-50" style="min-height: 100vh">
     <main>
-      <header class="bg-white shadow">
-        <div class="max-w-4xl mx-auto py-6">
+      <header class="bg-white shadow py-3 px-3 z-10 relative">
+        <div class="max-w-5xl mx-auto">
           <NuxtLink :to="{
                 name: 'app-organizations-id-projectId-taskId',
                 params: {
@@ -25,28 +25,49 @@
       <div v-if="$apollo.loading">
         <Spinner></Spinner>
       </div>
-      <div v-if="!$apollo.loading && this.LabelingItemsNerNext && this.LabelingItemsNerNext.length > 0"
-           class="container max-w-4xl mx-auto">
-        <div class="relative">
-          <Annotator
-            :clientUID="this.routeParamId"
-            :projectUID="this.routeParamProjectId"
-            :taskUID="this.routeParamTaskId"
-            :text="this.LabelingItemsNerNext[0].text"
-            :classes="this.LabelingItemsNerNext[0].classes"
-            :itemUID="this.LabelingItemsNerNext[0].UID"
-            :labels="this.LabelingItemsNerNext[0].labels"
-            :metadata="{
-              'source':this.LabelingItemsNerNext[0].source,
-              'documentID':this.LabelingItemsNerNext[0].documentID,
+      <div class="relative z-0">
+        <div v-if="!$apollo.loading && this.currentItem"
+             class="max-w-5xl mx-auto flex">
+          <!-- Next list
+          <div class="flex-initial w-1/6 bg-gray-50 p-3">
+            <span class="font-bold mb-3 block">Next:</span>
+            <div v-for="item in this.todoItems" :key="item.UID" class="p-3 bg-white shadow mb-4 overflow-hidden">
+              <p class="text-sm truncate">{{ item.text }}</p>
+              <span class="text-xs text-gray-700 font-mono">{{ item.source }} - {{ item.documentID }}</span>
+            </div>
+          </div> -->
+          <!-- Annotator -->
+          <div class="flex-1 relative bg-white p-3">
+            <Annotator
+              :clientUID="this.routeParamId"
+              :projectUID="this.routeParamProjectId"
+              :taskUID="this.routeParamTaskId"
+              :classes="this.LabelingTask.classes"
+              :text="this.currentItem.text"
+              :itemUID="this.currentItem.UID"
+              :labels="this.currentItem.labels"
+              :metadata="{
+              'source':this.currentItem.source,
+              'documentID':this.currentItem.documentID,
             }"
-            @results="handleResults"
-            @deleted="handleDeleteLabels"
-          >
-          </Annotator>
-          <div v-if="loading"
-               class="absolute left-0 top-0 right-0 bottom-0 z-50 inset-0 bg-white bg-opacity-50 overflow-y-auto h-full w-full">
-            <Spinner></Spinner>
+              @results="handleResults"
+              @deleted="handleDeleteLabels"
+            >
+            </Annotator>
+            <div v-if="loading"
+                 class="absolute left-0 top-0 right-0 bottom-0 z-50 inset-0 bg-white bg-opacity-50 overflow-y-auto h-full w-full">
+              <Spinner></Spinner>
+            </div>
+          </div>
+          <!-- Done list -->
+          <div class="flex-initial w-1/4 bg-gray-50 p-3 overflow-y-scroll" style="min-height:90vh; max-height: 90vh">
+            <span class="font-bold mb-3 block">DONE:</span>
+            <div v-for="item in this.doneItems" :key="item.UID">
+              <div @click="setItem(item)" class="p-3 bg-white shadow mb-4 overflow-hidden">
+                <p class="text-sm truncate">{{ item.text }}</p>
+                <span class="text-xs text-gray-700 font-mono">{{ item.source }} - {{ item.documentID }}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -62,6 +83,7 @@ import Spinner from '~/components/Spinner';
 import LabelingItemsNerNext from '~/apollo/queries/ner_item_read_next.graphql'
 import createLabelingLabelsNer from '@/apollo/queries/create_labels_ner.graphql'
 import deleteLabelingLabelsNer from '@/apollo/queries/delete_labels_ner.graphql'
+import markLabelingItemAsSeen from '@/apollo/queries/mark_item_as_seen.graphql'
 
 export default {
   middleware: 'authenticated',
@@ -72,29 +94,29 @@ export default {
       routeParamId: this.$route.params.id,
       routeParamProjectId: this.$route.params.projectId,
       routeParamTaskId: this.$route.params.taskId,
+      currentItem: null,
+      todoItems: [],
+      doneItems: [],
     }
   },
   methods: {
     async handleResults(obj) {
-      console.log('save labels');
-      let d = Object.assign({}, obj);
       this.loading = true;
-      // send mutation
+      let currentItem = Object.assign({}, this.currentItem)
+      let res = Object.assign({}, obj);
+      // copy the labels
+      currentItem.labels = res.labels;
+      console.log('save labels');
+      // submit create labels mutation
       await this.$apollo.mutate({
         mutation: createLabelingLabelsNer,
         variables: {
-          data: d.labels,
+          data: res.labels,
         },
         update: (store, {data: {createLabelingLabelsNer}}) => {
           this.$toast.success('Saved', {
             duration: 1000,
           })
-          // remove the first element from the array
-          this.LabelingItemsNerNext.splice(0, 1);
-          // re-fetch if array is empty
-          if (this.LabelingItemsNerNext.length === 0) {
-            this.$apollo.queries.LabelingItemsNerNext.refetch()
-          }
         },
         error(error) {
           console.log('errors', error.graphQLErrors)
@@ -103,6 +125,40 @@ export default {
           })
         }
       });
+
+      // send seen flag
+      await this.$apollo.mutate({
+        mutation: markLabelingItemAsSeen,
+        variables: {
+          clientUID: this.routeParamId,
+          projectUID: this.routeParamProjectId,
+          taskUID: this.routeParamTaskId,
+          itemUID: currentItem.UID,
+        },
+        update: (store, {data: {markLabelingItemAsSeen}}) => {
+          console.log('flag', markLabelingItemAsSeen)
+        },
+        error(error) {
+          console.log('errors', error.graphQLErrors)
+          this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
+            duration: 1000,
+          })
+        }
+      });
+
+      // move the item from the todolist to done list
+      // or from done to done
+      this.addItemToDoneList(currentItem)
+
+      // re-fetch if array is empty
+      if (this.todoItems.length === 0) {
+        await this.$apollo.queries.LabelingItemsNerNext.refetch()
+      }
+      // set the first item to current
+      if (this.todoItems.length > 0) {
+        this.currentItem = this.todoItems[0];
+      }
+
       this.loading = false;
     },
     handleDeleteLabels(obj) {
@@ -126,6 +182,42 @@ export default {
           })
         }
       });
+    },
+    setItem(item) {
+      this.currentItem = Object.assign({}, item);
+    },
+    addItemToDoneList(item) {
+      // check if the item is already in the done list
+      let done = Object.assign([], this.doneItems)
+      let i = done.length;
+      // if the element was already in the done list
+      // replace the existing one
+      while (i--) {
+        if (done[i].UID === item.UID) {
+          done[i] = item
+          this.doneItems = done;
+          // go with the next item
+          this.nextItem();
+          return
+        }
+      }
+      // if it was new
+      // add it to the done list
+      this.doneItems.unshift(item);
+      // and pop it from the todolist
+      this.todoItems.splice(0,1)
+      // go with the next item
+      this.nextItem();
+    },
+    nextItem() {
+      // update the current item
+      if (this.todoItems && this.todoItems.length > 0) {
+        console.log("next item from todo");
+        this.currentItem = Object.assign({}, this.todoItems[0])
+      } else {
+        console.warn("no new item")
+        this.currentItem = null;
+      }
     },
   },
   async mounted() {
@@ -189,11 +281,19 @@ export default {
     LabelingItemsNerNext: {
       prefetch: false,
       query: LabelingItemsNerNext,
+      fetchPolicy: 'no-cache',
       variables() {
         return {
           clientUID: this.$route.params.id,
           projectUID: this.$route.params.projectId,
           taskUID: this.$route.params.taskId,
+        }
+      },
+      result(ApolloQueryResult, key) {
+        this.todoItems = ApolloQueryResult.data[key];
+        // set the first item to current
+        if (this.todoItems.length > 0) {
+          this.currentItem = this.todoItems[0];
         }
       },
       error(error) {
