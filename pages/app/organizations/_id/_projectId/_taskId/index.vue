@@ -20,8 +20,7 @@
       <div v-if="this.LabelingTask"
            class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
 
-        <!-- {{ this.LabelingTask.stats }} -->
-        <div v-html="this.LabelingTask.instruction" class="html-content py-5"></div>
+        <Instruction v-if="this.LabelingTask.instruction" :instruction="this.LabelingTask.instruction" class="py-5"></Instruction>
         <hr class="mb-4">
 
         <div class="py-4 mb-3">

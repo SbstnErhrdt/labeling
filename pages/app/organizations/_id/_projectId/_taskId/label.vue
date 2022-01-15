@@ -1,8 +1,27 @@
 <template>
-  <div class="bg-gray-50" style="min-height: 100vh">
+  <div class="bg-gray-50 relative" style="min-height: 100vh">
+    <div v-if="this.LabelingTask && this.LabelingTask.instruction && this.showInstruction"
+         class="absolute top-0 right-0 bottom-0 left-0 bg-white bg-opacity-70 backdrop-blur-0 bg-white z-50">
+      <div class="mx-auto max-w-3xl">
+        <div class="my-10 bg-white shadow-2xl p-6">
+          <button
+            @click="showInstruction = !showInstruction"
+            class="float-right items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-700 hover:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
+          >
+
+            Close
+          </button>
+          <br class="clear-both">
+          <Instruction :instruction="this.LabelingTask.instruction"></Instruction>
+        </div>
+      </div>
+
+    </div>
     <main>
+      <!-- header bar -->
       <header class="bg-white shadow py-3 px-3 z-10 relative">
-        <div class="max-w-5xl mx-auto">
+        <div class="max-w-5xl mx-auto flex">
+          <!-- back button -->
           <NuxtLink :to="{
                 name: 'app-organizations-id-projectId-taskId',
                 params: {
@@ -11,7 +30,7 @@
                   taskId: routeParamTaskId,
                 }
               }"
-                    class="items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-700 hover:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
+                    class="flex-none  items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-700 hover:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1 mr-2 h-5 w-5 inline" fill="none" viewBox="0 0 24 24"
                  stroke="currentColor">
@@ -19,6 +38,17 @@
             </svg>
             Back
           </NuxtLink>
+          <div class="flex-auto"></div>
+          <!-- help button -->
+          <span
+            class="flex-none cursor-pointer items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-700 hover:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
+            v-if="this.LabelingTask && this.LabelingTask.instruction && this.LabelingTask && this.LabelingTask.instruction.length > 0"
+            @click="showInstruction = !showInstruction">
+            <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1 mr-2 h-5 w-5 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Help
+          </span>
         </div>
       </header>
       <!-- This example requires Tailwind CSS v2.0+ -->
@@ -97,6 +127,7 @@ export default {
       currentItem: null,
       todoItems: [],
       doneItems: [],
+      showInstruction: false,
     }
   },
   methods: {
@@ -205,17 +236,17 @@ export default {
       // add it to the done list
       this.doneItems.unshift(item);
       // and pop it from the todolist
-      this.todoItems.splice(0,1)
+      this.todoItems.splice(0, 1)
       // go with the next item
       this.nextItem();
     },
     nextItem() {
       // update the current item
       if (this.todoItems && this.todoItems.length > 0) {
-        console.log("next item from todo");
+        console.log('next item from todo');
         this.currentItem = Object.assign({}, this.todoItems[0])
       } else {
-        console.warn("no new item")
+        console.warn('no new item')
         this.currentItem = null;
       }
     },
@@ -263,6 +294,7 @@ export default {
     LabelingTask: {
       prefetch: false,
       query: LabelingTask,
+      fetchPolicy: 'no-cache',
       variables() {
         return {
           clientUID: this.$route.params.id,
