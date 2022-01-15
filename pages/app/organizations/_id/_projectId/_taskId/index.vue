@@ -209,6 +209,7 @@ export default {
     LabelingTask: {
       prefetch: false,
       query: LabelingTask,
+      fetchPolicy: 'no-cache',
       variables() {
         return {
           clientUID: this.$route.params.id,
