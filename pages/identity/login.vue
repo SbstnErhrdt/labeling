@@ -86,14 +86,14 @@ export default {
           this.loading = false;
         } else {
           this.$toast.error("can not parse response", {
-            duration: 1000,
+            duration: 5000,
           })
           this.loading = false;
         }
       } catch (e) {
         console.log('errors', e.graphQLErrors)
         this.$toast.error(e.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
-          duration: 1000,
+          duration: 5000,
         })
         this.loading = false;
       }
