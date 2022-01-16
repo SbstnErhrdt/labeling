@@ -17,9 +17,15 @@
               <NuxtLink v-if="this.$store.state.identity.currentUser != null" to="/app/organizations" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-sky-700 hover:bg-sky-500 md:py-4 md:text-lg md:px-10">
                 Get started
               </NuxtLink>
-              <NuxtLink v-if="this.$store.state.identity.currentUser == null" to="/identity/login" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-sky-700 hover:bg-sky-500 md:py-4 md:text-lg md:px-10">
-                Login
-              </NuxtLink>
+              <div v-if="this.$store.state.identity.currentUser == null">
+                <NuxtLink to="/identity/login" class="m-5 w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-sky-700 hover:bg-sky-500 md:py-4 md:text-lg md:px-10">
+                  Login
+                </NuxtLink>
+                <NuxtLink to="/identity/register" class="m-5  w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-sky-700 hover:bg-sky-500 md:py-4 md:text-lg md:px-10">
+                  Register
+                </NuxtLink>
+              </div>
+
             </div>
           </div>
         </div>
