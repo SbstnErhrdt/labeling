@@ -13,7 +13,7 @@
             An annotation tool for machine learning
           </p>
           <div class="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
-            <div class="rounded-md shadow">
+            <div class="rounded-md shadow p-10">
               <NuxtLink v-if="this.$store.state.identity.currentUser != null" to="/app/organizations" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-sky-700 hover:bg-sky-500 md:py-4 md:text-lg md:px-10">
                 Get started
               </NuxtLink>
