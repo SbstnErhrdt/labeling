@@ -16,7 +16,7 @@
             Email
           </label>
           <input class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker" id="email"
-                 type="text" placeholder="email@email.com" v-model="credentials.identity">
+                 type="text" placeholder="email@email.com" inputmode="email" v-model="credentials.identity">
         </div>
 
         <div class="mb-4">
