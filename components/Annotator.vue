@@ -238,6 +238,7 @@ export default {
       }
     },
     selectText: function (e) {
+
       e.preventDefault();
 
       let offset = 0;
@@ -274,7 +275,6 @@ export default {
           let currentNode = selection.anchorNode.parentNode.childNodes[i];
           // break if its the same node
           if (currentNode === selection.anchorNode) {
-            console.warn('can not select text of same node')
             break;
           }
           // if its a text node
