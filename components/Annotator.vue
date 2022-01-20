@@ -263,6 +263,12 @@ export default {
         return
       }
 
+      // check if the selection was within a selection
+      if(selection.anchorNode.parentNode.nodeName !== "DIV") {
+        console.warn('can not select text within a selection')
+        return;
+      }
+
       // prevent the selection of overlapping nodes
       if (selection.anchorNode !== selection.focusNode) {
         console.warn('can not select text of different nodes')
