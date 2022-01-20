@@ -268,13 +268,13 @@ export default {
         return;
       }
 
-
-      if (selection.baseNode.parentNode.hasChildNodes()) {
+      if (selection.anchorNode.parentNode.hasChildNodes()) {
         // iterate over all the nodes
-        for (let i = 0; i < selection.baseNode.parentNode.childNodes.length; i++) {
-          let currentNode = selection.baseNode.parentNode.childNodes[i];
+        for (let i = 0; i < selection.anchorNode.parentNode.childNodes.length; i++) {
+          let currentNode = selection.anchorNode.parentNode.childNodes[i];
           // break if its the same node
           if (currentNode === selection.anchorNode) {
+            console.warn('can not select text of same node')
             break;
           }
           // if its a text node
