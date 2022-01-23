@@ -69,10 +69,12 @@
           </div>
 
           <hr>
+
+          <!-- Leaderboard -->
           <div class="py-5">
             <h4 class="text-lg mb-3">Leaderboard</h4>
 
-            <!-- This example requires Tailwind CSS v2.0+ -->
+
             <div class="flex flex-col">
               <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -97,8 +99,11 @@
                       <tbody>
 
                       <!-- Odd row -->
-                      <tr class="bg-white hover:bg-gray-50 border-b-2 border-gray-100" v-for="item in this.LabelingTask.leaderboard" :key="item.UID">
+                      <tr class="bg-white hover:bg-gray-50 border-b-2 border-gray-100" v-for="(item, index) in this.LabelingTask.leaderboard" :key="item.UID">
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                          <span class="pr-2" v-if="index === 0">🥇 </span>
+                          <span class="pr-2" v-if="index === 1">🥈 </span>
+                          <span class="pr-2" v-if="index === 2">🥉 </span>
                           {{ item.firstName }} {{ item.lastName }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
