@@ -149,6 +149,13 @@ export default {
       console.error('class not in map', this.clsMap, clsUID);
       return '#ccc';
     },
+    getClassShortName: function (clsUID) {
+      if (this.clsMap[clsUID] !== undefined) {
+        return this.clsMap[clsUID].shortName || 'no-class name';
+      }
+      console.error('class not in map', this.clsMap, clsUID);
+      return 'no-class name';
+    },
     getClass: function (clsUID) {
       if (this.clsMap[clsUID] !== undefined) {
         return this.clsMap[clsUID] || null;
@@ -174,6 +181,10 @@ export default {
             result += '<span class="highlight" style="background:' + this.getClassColor(currentAnnotation.classUID) +
               // todo: fix text '" data-index="' + j + '">' + currentAnnotation.representation.text +
               '" data-index="' + j + '">' + this.text.substring(currentAnnotation.representation.start, currentAnnotation.representation.end) +
+              // display label tag
+              '<sub style="background:' + this.getClassColor(currentAnnotation.classUID) + '">' +
+              this.getClassShortName(currentAnnotation.classUID) +
+              '</sub>' +
               '</span>';
             // next annotation
             currentAnnotation = labelStack.pop();
@@ -264,7 +275,7 @@ export default {
       }
 
       // check if the selection was within a selection
-      if(selection.anchorNode.parentNode.nodeName !== "DIV") {
+      if (selection.anchorNode.parentNode.nodeName !== 'DIV') {
         console.warn('can not select text within a selection')
         return;
       }
@@ -279,6 +290,7 @@ export default {
         // iterate over all the nodes
         for (let i = 0; i < selection.anchorNode.parentNode.childNodes.length; i++) {
           let currentNode = selection.anchorNode.parentNode.childNodes[i];
+
           // break if its the same node
           if (currentNode === selection.anchorNode) {
             break;
@@ -291,7 +303,16 @@ export default {
           // if its a element node
           // count the length of the text of the element
           if (currentNode.nodeType === document.ELEMENT_NODE) {
-            offset = offset + currentNode.textContent.length;
+            let childrenCursor = 0;
+            while (childrenCursor < currentNode.childNodes.length) {
+              let currentChildNode = currentNode.childNodes[childrenCursor];
+              console.log(currentChildNode);
+              // exclude sub
+              if (currentChildNode.nodeType === document.TEXT_NODE) {
+                offset = offset + currentChildNode.textContent.length;
+              }
+              childrenCursor++;
+            }
           }
         }
       }
@@ -433,9 +454,10 @@ kbd {
 .highlight {
   cursor: not-allowed;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: inset 0px 0px 5px 0px rgba(255, 255, 255, 0.8);
+  box-shadow: inset 0 0 5px 0 rgba(255, 255, 255, 0.8);
   border-radius: 3px;
-  padding: 3px;
+  padding: 3px 3px 9px 3px;
+  position: relative;
 }
 
 .highlight:hover {
@@ -449,6 +471,15 @@ kbd {
 
 .remove {
   border: 1px solid;
+}
+
+.highlight sub {
+  position: absolute;
+  left: 3px;
+  bottom: 5px;
+  font-size: 9px;
+  display: block;
+  opacity: 0.6;
 }
 
 </style>
