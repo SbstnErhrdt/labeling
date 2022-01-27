@@ -83,7 +83,7 @@ export default {
           // set current user
           this.$store.commit("identity/setCurrentUser", identity.data.Identity)
           await this.$router.push('/app')
-          this.loading = false;
+          // this.loading = false;
         } else {
           this.$toast.error("can not parse response", {
             duration: 5000,
