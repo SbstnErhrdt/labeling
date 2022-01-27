@@ -291,6 +291,8 @@ type InvestmentCompanies {
 type InvestmentCompany {
   "The uid"
   UID: String
+  "The address of the headquarter of the company"
+  address: String
   "The position of the manager of the company"
   creatorPosition: String
   "The founding date of the company"
@@ -311,8 +313,6 @@ type InvestmentCompany {
     "The size of the page of the pagination"
     size: Int = 30
   ): InvestmentCompanyFunds
-  "The address of the headquarter of the company"
-  headquarterAddress: String
   "The investment type of the company"
   investmentCompanyType: [String]
   "The name"
@@ -475,6 +475,8 @@ type LabelingItemNer {
   createdAt: DateTime
   "The source document ID of the classification item"
   documentID: String
+  "The flags of the labeling item"
+  flags: [LabelItemFlag]
   "The labels of the labeling item"
   labels: [LabelingLabelNer]
   "The project uid"
@@ -724,6 +726,8 @@ type PortfolioCompanies {
 type PortfolioCompany {
   "The uid"
   UID: String
+  "The address of the company"
+  address: String
   "The founding date"
   foundedAt: DateTime
   "The name"
@@ -783,6 +787,11 @@ type Projects {
 type RootMutation {
   "The current version"
   Version: String
+  "adds a new flag to label item"
+  addLabelingItemFlag(
+    "The flag object"
+    data: LabelingFlagMutationObject
+  ): LabelItemFlag
   "Create a new client"
   createClient(
     "The client object"
@@ -966,6 +975,11 @@ type RootMutation {
     "The confirmation token"
     token: String!
   ): Boolean
+  "removes a new flag to label item"
+  removeLabelingItemFlag(
+    "The flag object"
+    data: LabelingFlagMutationObject
+  ): LabelItemFlag
   "Updates a client"
   updateClient(
     "The client object"
@@ -1596,9 +1610,9 @@ input InvestmentCompanyFundMutationObject {
 
 input InvestmentCompanyMutationObject {
   UID: String
+  address: String!
   creatorPosition: String!
   foundedAt: DateTime!
-  headquarterAddress: String!
   investmentCompanyType: [String]
   mandateUID: String
   name: String!
@@ -1623,6 +1637,15 @@ input LabelingClassMutationObject {
   projectUID: String!
   shortName: String!
   taskUID: String!
+}
+
+input LabelingFlagMutationObject {
+  clientUID: String!
+  itemUID: String!
+  key: String!
+  projectUID: String!
+  taskUID: String!
+  value: String!
 }
 
 input LabelingItemNerMutationObject {
@@ -1705,7 +1728,7 @@ input MandateMutationObject {
 
 input PortfolioCompanyMutationObject {
   UID: String
-  country: String!
+  address: String!
   foundedAt: DateTime!
   mandateUID: String
   name: String!
