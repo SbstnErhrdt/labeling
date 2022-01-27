@@ -1,5 +1,66 @@
 <template>
   <div>
+    <!-- Flags -->
+    <div v-if="showFlagNote" class="fixed z-40 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
+         aria-modal="true">
+      <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <!--
+          Background overlay, show/hide based on modal state.
+
+          Entering: "ease-out duration-300"
+            From: "opacity-0"
+            To: "opacity-100"
+          Leaving: "ease-in duration-200"
+            From: "opacity-100"
+            To: "opacity-0"
+        -->
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+        <!-- This element is to trick the browser into centering the modal contents. -->
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+        <!--
+          Modal panel, show/hide based on modal state.
+
+          Entering: "ease-out duration-300"
+            From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            To: "opacity-100 translate-y-0 sm:scale-100"
+          Leaving: "ease-in duration-200"
+            From: "opacity-100 translate-y-0 sm:scale-100"
+            To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+        -->
+        <div
+          class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+          <div>
+            <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+              <!-- Heroicon name: outline/check -->
+              <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                   stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+            </div>
+            <div class="mt-3 text-center sm:mt-5">
+              <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                Payment successful
+              </h3>
+              <div class="mt-2">
+                <p class="text-sm text-gray-500">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur amet labore.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="mt-5 sm:mt-6">
+            <button @click="showFlagNote = false" type="button"
+                    class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Classes -->
     <div class="labeling-classes pb-2">
       <ul role="list" class="mt-3 grid grid-cols-1 gap-2 sm:gap-2 sm:grid-cols-3 lg:grid-cols-6">
         <li
@@ -28,28 +89,88 @@
 
     <hr>
 
+    <!-- Text Box -->
     <div class="text-md pt-5" v-on:mouseup="selectText" style="min-height: 25vh">
       <div class="label-text" v-html="display"></div>
     </div>
 
     <hr>
 
+    <!-- Confirmation Area -->
     <div class="py-5">
+      <!-- Reset Button -->
       <button class="bg-gray-50 hover:bg-gray-200 text-black font-bold py-2 px-4 border border-gray-200 rounded"
               v-on:click="resetAllLabels()">
         <kbd>-</kbd>
         <span class="inline-block pl-2">Reset All</span>
       </button>
 
+      <!-- Confirm Button -->
       <button class="bg-green-400 text-white font-bold py-2 px-4 border border-green-500 rounded hover:bg-green-600"
               v-on:click="submit()">
         <kbd>↩</kbd>
         <span class="inline-block pl-2">Ok</span>
       </button>
+
+      <!-- Flag button -->
+      <div class="relative inline-block text-left float-right">
+        <div>
+          <button @click="showFlags=!showFlags"
+            class=" bg-gray-50 hover:bg-gray-200 text-black font-bold py-2 px-4 border border-gray-200 rounded">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24"
+                 stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/>
+            </svg>
+            Mark
+            <svg class="-mr-1 ml-2 h-5 w-5 inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                 fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clip-rule="evenodd"/>
+            </svg>
+          </button>
+        </div>
+        <div v-if="showFlags"
+          class="origin-top-right z-30 absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none"
+          role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+          <div class="py-1" role="none">
+            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Unclear
+            </a>
+            <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+              </svg>
+              Exclude
+            </a>
+            <button @click="showFlags = !showFlags; showFlagNote = true" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-5">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+              </svg>
+              Add Note
+            </button>
+          </div>
+          <div class="py-1" role="none">
+            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12 9v2m0 4h.01" />
+              </svg>
+              Use as example
+            </a>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <hr>
 
+    <!-- Dev -->
     <div class="py-3">
       <button @click="showDev =!showDev" class="rounded bg-gray-50 hover:bg-gray-200 py-1 px-2 text-xs">
         {{ showDev ? 'Close' : 'Show Raw Data' }}
@@ -68,46 +189,39 @@
     </div>
 
     <hr>
-
-    <!-- <div class="my-4 p-4 bg-gray-200">
-      {{ this.renderedText }}
-    </div> -->
+    <!-- Results -->
     <div>
-
-      <div>
-        <ul role="list" class="divide-y divide-gray-200">
-          <li v-for="(item, index) in newLabels" v-bind:key="index" class="py-5">
-            <div class="relative">
-              <h3 class="text-sm font-semibold text-gray-800">
-                <span :style="{ 'color': getClassColor(item.classUID)}">{{ getClass(item.classUID).shortName }}</span> -
-                {{ getClass(item.classUID).name }}
-              </h3>
-              <p class="mt-1 text-sm text-gray-600 line-clamp-2">
-                {{ text.substring(item.representation.start, item.representation.end) }}
-              </p>
-              <div class="text-gray-400 text-xs font-mono mt-2">
-                <strong>Start:</strong>{{ item.representation.start }} -
-                <strong>End:</strong>{{ item.representation.end }}
-                <br>
-                <strong>Source:</strong>{{ item.labelSource }}
-                <br>
-                <strong>Confirmed:</strong>{{ item.confirmerUID !== null }}
-              </div>
-              <button type="button"
-                      class="absolute right-0 top-0 bg-gray-50 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
-                      aria-expanded="false"
-                      v-on:click="removeLabel(index)">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                </svg>
-              </button>
+      <ul role="list" class="divide-y divide-gray-200">
+        <li v-for="(item, index) in newLabels" v-bind:key="index" class="py-5">
+          <div class="relative">
+            <h3 class="text-sm font-semibold text-gray-800">
+              <span :style="{ 'color': getClassColor(item.classUID)}">{{ getClass(item.classUID).shortName }}</span> -
+              {{ getClass(item.classUID).name }}
+            </h3>
+            <p class="mt-1 text-sm text-gray-600 line-clamp-2">
+              {{ text.substring(item.representation.start, item.representation.end) }}
+            </p>
+            <div class="text-gray-400 text-xs font-mono mt-2">
+              <strong>Start:</strong>{{ item.representation.start }} -
+              <strong>End:</strong>{{ item.representation.end }}
+              <br>
+              <strong>Source:</strong>{{ item.labelSource }}
+              <br>
+              <strong>Confirmed:</strong>{{ item.confirmerUID !== null }}
             </div>
-          </li>
-        </ul>
-      </div>
-
+            <button type="button"
+                    class="absolute right-0 top-0 bg-gray-50 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                    aria-expanded="false"
+                    v-on:click="removeLabel(index)">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                   stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+              </svg>
+            </button>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -116,6 +230,8 @@
 export default {
   data() {
     return {
+      showFlags: false,
+      showFlagNote: false,
       renderedText: '',
       cls: null,
       newLabels: [],

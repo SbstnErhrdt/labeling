@@ -30,5 +30,14 @@ query LabelingItemNerNext(
       classUID
       UID
     }
+    flags {
+      UID
+      clientUID
+      projectUID
+      taskUID
+      itemUID
+      key
+      value
+    }
   }
 }
