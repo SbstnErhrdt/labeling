@@ -134,6 +134,9 @@
                     d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/>
             </svg>
             Mark
+            <span v-if="Object.keys(this.newFlagsMap).length > 0"  class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
+              {{ Object.keys(this.newFlagsMap).length }}
+            </span>
             <svg class="-mr-1 ml-2 h-5 w-5 inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                  fill="currentColor" aria-hidden="true">
               <path fill-rule="evenodd"
