@@ -6,7 +6,7 @@
         <div class="my-10 bg-white shadow-2xl p-6">
           <button
             @click="showInstruction = !showInstruction"
-            class="float-right items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-700 hover:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
+            class="float-right items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-app-700 hover:bg-app-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
           >
 
             Close
@@ -30,7 +30,7 @@
                   taskId: routeParamTaskId,
                 }
               }"
-                    class="flex-none  items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-700 hover:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
+                    class="flex-none  items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-app-700 hover:bg-app-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1 mr-2 h-5 w-5 inline" fill="none" viewBox="0 0 24 24"
                  stroke="currentColor">
@@ -41,7 +41,7 @@
           <div class="flex-auto"></div>
           <!-- help button -->
           <span
-            class="flex-none cursor-pointer items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-700 hover:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
+            class="flex-none cursor-pointer items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-app-700 hover:bg-app-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
             v-if="this.LabelingTask && this.LabelingTask.instruction && this.LabelingTask && this.LabelingTask.instruction.length > 0"
             @click="showInstruction = !showInstruction">
             <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1 mr-2 h-5 w-5 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -240,6 +240,7 @@ export default {
       });
     },
     handleAddFlag(obj) {
+      console.log(obj);
       // send mutation
       this.$apollo.mutate({
         mutation: addFlag,
