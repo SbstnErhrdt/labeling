@@ -116,7 +116,7 @@
       <div class="relative inline-block text-left float-right">
         <div>
           <button @click="showFlags=!showFlags"
-            class=" bg-gray-50 hover:bg-gray-200 text-black font-bold py-2 px-4 border border-gray-200 rounded">
+                  class="bg-gray-50 hover:bg-gray-200 text-black font-bold py-2 px-4 border border-gray-200 rounded">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24"
                  stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -132,36 +132,73 @@
           </button>
         </div>
         <div v-if="showFlags"
-          class="origin-top-right z-30 absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none"
-          role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+             class="origin-top-right z-30 absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none"
+             role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
           <div class="py-1" role="none">
-            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <button @click="toggleFlag('unclear', 'true')"
+                    class="text-gray-500 px-4 py-2 text-sm w-full block hover:bg-gray-100 text-left"
+                    role="menuitem"
+                    v-bind:class="{
+              'text-yellow-700': this.newFlagsMap['unclear'] ,
+              'bg-gray-50': this.newFlagsMap['unclear'] ,
+            }"
+                    tabindex="-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-3" fill="none" viewBox="0 0 24 24"
+                   stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
               Unclear
-            </a>
+            </button>
             <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+            <button @click="toggleFlag('exclude', 'true')"
+                    class="text-gray-500 px-4 py-2 text-sm w-full block hover:bg-gray-100 text-left"
+                    role="menuitem"
+                    v-bind:class="{
+              'text-red-700': this.newFlagsMap['exclude'] ,
+              'bg-gray-50': this.newFlagsMap['exclude']
+            }"
+                    tabindex="-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-3" fill="none" viewBox="0 0 24 24"
+                   stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/>
               </svg>
               Exclude
-            </a>
-            <button @click="showFlags = !showFlags; showFlagNote = true" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-5">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            </button>
+            <!--
+            <button @click="showFlags = !showFlags; showFlagNote = true"
+                    class="text-gray-500 px-4 py-2 text-sm block w-full block hover:bg-gray-100 text-left"
+                    role="menuitem"
+                    v-bind:class="{
+              'text-green-700': this.newFlagsMap['note'] ,
+              'bg-gray-50': this.newFlagsMap['note'] ,
+            }"
+                    tabindex="-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-3" fill="none" viewBox="0 0 24 24"
+                   stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
               </svg>
               Add Note
-            </button>
+            </button> -->
           </div>
           <div class="py-1" role="none">
-            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12 9v2m0 4h.01" />
+            <button @click="toggleFlag('example', 'true')"
+                    class="text-gray-500 px-4 py-2 text-sm w-full block hover:bg-gray-100 text-left"
+                    role="menuitem"
+                    v-bind:class="{
+              'text-green-700': this.newFlagsMap['example'] ,
+              'bg-gray-50': this.newFlagsMap['example'] ,
+            }"
+                    tabindex="-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-3" fill="none" viewBox="0 0 24 24"
+                   stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12 9v2m0 4h.01"/>
               </svg>
-              Use as example
-            </a>
+              Use as an example
+            </button>
           </div>
         </div>
       </div>
@@ -235,6 +272,8 @@ export default {
       renderedText: '',
       cls: null,
       newLabels: [],
+      newFlags: [],
+      newFlagsMap: {},
       clsMap: {},
       showDev: false,
     };
@@ -349,9 +388,41 @@ export default {
       });
       // console.log(prevEnd, newLabel)
     },
-    addFlag: function (newFlag) {
-      // if its an empty list
-
+    removeLabel: function (flagKey) {
+      this.$emit('removeFlag', {
+        key: flagKey,
+      })
+    },
+    toggleFlag: function (flagKey, flagValue) {
+      let flagMap = Object.assign({}, this.newFlagsMap)
+      if (flagMap[flagKey]) {
+        delete flagMap[flagKey];
+        this.removeFlag(flagKey, flagValue);
+      } else {
+        flagMap[flagKey] = flagValue;
+        this.addFlag(flagKey, flagValue);
+      }
+      this.newFlagsMap = flagMap;
+    },
+    addFlag: function (flagKey, flagValue) {
+      this.$emit('addFlag', {
+        itemUID: this.itemUID,
+        clientUID: this.clientUID,
+        projectUID: this.projectUID,
+        taskUID: this.taskUID,
+        key: flagKey,
+        value: flagValue,
+      })
+    },
+    removeFlag: function (flagKey, flagValue) {
+      this.$emit('removeFlag', {
+        itemUID: this.itemUID,
+        clientUID: this.clientUID,
+        projectUID: this.projectUID,
+        taskUID: this.taskUID,
+        key: flagKey,
+        value: flagValue,
+      })
     },
     selectClass: function (cls) {
       this.cls = cls;
@@ -452,15 +523,6 @@ export default {
         })
       }
     },
-    removeLabel: function (i) {
-      // propagate deleted label to parent
-      let deletedLabel = Object.assign({}, this.newLabels[i])
-      this.$emit('deleted', {
-        labels: [deletedLabel],
-      })
-      // remove the label from the array
-      this.newLabels.splice(i, 1);
-    },
     resetAllLabels: function () {
       let deletedLabels = Object.assign([], this.newLabels)
       this.$emit('deleted', {
@@ -472,14 +534,18 @@ export default {
       let cls = Object.assign([], this.classes);
       let lbs = Object.assign([], this.newLabels);
       let text = Object.assign('', this.text);
+      let flags = Object.assign([], this.newFlags);
       // emit values
       this.$emit('results', {
         labels: lbs,
         classes: cls,
+        flags: flags,
         text: text,
       })
       // reset labels
       this.newLabels = [];
+      this.newFlags = [];
+      this.newFlagsMap = {};
     },
     handleKeyPress: function (e) {
       // use self instead of this in here
@@ -513,6 +579,18 @@ export default {
     this.newLabels = this.newLabels.sort(function (a, b) {
       return b.representation.start - a.representation.start;
     });
+    // copy flags
+    this.newFlags = Object.assign([], this.flags);
+    let newFlagsMap = {};
+    for (const flag of this.newFlags) {
+      if (['seen', 'exclude', 'example', 'unclear'].includes(flag.key)) {
+        newFlagsMap[flag.key] = flag.value;
+      } else {
+        newFlagsMap[flag.key] = flag.value;
+      }
+    }
+    this.newFlagsMap = newFlagsMap;
+
     // set the first class as default
     if (this.classes && this.classes.length >= 0) {
       this.cls = this.classes[0];
