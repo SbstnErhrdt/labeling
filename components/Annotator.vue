@@ -412,7 +412,6 @@ export default {
       this.newLabels = this.newLabels.sort(function (a, b) {
         return b.representation.start - a.representation.start;
       });
-      // console.log(prevEnd, newLabel)
     },
     removeLabel: function (i) {
       // propagate deleted label to parent
@@ -557,7 +556,6 @@ export default {
             let childrenCursor = 0;
             while (childrenCursor < currentNode.childNodes.length) {
               let currentChildNode = currentNode.childNodes[childrenCursor];
-              console.log(currentChildNode);
               // exclude sub
               if (currentChildNode.nodeType === document.TEXT_NODE) {
                 offset = offset + currentChildNode.textContent.length;
@@ -628,7 +626,6 @@ export default {
   },
   watch: {
     labels: function (newVal, oldVal) { // watch it
-      // console.log('Prop changed: ', newVal, ' | was: ', oldVal)
       let labels = Object.assign([], newVal);
       labels = labels.sort(function (a, b) {
         return b.representation.start - a.representation.start;
@@ -672,9 +669,7 @@ export default {
     // reset labels
     this.newLabels = [];
   },
-  async mounted() {
-    console.log('mounted');
-  }
+  async mounted() {}
 };
 </script>
 
