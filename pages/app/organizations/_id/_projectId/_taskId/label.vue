@@ -82,6 +82,8 @@
             }"
               @results="handleResults"
               @deleted="handleDeleteLabels"
+              @removeFlag="handleRemoveFlag"
+              @addFlag="handleAddFlag"
             >
             </Annotator>
             <div v-if="loading"
@@ -114,6 +116,8 @@ import LabelingItemsNerNext from '~/apollo/queries/ner_item_read_next.graphql'
 import createLabelingLabelsNer from '@/apollo/queries/create_labels_ner.graphql'
 import deleteLabelingLabelsNer from '@/apollo/queries/delete_labels_ner.graphql'
 import markLabelingItemAsSeen from '@/apollo/queries/mark_item_as_seen.graphql'
+import addFlag from '@/apollo/queries/add_flag.graphql'
+import removeFlag from '@/apollo/queries/remove_flag.graphql'
 
 export default {
   middleware: 'authenticated',
@@ -137,7 +141,8 @@ export default {
       let res = Object.assign({}, obj);
       // copy the labels
       currentItem.labels = res.labels;
-      console.log('save labels');
+      // copy the flags
+      currentItem.flags = res.flags;
       // submit create labels mutation
       await this.$apollo.mutate({
         mutation: createLabelingLabelsNer,
@@ -193,7 +198,6 @@ export default {
       this.loading = false;
     },
     handleDeleteLabels(obj) {
-      console.log('delete label');
       // send mutation
       this.$apollo.mutate({
         mutation: deleteLabelingLabelsNer,
@@ -205,6 +209,49 @@ export default {
             duration: 1000,
           })
           console.log(createLabelingLabelsNer);
+        },
+        error(error) {
+          console.log('errors', error.graphQLErrors)
+          this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
+            duration: 1000,
+          })
+        }
+      });
+    },
+    handleRemoveFlag(obj) {
+      // send mutation
+      this.$apollo.mutate({
+        mutation: removeFlag,
+        variables: {
+          data: obj,
+        },
+        update: (store, {data: {removeLabelingItemFlag}}) => {
+          this.$toast.success('Flag removed', {
+            duration: 1000,
+          })
+          console.log(removeLabelingItemFlag);
+        },
+        error(error) {
+          console.log('errors', error.graphQLErrors)
+          this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
+            duration: 1000,
+          })
+        }
+      });
+    },
+    handleAddFlag(obj) {
+      // send mutation
+      this.$apollo.mutate({
+        mutation: addFlag,
+        variables: {
+          data: obj,
+        },
+        update: (store, {data: {addLabelingItemFlag}}) => {
+          this.$toast.success('Flag added', {
+            duration: 1000,
+          })
+          let currentItem = Object.assign({}, this.currentItem)
+
         },
         error(error) {
           console.log('errors', error.graphQLErrors)

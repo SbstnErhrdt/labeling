@@ -1,0 +1,11 @@
+mutation addLabelingItemFlag($data: LabelingFlagMutationObject) {
+  addLabelingItemFlag(data: $data) {
+    UID
+    clientUID
+    projectUID
+    taskUID
+    itemUID
+    key
+    value
+  }
+}
