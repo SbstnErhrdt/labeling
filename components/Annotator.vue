@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- Flags -->
+    <!-- Flag Note -->
     <div v-if="showFlagNote" class="fixed z-40 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
          aria-modal="true">
       <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -31,30 +31,41 @@
         -->
         <div
           class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
-          <div>
-            <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
-              <!-- Heroicon name: outline/check -->
-              <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                   stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-              </svg>
-            </div>
-            <div class="mt-3 text-center sm:mt-5">
-              <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                Payment successful
-              </h3>
-              <div class="mt-2">
-                <p class="text-sm text-gray-500">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur amet labore.
-                </p>
-              </div>
-            </div>
+
+          <div
+            class="modal-close absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-sm z-50"
+            @click="showFlagNote = false;">
+            <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                 viewBox="0 0 18 18">
+              <path
+                d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+            </svg>
           </div>
+
+          <label for="note" class="form-label inline-block mb-2 text-gray-700">
+            Note:
+          </label>
+          <textarea
+            v-model="note"
+            id="note"
+            class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+            rows="3"
+            placeholder="Your note"
+          ></textarea>
           <div class="mt-5 sm:mt-6">
-            <button @click="showFlagNote = false" type="button"
-                    class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">
-              Close
+            <button @click="addNote()" type="button"
+                    class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-app-600 text-base font-medium text-white hover:bg-app-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-app-500 sm:text-sm">
+              Save
             </button>
+            <!-- Show if note is already set -->
+            <div v-if="newFlagsMap['note']">
+              <hr class="my-5">
+
+              <button @click="removeNote()" type="button"
+                      class="text-gray-500 inline-flex justify-center w-full rounded-md bg-gray-50 hover:bg-gray-200 text-black shadow-sm px-4 py-2">
+                Remove
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -131,10 +142,18 @@
             </svg>
           </button>
         </div>
+
+        <!-- Flag Dropdown -->
         <div v-if="showFlags"
              class="origin-top-right z-30 absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none"
              role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+
+          <!-- Group 1 -->
+
           <div class="py-1" role="none">
+
+            <!-- Unclear -->
+
             <button @click="toggleFlag('unclear', 'true')"
                     class="text-gray-500 px-4 py-2 text-sm w-full block hover:bg-gray-100 text-left"
                     role="menuitem"
@@ -150,7 +169,9 @@
               </svg>
               Unclear
             </button>
-            <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+
+            <!-- Exclude -->
+
             <button @click="toggleFlag('exclude', 'true')"
                     class="text-gray-500 px-4 py-2 text-sm w-full block hover:bg-gray-100 text-left"
                     role="menuitem"
@@ -166,12 +187,13 @@
               </svg>
               Exclude
             </button>
-            <!--
-            <button @click="showFlags = !showFlags; showFlagNote = true"
+
+            <!-- Note -->
+            <button @click="showFlags = !showFlags; openNoteModal()"
                     class="text-gray-500 px-4 py-2 text-sm block w-full block hover:bg-gray-100 text-left"
                     role="menuitem"
                     v-bind:class="{
-              'text-green-700': this.newFlagsMap['note'] ,
+              'text-blue-700': this.newFlagsMap['note'] ,
               'bg-gray-50': this.newFlagsMap['note'] ,
             }"
                     tabindex="-1">
@@ -181,8 +203,11 @@
                       d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
               </svg>
               Add Note
-            </button> -->
+            </button>
           </div>
+
+          <!-- Group 2 -->
+
           <div class="py-1" role="none">
             <button @click="toggleFlag('example', 'true')"
                     class="text-gray-500 px-4 py-2 text-sm w-full block hover:bg-gray-100 text-left"
@@ -267,6 +292,7 @@
 export default {
   data() {
     return {
+      note: '',
       showFlags: false,
       showFlagNote: false,
       renderedText: '',
@@ -388,13 +414,45 @@ export default {
       });
       // console.log(prevEnd, newLabel)
     },
-    removeLabel: function (flagKey) {
-      this.$emit('removeFlag', {
-        key: flagKey,
+    removeLabel: function (i) {
+      // propagate deleted label to parent
+      let deletedLabel = Object.assign({}, this.newLabels[i])
+      this.$emit('deleted', {
+        labels: [deletedLabel],
       })
+      // remove the label from the array
+      this.newLabels.splice(i, 1);
+    },
+    addNote: function () {
+      const note = "" + this.note;
+      this.addFlag('note', note);
+      this.note = "";
+      this.showFlagNote = false; // close modal
+      // update map
+      let flagMap = Object.assign({}, this.newFlagsMap);
+      flagMap['note'] = note;
+      this.newFlagsMap = flagMap;
+    },
+    removeNote: function () {
+      this.removeFlag('note', '');
+      this.note = "";
+      this.showFlagNote = false;
+      // update map
+      let flagMap = Object.assign({}, this.newFlagsMap);
+      delete flagMap['note'];
+      this.newFlagsMap = flagMap;
+    },
+    openNoteModal: function () {
+      // copy note
+      if (this.newFlagsMap['note']) {
+        this.note = ""+ this.newFlagsMap['note'];
+      } else {
+        this.note = "";
+      }
+      this.showFlagNote = true;
     },
     toggleFlag: function (flagKey, flagValue) {
-      let flagMap = Object.assign({}, this.newFlagsMap)
+      let flagMap = Object.assign({}, this.newFlagsMap);
       if (flagMap[flagKey]) {
         delete flagMap[flagKey];
         this.removeFlag(flagKey, flagValue);
@@ -428,6 +486,12 @@ export default {
       this.cls = cls;
     },
     selectClassBasedOnKey: function (key) {
+      // disable if not flag modal is opened
+      if (this.showFlagNote) {
+        return;
+      }
+      // iterate over the classes to see if there is a match
+      // todo: create key map
       for (let i in this.classes) {
         if (this.classes[i].keyboardKey === key) {
           this.cls = this.classes[i];

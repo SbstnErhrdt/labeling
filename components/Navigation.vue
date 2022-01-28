@@ -1,5 +1,5 @@
 <template>
-  <nav id="navigation" class="w-full p-6 bg-gradient-to-r from-sky-900 to-sky-700">
+  <nav id="navigation" class="w-full p-6 bg-gradient-to-r from-app-900 to-app-700">
     <div class="flex items-center justify-between">
 
       <!-- Header logo -->
@@ -23,19 +23,19 @@
       <!-- Navbar -->
       <div class="hidden md:block links">
         <div class="ml-10 flex items-baseline space-x-4">
-          <!-- <NuxtLink to="/_projectId" class="hover:bg-sky-600 hover:text-white text-white px-3 py-2 rounded-md text-sm font-medium">
+          <!-- <NuxtLink to="/_projectId" class="hover:bg-app-600 hover:text-white text-white px-3 py-2 rounded-md text-sm font-medium">
             Projects
           </NuxtLink>-->
           <NuxtLink v-if="this.$store.state.identity.currentUser != null" to="/identity/profile"
-                    class="hover:bg-sky-600 hover:text-white text-white px-3 py-2 rounded-md text-sm font-medium">
+                    class="hover:bg-app-600 hover:text-white text-white px-3 py-2 rounded-md text-sm font-medium">
             {{ this.$store.state.identity.currentUser.firstName || 'Profile' }}
           </NuxtLink>
           <NuxtLink v-if="this.$store.state.identity.currentUser != null" to="/identity/logout"
-                    class="hover:bg-sky-600 hover:text-white text-white px-3 py-2 rounded-md text-sm font-medium">
+                    class="hover:bg-app-600 hover:text-white text-white px-3 py-2 rounded-md text-sm font-medium">
             Logout
           </NuxtLink>
           <NuxtLink v-if="this.$store.state.identity.currentUser == null" to="/identity/login"
-                    class="hover:bg-sky-600 hover:text-white text-white px-3 py-2 rounded-md text-sm font-medium">
+                    class="hover:bg-app-600 hover:text-white text-white px-3 py-2 rounded-md text-sm font-medium">
             Login
           </NuxtLink>
         </div>
