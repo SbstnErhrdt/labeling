@@ -104,6 +104,12 @@ export default {
         }
         this.crumbs = crumbs;
       },
+      error(error) {
+        console.error(error.graphQLErrors)
+        this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
+          duration: 4000,
+        })
+      }
     },
     // Project
     Project: {
@@ -123,6 +129,12 @@ export default {
         }
         this.crumbs = crumbs;
       },
+      error(error) {
+        console.error(error.graphQLErrors)
+        this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
+          duration: 4000,
+        })
+      }
     },
     // Tasks
     LabelingTasksSearch: {
@@ -134,6 +146,12 @@ export default {
           projectUID: this.$route.params.projectId,
         }
       },
+      error(error) {
+        console.error(error.graphQLErrors)
+        this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
+          duration: 4000,
+        })
+      }
     }
   },
   head: {
