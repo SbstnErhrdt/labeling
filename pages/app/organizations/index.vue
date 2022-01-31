@@ -67,6 +67,12 @@ export default {
           message: this.keyword,
         }
       },
+      error(error) {
+        console.error(error.graphQLErrors)
+        this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
+          duration: 4000,
+        })
+      }
     }
   },
   head: {

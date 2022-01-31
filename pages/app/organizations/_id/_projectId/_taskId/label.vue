@@ -155,7 +155,7 @@ export default {
           })
         },
         error(error) {
-          console.log('errors', error.graphQLErrors)
+          console.error('errors', error.graphQLErrors)
           this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
             duration: 1000,
           })
