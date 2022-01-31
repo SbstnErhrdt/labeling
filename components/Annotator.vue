@@ -382,7 +382,7 @@ export default {
       return result;
     },
     addLabel: function (newLabel) {
-      // if its an empty list
+      // if it's an empty list
       if (this.newLabels && this.newLabels.length === 0) {
         this.newLabels.push(newLabel)
         return

@@ -45,9 +45,18 @@
 
         <div>
           <div class="pt-5">
-            <h4 class="text-lg mb-3">Stats</h4>
-            <div class="mb-4 text-gray-500">
-              Done: <span class="font-mono">{{ this.LabelingTask.stats.done }}</span>
+            <h4 class="text-lg mb-3">Progress</h4>
+            <div class="mb-4 text-gray-500 pb-5">
+
+              <div class="w-full bg-gray-200 h-5 rounded-3xl">
+                <div class="bg-app-700 h-5 rounded-3xl" :style="{width: progress() + '%'}"></div>
+              </div>
+              <div class="text-center">{{progress()}} %</div>
+
+              Total: <span class="font-mono">{{ this.LabelingTask.stats.total }}</span> <br>
+              Done: <span class="font-mono">{{ this.LabelingTask.stats.done }}</span> <br>
+              Todo: <span class="font-mono">{{ this.LabelingTask.stats.todo }}</span> <br>
+
             </div>
 
           </div>
@@ -170,7 +179,12 @@ export default {
   },
   async mounted() {
   },
-  computed: {},
+  methods: {
+    progress: function () {
+      let percent = Math.floor(this.LabelingTask.stats.done / this.LabelingTask.stats.total * 100)
+      return percent;
+    }
+  },
   apollo: {
     // Client
     Client: {
