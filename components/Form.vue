@@ -58,7 +58,6 @@ export default {
     async submit() {
       try {
         this.loading = true;
-        console.log(this.model);
         const res = await this.$apollo.mutate({
           mutation: this.formMutation,
           variables: {"data":this.model},
@@ -76,7 +75,7 @@ export default {
           this.loading = false;
         }
       } catch (e) {
-        console.log('errors', e.graphQLErrors)
+        console.error('errors', e.graphQLErrors)
         this.$toast.error(e.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
           duration: 5000,
         })

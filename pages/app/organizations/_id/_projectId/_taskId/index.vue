@@ -32,7 +32,7 @@
                   taskId: routeParamTaskId,
                 }
               }"
-                    class="bg-sky-700 hover:bg-sky-500 shadow overflow-hidden rounded-md text-white font-medium px-6 py-4">
+                    class="bg-app-700 hover:bg-app-500 shadow overflow-hidden rounded-md text-white font-medium px-6 py-4">
             Start Labeling
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24"
                  stroke="currentColor">
@@ -45,9 +45,18 @@
 
         <div>
           <div class="pt-5">
-            <h4 class="text-lg mb-3">Stats</h4>
-            <div class="mb-4 text-gray-500">
-              Done: <span class="font-mono">{{ this.LabelingTask.stats.done }}</span>
+            <h4 class="text-lg mb-3">Progress</h4>
+            <div class="mb-4 text-gray-500 pb-5">
+
+              <div class="w-full bg-gray-200 h-5 rounded-3xl">
+                <div class="bg-app-700 h-5 rounded-3xl" :style="{width: progress() + '%'}"></div>
+              </div>
+              <div class="text-center">{{progress()}} %</div>
+
+              Total: <span class="font-mono">{{ this.LabelingTask.stats.total }}</span> <br>
+              Done: <span class="font-mono">{{ this.LabelingTask.stats.done }}</span> <br>
+              Todo: <span class="font-mono">{{ this.LabelingTask.stats.todo }}</span> <br>
+
             </div>
 
           </div>
@@ -170,7 +179,12 @@ export default {
   },
   async mounted() {
   },
-  computed: {},
+  methods: {
+    progress: function () {
+      let percent = Math.floor(this.LabelingTask.stats.done / this.LabelingTask.stats.total * 100)
+      return percent;
+    }
+  },
   apollo: {
     // Client
     Client: {
@@ -189,6 +203,12 @@ export default {
         }
         this.crumbs = crumbs;
       },
+      error(error) {
+        console.error(error.graphQLErrors)
+        this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
+          duration: 4000,
+        })
+      }
     },
     // Project
     Project: {
@@ -208,6 +228,12 @@ export default {
         }
         this.crumbs = crumbs;
       },
+      error(error) {
+        console.error(error.graphQLErrors)
+        this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
+          duration: 4000,
+        })
+      }
     },
     // Tasks
     LabelingTask: {
@@ -229,6 +255,12 @@ export default {
         }
         this.crumbs = crumbs;
       },
+      error(error) {
+        console.error(error.graphQLErrors)
+        this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
+          duration: 4000,
+        })
+      }
     }
   },
   head: {

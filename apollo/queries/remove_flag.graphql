@@ -1,0 +1,11 @@
+mutation removeLabelingItemFlag($data: LabelingFlagMutationObject) {
+  removeLabelingItemFlag(data: $data) {
+    UID
+    clientUID
+    projectUID
+    taskUID
+    itemUID
+    key
+    value
+  }
+}

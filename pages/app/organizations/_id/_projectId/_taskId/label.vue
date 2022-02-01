@@ -6,7 +6,7 @@
         <div class="my-10 bg-white shadow-2xl p-6">
           <button
             @click="showInstruction = !showInstruction"
-            class="float-right items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-700 hover:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
+            class="float-right items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-app-700 hover:bg-app-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
           >
 
             Close
@@ -30,7 +30,7 @@
                   taskId: routeParamTaskId,
                 }
               }"
-                    class="flex-none  items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-700 hover:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
+                    class="flex-none  items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-app-700 hover:bg-app-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1 mr-2 h-5 w-5 inline" fill="none" viewBox="0 0 24 24"
                  stroke="currentColor">
@@ -41,7 +41,7 @@
           <div class="flex-auto"></div>
           <!-- help button -->
           <span
-            class="flex-none cursor-pointer items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-700 hover:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
+            class="flex-none cursor-pointer items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-app-700 hover:bg-app-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
             v-if="this.LabelingTask && this.LabelingTask.instruction && this.LabelingTask && this.LabelingTask.instruction.length > 0"
             @click="showInstruction = !showInstruction">
             <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1 mr-2 h-5 w-5 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -82,6 +82,8 @@
             }"
               @results="handleResults"
               @deleted="handleDeleteLabels"
+              @removeFlag="handleRemoveFlag"
+              @addFlag="handleAddFlag"
             >
             </Annotator>
             <div v-if="loading"
@@ -114,6 +116,8 @@ import LabelingItemsNerNext from '~/apollo/queries/ner_item_read_next.graphql'
 import createLabelingLabelsNer from '@/apollo/queries/create_labels_ner.graphql'
 import deleteLabelingLabelsNer from '@/apollo/queries/delete_labels_ner.graphql'
 import markLabelingItemAsSeen from '@/apollo/queries/mark_item_as_seen.graphql'
+import addFlag from '@/apollo/queries/add_flag.graphql'
+import removeFlag from '@/apollo/queries/remove_flag.graphql'
 
 export default {
   middleware: 'authenticated',
@@ -137,7 +141,8 @@ export default {
       let res = Object.assign({}, obj);
       // copy the labels
       currentItem.labels = res.labels;
-      console.log('save labels');
+      // copy the flags
+      currentItem.flags = res.flags;
       // submit create labels mutation
       await this.$apollo.mutate({
         mutation: createLabelingLabelsNer,
@@ -150,7 +155,7 @@ export default {
           })
         },
         error(error) {
-          console.log('errors', error.graphQLErrors)
+          console.error('errors', error.graphQLErrors)
           this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
             duration: 1000,
           })
@@ -193,7 +198,6 @@ export default {
       this.loading = false;
     },
     handleDeleteLabels(obj) {
-      console.log('delete label');
       // send mutation
       this.$apollo.mutate({
         mutation: deleteLabelingLabelsNer,
@@ -205,6 +209,50 @@ export default {
             duration: 1000,
           })
           console.log(createLabelingLabelsNer);
+        },
+        error(error) {
+          console.log('errors', error.graphQLErrors)
+          this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
+            duration: 1000,
+          })
+        }
+      });
+    },
+    handleRemoveFlag(obj) {
+      // send mutation
+      this.$apollo.mutate({
+        mutation: removeFlag,
+        variables: {
+          data: obj,
+        },
+        update: (store, {data: {removeLabelingItemFlag}}) => {
+          this.$toast.success('Flag removed', {
+            duration: 1000,
+          })
+          console.log(removeLabelingItemFlag);
+        },
+        error(error) {
+          console.log('errors', error.graphQLErrors)
+          this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
+            duration: 1000,
+          })
+        }
+      });
+    },
+    handleAddFlag(obj) {
+      console.log(obj);
+      // send mutation
+      this.$apollo.mutate({
+        mutation: addFlag,
+        variables: {
+          data: obj,
+        },
+        update: (store, {data: {addLabelingItemFlag}}) => {
+          this.$toast.success('Flag added', {
+            duration: 1000,
+          })
+          let currentItem = Object.assign({}, this.currentItem)
+
         },
         error(error) {
           console.log('errors', error.graphQLErrors)

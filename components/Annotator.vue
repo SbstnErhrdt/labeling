@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- Flags -->
+    <!-- Flag Note -->
     <div v-if="showFlagNote" class="fixed z-40 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
          aria-modal="true">
       <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -31,30 +31,41 @@
         -->
         <div
           class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
-          <div>
-            <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
-              <!-- Heroicon name: outline/check -->
-              <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                   stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-              </svg>
-            </div>
-            <div class="mt-3 text-center sm:mt-5">
-              <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                Payment successful
-              </h3>
-              <div class="mt-2">
-                <p class="text-sm text-gray-500">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur amet labore.
-                </p>
-              </div>
-            </div>
+
+          <div
+            class="modal-close absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-sm z-50"
+            @click="showFlagNote = false;">
+            <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                 viewBox="0 0 18 18">
+              <path
+                d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+            </svg>
           </div>
+
+          <label for="note" class="form-label inline-block mb-2 text-gray-700">
+            Note:
+          </label>
+          <textarea
+            v-model="note"
+            id="note"
+            class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+            rows="3"
+            placeholder="Your note"
+          ></textarea>
           <div class="mt-5 sm:mt-6">
-            <button @click="showFlagNote = false" type="button"
-                    class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">
-              Close
+            <button @click="addNote()" type="button"
+                    class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-app-600 text-base font-medium text-white hover:bg-app-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-app-500 sm:text-sm">
+              Save
             </button>
+            <!-- Show if note is already set -->
+            <div v-if="newFlagsMap['note']">
+              <hr class="my-5">
+
+              <button @click="removeNote()" type="button"
+                      class="text-gray-500 inline-flex justify-center w-full rounded-md bg-gray-50 hover:bg-gray-200 text-black shadow-sm px-4 py-2">
+                Remove
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -116,13 +127,16 @@
       <div class="relative inline-block text-left float-right">
         <div>
           <button @click="showFlags=!showFlags"
-            class=" bg-gray-50 hover:bg-gray-200 text-black font-bold py-2 px-4 border border-gray-200 rounded">
+                  class="bg-gray-50 hover:bg-gray-200 text-black font-bold py-2 px-4 border border-gray-200 rounded">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24"
                  stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/>
             </svg>
             Mark
+            <span v-if="Object.keys(this.newFlagsMap).length > 0"  class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
+              {{ Object.keys(this.newFlagsMap).length }}
+            </span>
             <svg class="-mr-1 ml-2 h-5 w-5 inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                  fill="currentColor" aria-hidden="true">
               <path fill-rule="evenodd"
@@ -131,37 +145,88 @@
             </svg>
           </button>
         </div>
+
+        <!-- Flag Dropdown -->
         <div v-if="showFlags"
-          class="origin-top-right z-30 absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none"
-          role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+             class="origin-top-right z-30 absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none"
+             role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+
+          <!-- Group 1 -->
+
           <div class="py-1" role="none">
-            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+
+            <!-- Unclear -->
+
+            <button @click="toggleFlag('unclear', 'true')"
+                    class="text-gray-500 px-4 py-2 text-sm w-full block hover:bg-gray-100 text-left"
+                    role="menuitem"
+                    v-bind:class="{
+              'text-yellow-700': this.newFlagsMap['unclear'] ,
+              'bg-gray-50': this.newFlagsMap['unclear'] ,
+            }"
+                    tabindex="-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-3" fill="none" viewBox="0 0 24 24"
+                   stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
               Unclear
-            </a>
-            <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+            </button>
+
+            <!-- Exclude -->
+
+            <button @click="toggleFlag('exclude', 'true')"
+                    class="text-gray-500 px-4 py-2 text-sm w-full block hover:bg-gray-100 text-left"
+                    role="menuitem"
+                    v-bind:class="{
+              'text-red-700': this.newFlagsMap['exclude'] ,
+              'bg-gray-50': this.newFlagsMap['exclude']
+            }"
+                    tabindex="-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-3" fill="none" viewBox="0 0 24 24"
+                   stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/>
               </svg>
               Exclude
-            </a>
-            <button @click="showFlags = !showFlags; showFlagNote = true" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-5">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            </button>
+
+            <!-- Note -->
+            <button @click="showFlags = !showFlags; openNoteModal()"
+                    class="text-gray-500 px-4 py-2 text-sm block w-full block hover:bg-gray-100 text-left"
+                    role="menuitem"
+                    v-bind:class="{
+              'text-blue-700': this.newFlagsMap['note'] ,
+              'bg-gray-50': this.newFlagsMap['note'] ,
+            }"
+                    tabindex="-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-3" fill="none" viewBox="0 0 24 24"
+                   stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
               </svg>
               Add Note
             </button>
           </div>
+
+          <!-- Group 2 -->
+
           <div class="py-1" role="none">
-            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12 9v2m0 4h.01" />
+            <button @click="toggleFlag('example', 'true')"
+                    class="text-gray-500 px-4 py-2 text-sm w-full block hover:bg-gray-100 text-left"
+                    role="menuitem"
+                    v-bind:class="{
+              'text-green-700': this.newFlagsMap['example'] ,
+              'bg-gray-50': this.newFlagsMap['example'] ,
+            }"
+                    tabindex="-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-3" fill="none" viewBox="0 0 24 24"
+                   stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12 9v2m0 4h.01"/>
               </svg>
-              Use as example
-            </a>
+              Use as an example
+            </button>
           </div>
         </div>
       </div>
@@ -230,11 +295,14 @@
 export default {
   data() {
     return {
+      note: '',
       showFlags: false,
       showFlagNote: false,
       renderedText: '',
       cls: null,
       newLabels: [],
+      newFlags: [],
+      newFlagsMap: {},
       clsMap: {},
       showDev: false,
     };
@@ -314,7 +382,7 @@ export default {
       return result;
     },
     addLabel: function (newLabel) {
-      // if its an empty list
+      // if it's an empty list
       if (this.newLabels && this.newLabels.length === 0) {
         this.newLabels.push(newLabel)
         return
@@ -347,16 +415,85 @@ export default {
       this.newLabels = this.newLabels.sort(function (a, b) {
         return b.representation.start - a.representation.start;
       });
-      // console.log(prevEnd, newLabel)
     },
-    addFlag: function (newFlag) {
-      // if its an empty list
-
+    removeLabel: function (i) {
+      // propagate deleted label to parent
+      let deletedLabel = Object.assign({}, this.newLabels[i])
+      this.$emit('deleted', {
+        labels: [deletedLabel],
+      })
+      // remove the label from the array
+      this.newLabels.splice(i, 1);
+    },
+    addNote: function () {
+      const note = "" + this.note;
+      this.addFlag('note', note);
+      this.note = "";
+      this.showFlagNote = false; // close modal
+      // update map
+      let flagMap = Object.assign({}, this.newFlagsMap);
+      flagMap['note'] = note;
+      this.newFlagsMap = flagMap;
+    },
+    removeNote: function () {
+      this.removeFlag('note', '');
+      this.note = "";
+      this.showFlagNote = false;
+      // update map
+      let flagMap = Object.assign({}, this.newFlagsMap);
+      delete flagMap['note'];
+      this.newFlagsMap = flagMap;
+    },
+    openNoteModal: function () {
+      // copy note
+      if (this.newFlagsMap['note']) {
+        this.note = ""+ this.newFlagsMap['note'];
+      } else {
+        this.note = "";
+      }
+      this.showFlagNote = true;
+    },
+    toggleFlag: function (flagKey, flagValue) {
+      let flagMap = Object.assign({}, this.newFlagsMap);
+      if (flagMap[flagKey]) {
+        delete flagMap[flagKey];
+        this.removeFlag(flagKey, flagValue);
+      } else {
+        flagMap[flagKey] = flagValue;
+        this.addFlag(flagKey, flagValue);
+      }
+      this.newFlagsMap = flagMap;
+    },
+    addFlag: function (flagKey, flagValue) {
+      this.$emit('addFlag', {
+        itemUID: this.itemUID,
+        clientUID: this.clientUID,
+        projectUID: this.projectUID,
+        taskUID: this.taskUID,
+        key: flagKey,
+        value: flagValue,
+      })
+    },
+    removeFlag: function (flagKey, flagValue) {
+      this.$emit('removeFlag', {
+        itemUID: this.itemUID,
+        clientUID: this.clientUID,
+        projectUID: this.projectUID,
+        taskUID: this.taskUID,
+        key: flagKey,
+        value: flagValue,
+      })
     },
     selectClass: function (cls) {
       this.cls = cls;
     },
     selectClassBasedOnKey: function (key) {
+      // disable if not flag modal is opened
+      if (this.showFlagNote) {
+        return;
+      }
+      // iterate over the classes to see if there is a match
+      // todo: create key map
       for (let i in this.classes) {
         if (this.classes[i].keyboardKey === key) {
           this.cls = this.classes[i];
@@ -422,7 +559,6 @@ export default {
             let childrenCursor = 0;
             while (childrenCursor < currentNode.childNodes.length) {
               let currentChildNode = currentNode.childNodes[childrenCursor];
-              console.log(currentChildNode);
               // exclude sub
               if (currentChildNode.nodeType === document.TEXT_NODE) {
                 offset = offset + currentChildNode.textContent.length;
@@ -452,15 +588,6 @@ export default {
         })
       }
     },
-    removeLabel: function (i) {
-      // propagate deleted label to parent
-      let deletedLabel = Object.assign({}, this.newLabels[i])
-      this.$emit('deleted', {
-        labels: [deletedLabel],
-      })
-      // remove the label from the array
-      this.newLabels.splice(i, 1);
-    },
     resetAllLabels: function () {
       let deletedLabels = Object.assign([], this.newLabels)
       this.$emit('deleted', {
@@ -472,14 +599,18 @@ export default {
       let cls = Object.assign([], this.classes);
       let lbs = Object.assign([], this.newLabels);
       let text = Object.assign('', this.text);
+      let flags = Object.assign([], this.newFlags);
       // emit values
       this.$emit('results', {
         labels: lbs,
         classes: cls,
+        flags: flags,
         text: text,
       })
       // reset labels
       this.newLabels = [];
+      this.newFlags = [];
+      this.newFlagsMap = {};
     },
     handleKeyPress: function (e) {
       // use self instead of this in here
@@ -498,7 +629,6 @@ export default {
   },
   watch: {
     labels: function (newVal, oldVal) { // watch it
-      // console.log('Prop changed: ', newVal, ' | was: ', oldVal)
       let labels = Object.assign([], newVal);
       labels = labels.sort(function (a, b) {
         return b.representation.start - a.representation.start;
@@ -513,6 +643,18 @@ export default {
     this.newLabels = this.newLabels.sort(function (a, b) {
       return b.representation.start - a.representation.start;
     });
+    // copy flags
+    this.newFlags = Object.assign([], this.flags);
+    let newFlagsMap = {};
+    for (const flag of this.newFlags) {
+      if (['seen', 'exclude', 'example', 'unclear'].includes(flag.key)) {
+        newFlagsMap[flag.key] = flag.value;
+      } else {
+        newFlagsMap[flag.key] = flag.value;
+      }
+    }
+    this.newFlagsMap = newFlagsMap;
+
     // set the first class as default
     if (this.classes && this.classes.length >= 0) {
       this.cls = this.classes[0];
@@ -530,9 +672,7 @@ export default {
     // reset labels
     this.newLabels = [];
   },
-  async mounted() {
-    console.log('mounted');
-  }
+  async mounted() {}
 };
 </script>
 
