@@ -1,6 +1,6 @@
 {
   "name": "Backend",
-  "schemaPath": "./path/to/schema.graphql",
+  "schemaPath": "./schema.graphql",
   "extensions": {
     "endpoints": {
       "Default GraphQL Endpoint": {
