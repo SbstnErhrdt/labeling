@@ -134,7 +134,8 @@
                     d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/>
             </svg>
             Mark
-            <span v-if="Object.keys(this.newFlagsMap).length > 0"  class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
+            <span v-if="Object.keys(this.newFlagsMap).length > 0"
+                  class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
               {{ Object.keys(this.newFlagsMap).length }}
             </span>
             <svg class="-mr-1 ml-2 h-5 w-5 inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
@@ -366,7 +367,7 @@ export default {
               // todo: fix text '" data-index="' + j + '">' + currentAnnotation.representation.text +
               '" data-index="' + j + '">' + this.text.substring(currentAnnotation.representation.start, currentAnnotation.representation.end) +
               // display label tag
-              '<sub style="background:' + this.getClassColor(currentAnnotation.classUID) + '">' +
+              '<sub>' +
               this.getClassShortName(currentAnnotation.classUID) +
               '</sub>' +
               '</span>';
@@ -426,9 +427,9 @@ export default {
       this.newLabels.splice(i, 1);
     },
     addNote: function () {
-      const note = "" + this.note;
+      const note = '' + this.note;
       this.addFlag('note', note);
-      this.note = "";
+      this.note = '';
       this.showFlagNote = false; // close modal
       // update map
       let flagMap = Object.assign({}, this.newFlagsMap);
@@ -437,7 +438,7 @@ export default {
     },
     removeNote: function () {
       this.removeFlag('note', '');
-      this.note = "";
+      this.note = '';
       this.showFlagNote = false;
       // update map
       let flagMap = Object.assign({}, this.newFlagsMap);
@@ -447,9 +448,9 @@ export default {
     openNoteModal: function () {
       // copy note
       if (this.newFlagsMap['note']) {
-        this.note = ""+ this.newFlagsMap['note'];
+        this.note = '' + this.newFlagsMap['note'];
       } else {
-        this.note = "";
+        this.note = '';
       }
       this.showFlagNote = true;
     },
@@ -672,7 +673,8 @@ export default {
     // reset labels
     this.newLabels = [];
   },
-  async mounted() {}
+  async mounted() {
+  }
 };
 </script>
 
@@ -712,7 +714,7 @@ kbd {
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: inset 0 0 5px 0 rgba(255, 255, 255, 0.8);
   border-radius: 3px;
-  padding: 3px 3px 9px 3px;
+  padding: 9px 3px 3px 3px;
   position: relative;
 }
 
@@ -721,7 +723,7 @@ kbd {
 }
 
 .label-text {
-  line-height: 200%;
+  line-height: 220%;
   padding: 1px;
 }
 
@@ -732,10 +734,12 @@ kbd {
 .highlight sub {
   position: absolute;
   left: 3px;
-  bottom: 5px;
+  top: 7px;
+  height: 9px;
   font-size: 9px;
   display: block;
   opacity: 0.6;
+  background: none;
 }
 
 </style>
