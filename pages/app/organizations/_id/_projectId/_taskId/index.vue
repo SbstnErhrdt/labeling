@@ -20,7 +20,8 @@
       <div v-if="this.LabelingTask"
            class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
 
-        <Instruction v-if="this.LabelingTask.instruction" :instruction="this.LabelingTask.instruction" class="py-5"></Instruction>
+        <Instruction v-if="this.LabelingTask.instruction" :instruction="this.LabelingTask.instruction"
+                     class="py-5"></Instruction>
         <hr class="mb-4">
 
         <div class="py-4 mb-3">
@@ -40,7 +41,9 @@
             </svg>
           </NuxtLink>
 
-          <span v-if="this.LabelingTask.stats.todo === 0">&#127881; Task completed. Thank you.</span>
+          <div v-if="this.LabelingTask.stats.todo === 0" class="text-gray-700">
+            <span class="inline-block pr-3">&#127881;</span> Task completed. Thank you.
+          </div>
 
         </div>
 
@@ -54,7 +57,7 @@
               <div class="w-full bg-gray-200 h-5 rounded-3xl">
                 <div class="bg-app-700 h-5 rounded-3xl" :style="{width: progress() + '%'}"></div>
               </div>
-              <div class="text-center">{{progress()}} %</div>
+              <div class="text-center">{{ progress() }} %</div>
 
               Total: <span class="font-mono">{{ this.LabelingTask.stats.total }}</span> <br>
               Done: <span class="font-mono">{{ this.LabelingTask.stats.done }}</span> <br>
@@ -111,7 +114,8 @@
                       <tbody>
 
                       <!-- Odd row -->
-                      <tr class="bg-white hover:bg-gray-50 border-b-2 border-gray-100" v-for="(item, index) in this.LabelingTask.leaderboard" :key="item.UID">
+                      <tr class="bg-white hover:bg-gray-50 border-b-2 border-gray-100"
+                          v-for="(item, index) in this.LabelingTask.leaderboard" :key="item.UID">
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                           <span class="pr-2" v-if="index === 0">🥇 </span>
                           <span class="pr-2" v-if="index === 1">🥈 </span>
