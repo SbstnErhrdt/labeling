@@ -24,7 +24,7 @@
         <hr class="mb-4">
 
         <div class="py-4 mb-3">
-          <NuxtLink :to="{
+          <NuxtLink v-if="this.LabelingTask.stats.todo !== 0" :to="{
                 name: 'app-organizations-id-projectId-taskId-label',
                 params: {
                   id: routeParamId,
@@ -39,6 +39,9 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
           </NuxtLink>
+
+          <span v-if="this.LabelingTask.stats.todo === 0">&#127881; Task completed. Thank you.</span>
+
         </div>
 
         <hr>
