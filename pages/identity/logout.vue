@@ -1,6 +1,7 @@
 <template>
   <div>
     <Navigation/>
+    <Footer></Footer>
   </div>
 </template>
 <script>

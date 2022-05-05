@@ -1,0 +1,3 @@
+mutation registrationConfirmation($token: String!) {
+  registrationConfirmation(token: $token)
+}
