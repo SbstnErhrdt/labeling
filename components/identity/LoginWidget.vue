@@ -93,7 +93,7 @@ export default {
           console.log('login - store token')
           await this.$apolloHelpers.onLogin(res.data.login)
           this.$toast.success('login successful', {
-            duration: 1000,
+            duration: 5000,
           })
           // get current user
           const identity = await this.$apollo.query({
@@ -105,14 +105,14 @@ export default {
           await this.$router.push('/app')
         } else {
           this.$toast.error('can not parse response', {
-            duration: 1000,
+            duration: 5000,
           })
           this.loading = false;
         }
       } catch (e) {
         console.log('errors', e.graphQLErrors)
         this.$toast.error(e.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
-          duration: 1000,
+          duration: 5000,
         })
         this.loading = false;
       }
