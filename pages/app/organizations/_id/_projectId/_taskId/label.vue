@@ -8,7 +8,6 @@
             @click="showInstruction = !showInstruction"
             class="float-right items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-app-700 hover:bg-app-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
           >
-
             Close
           </button>
           <br class="clear-both">
@@ -44,8 +43,10 @@
             class="flex-none cursor-pointer items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-app-700 hover:bg-app-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
             v-if="this.LabelingTask && this.LabelingTask.instruction && this.LabelingTask && this.LabelingTask.instruction.length > 0"
             @click="showInstruction = !showInstruction">
-            <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1 mr-2 h-5 w-5 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1 mr-2 h-5 w-5 inline" fill="none" viewBox="0 0 24 24"
+                 stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
             Help
           </span>
@@ -157,7 +158,7 @@ export default {
         error(error) {
           console.error('errors', error.graphQLErrors)
           this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
-            duration: 1000,
+            duration: 4000,
           })
         }
       });
@@ -172,12 +173,11 @@ export default {
           itemUID: currentItem.UID,
         },
         update: (store, {data: {markLabelingItemAsSeen}}) => {
-          console.log('flag', markLabelingItemAsSeen)
         },
         error(error) {
-          console.log('errors', error.graphQLErrors)
+          console.error('errors', error.graphQLErrors)
           this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
-            duration: 1000,
+            duration: 4000,
           })
         }
       });
@@ -208,12 +208,11 @@ export default {
           this.$toast.success('Deleted', {
             duration: 1000,
           })
-          console.log(createLabelingLabelsNer);
         },
         error(error) {
-          console.log('errors', error.graphQLErrors)
+          console.error('errors', error.graphQLErrors)
           this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
-            duration: 1000,
+            duration: 4000,
           })
         }
       });
@@ -229,18 +228,16 @@ export default {
           this.$toast.success('Flag removed', {
             duration: 1000,
           })
-          console.log(removeLabelingItemFlag);
         },
         error(error) {
-          console.log('errors', error.graphQLErrors)
+          console.error('errors', error.graphQLErrors)
           this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
-            duration: 1000,
+            duration: 4000,
           })
         }
       });
     },
     handleAddFlag(obj) {
-      console.log(obj);
       // send mutation
       this.$apollo.mutate({
         mutation: addFlag,
@@ -251,13 +248,11 @@ export default {
           this.$toast.success('Flag added', {
             duration: 1000,
           })
-          let currentItem = Object.assign({}, this.currentItem)
-
         },
         error(error) {
-          console.log('errors', error.graphQLErrors)
+          console.error('errors', error.graphQLErrors)
           this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
-            duration: 1000,
+            duration: 4000,
           })
         }
       });
@@ -291,7 +286,6 @@ export default {
     nextItem() {
       // update the current item
       if (this.todoItems && this.todoItems.length > 0) {
-        console.log('next item from todo');
         this.currentItem = Object.assign({}, this.todoItems[0])
       } else {
         console.warn('no new item')
@@ -300,8 +294,6 @@ export default {
     },
   },
   async mounted() {
-    console.log(this.$router);
-    console.log(this.$route.params.projectId);
   },
   computed: {},
   apollo: {
@@ -315,9 +307,9 @@ export default {
         }
       },
       error(error) {
-        console.log('errors', error.graphQLErrors)
+        console.error('errors', error.graphQLErrors)
         this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
-          duration: 1000,
+          duration: 4000,
         })
       }
     },
@@ -332,9 +324,9 @@ export default {
         }
       },
       error(error) {
-        console.log('errors', error.graphQLErrors)
+        console.error('errors', error.graphQLErrors)
         this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
-          duration: 1000,
+          duration: 4000,
         })
       }
     },
@@ -351,9 +343,9 @@ export default {
         }
       },
       error(error) {
-        console.log('errors', error.graphQLErrors)
+        console.error('errors', error.graphQLErrors)
         this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
-          duration: 1000,
+          duration: 4000,
         })
       }
     },
@@ -377,9 +369,9 @@ export default {
         }
       },
       error(error) {
-        console.log('errors', error.graphQLErrors)
+        console.error('errors', error.graphQLErrors)
         this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
-          duration: 1000,
+          duration: 4000,
         })
       }
     }
