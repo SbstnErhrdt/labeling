@@ -22,7 +22,7 @@
         <div class="max-w-5xl mx-auto flex">
           <!-- back button -->
           <NuxtLink :to="{
-                name: 'app-organizations-id-projectId-taskId',
+                name: 'app-labeling-id-projectId-taskId',
                 params: {
                   id: routeParamId,
                   projectId: routeParamProjectId,
@@ -69,7 +69,7 @@
           </div> -->
           <!-- Annotator -->
           <div class="flex-1 relative bg-white p-3">
-            <Annotator
+            <LabelingAnnotator
               :clientUID="this.routeParamId"
               :projectUID="this.routeParamProjectId"
               :taskUID="this.routeParamTaskId"
@@ -86,7 +86,7 @@
               @removeFlag="handleRemoveFlag"
               @addFlag="handleAddFlag"
             >
-            </Annotator>
+            </LabelingAnnotator>
             <div v-if="loading"
                  class="absolute left-0 top-0 right-0 bottom-0 z-50 inset-0 bg-white bg-opacity-50 overflow-y-auto h-full w-full">
               <Spinner></Spinner>

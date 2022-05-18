@@ -13,7 +13,7 @@
 
         <div class="mb-10"></div>
 
-        <NuxtLink to="/app/organizations"
+        <NuxtLink to="/app/labeling"
                   class="px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-app-700 hover:bg-app-500 md:py-4 md:text-lg md:px-10">
           Get started
         </NuxtLink>

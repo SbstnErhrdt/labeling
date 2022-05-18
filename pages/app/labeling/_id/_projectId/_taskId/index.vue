@@ -21,13 +21,13 @@
       <div v-if="this.LabelingTask"
            class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
 
-        <Instruction v-if="this.LabelingTask.instruction" :instruction="this.LabelingTask.instruction"
-                     class="py-5"></Instruction>
+        <LabelingInstruction v-if="this.LabelingTask.instruction" :instruction="this.LabelingTask.instruction"
+                     class="py-5"></LabelingInstruction>
         <hr class="mb-4">
 
         <div class="py-4 mb-3">
           <NuxtLink v-if="this.LabelingTask.stats.todo !== 0" :to="{
-                name: 'app-organizations-id-projectId-taskId-label',
+                name: 'app-labeling-id-projectId-taskId-label',
                 params: {
                   id: routeParamId,
                   projectId: routeParamProjectId,
@@ -164,7 +164,7 @@ export default {
       crumbs: [
         {
           'name': 'Organizations',
-          'link': '/app/organizations',
+          'link': '/app/labeling',
         },
         {
           'name': 'Organization',
@@ -190,15 +190,15 @@ export default {
     let subNavigation = Object.assign([], this.subNavigation);
     subNavigation[0] = {
       'name': 'Task',
-      'link': '/app/organizations/' + this.routeParamId + '/' + this.routeParamProjectId + '/' + this.routeParamTaskId,
+      'link': '/app/labeling/' + this.routeParamId + '/' + this.routeParamProjectId + '/' + this.routeParamTaskId,
     }
     subNavigation[1] = {
       'name': 'Search',
-      'link': '/app/organizations/' + this.routeParamId + '/' +  this.routeParamProjectId + '/' + this.routeParamTaskId + '/search',
+      'link': '/app/labeling/' + this.routeParamId + '/' +  this.routeParamProjectId + '/' + this.routeParamTaskId + '/search',
     }
     subNavigation[2] = {
       'name': 'Label',
-      'link': '/app/organizations/' + this.routeParamId + '/' +  this.routeParamProjectId + '/' + this.routeParamTaskId + '/label',
+      'link': '/app/labeling/' + this.routeParamId + '/' +  this.routeParamProjectId + '/' + this.routeParamTaskId + '/label',
     }
     this.subNavigation = subNavigation;
   },
@@ -222,7 +222,7 @@ export default {
         let crumbs = Object.assign([], this.crumbs);
         crumbs[1] = {
           'name': ApolloQueryResult.data[key].name,
-          'link': '/app/organizations/' + ApolloQueryResult.data[key].UID,
+          'link': '/app/labeling/' + ApolloQueryResult.data[key].UID,
         }
         this.crumbs = crumbs;
       },
@@ -247,7 +247,7 @@ export default {
         let crumbs = Object.assign([], this.crumbs);
         crumbs[2] = {
           'name': ApolloQueryResult.data[key].name,
-          'link': '/app/organizations/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].UID,
+          'link': '/app/labeling/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].UID,
         }
         this.crumbs = crumbs;
       },
@@ -274,7 +274,7 @@ export default {
         let crumbs = Object.assign([], this.crumbs);
         crumbs[3] = {
           'name': ApolloQueryResult.data[key].name,
-          'link': '/app/organizations/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].projectUID + '/' + ApolloQueryResult.data[key].UID,
+          'link': '/app/labeling/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].projectUID + '/' + ApolloQueryResult.data[key].UID,
         }
         this.crumbs = crumbs;
       },

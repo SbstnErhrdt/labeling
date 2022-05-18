@@ -66,7 +66,7 @@
               <Spinner></Spinner>
             </div>
             <div class="p-6">
-              <Annotator
+              <LabelingAnnotator
                 v-if="currentItem"
                 :clientUID="this.routeParamId"
                 :projectUID="this.routeParamProjectId"
@@ -84,7 +84,7 @@
                 @removeFlag="handleRemoveFlag"
                 @addFlag="handleAddFlag"
               >
-              </Annotator>
+              </LabelingAnnotator>
             </div>
           </div>
         </div>
@@ -124,7 +124,7 @@ export default {
       crumbs: [
         {
           'name': 'Organizations',
-          'link': '/app/organizations',
+          'link': '/app/labeling',
         },
         {
           'name': 'Organization',
@@ -154,15 +154,15 @@ export default {
     let subNavigation = Object.assign([], this.subNavigation);
     subNavigation[0] = {
       'name': 'Task',
-      'link': '/app/organizations/' + this.routeParamId + '/' + this.routeParamProjectId + '/' + this.routeParamTaskId,
+      'link': '/app/labeling/' + this.routeParamId + '/' + this.routeParamProjectId + '/' + this.routeParamTaskId,
     }
     subNavigation[1] = {
       'name': 'Search',
-      'link': '/app/organizations/' + this.routeParamId + '/' +  this.routeParamProjectId + '/' + this.routeParamTaskId + '/search',
+      'link': '/app/labeling/' + this.routeParamId + '/' +  this.routeParamProjectId + '/' + this.routeParamTaskId + '/search',
     }
     subNavigation[2] = {
       'name': 'Label',
-      'link': '/app/organizations/' + this.routeParamId + '/' +  this.routeParamProjectId + '/' + this.routeParamTaskId + '/label',
+      'link': '/app/labeling/' + this.routeParamId + '/' +  this.routeParamProjectId + '/' + this.routeParamTaskId + '/label',
     }
     this.subNavigation = subNavigation;
 
@@ -338,7 +338,7 @@ export default {
         let crumbs = Object.assign([], this.crumbs);
         crumbs[1] = {
           'name': ApolloQueryResult.data[key].name,
-          'link': '/app/organizations/' + ApolloQueryResult.data[key].UID,
+          'link': '/app/labeling/' + ApolloQueryResult.data[key].UID,
         }
         this.crumbs = crumbs;
       },
@@ -363,7 +363,7 @@ export default {
         let crumbs = Object.assign([], this.crumbs);
         crumbs[2] = {
           'name': ApolloQueryResult.data[key].name,
-          'link': '/app/organizations/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].UID,
+          'link': '/app/labeling/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].UID,
         }
         this.crumbs = crumbs;
       },
@@ -390,11 +390,11 @@ export default {
         let crumbs = Object.assign([], this.crumbs);
         crumbs[3] = {
           'name': ApolloQueryResult.data[key].name,
-          'link': '/app/organizations/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].projectUID + '/' + ApolloQueryResult.data[key].UID,
+          'link': '/app/labeling/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].projectUID + '/' + ApolloQueryResult.data[key].UID,
         }
         crumbs[4] = {
           'name': 'Search',
-          'link': '/app/organizations/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].projectUID + '/' + ApolloQueryResult.data[key].UID + '/search',
+          'link': '/app/labeling/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].projectUID + '/' + ApolloQueryResult.data[key].UID + '/search',
         }
         this.crumbs = crumbs;
         // set sources

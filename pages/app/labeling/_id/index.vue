@@ -25,7 +25,7 @@
             <li v-for="item in this.ProjectSearch.results" :key="item.UID"
                 class="">
               <NuxtLink :to="{
-                name: 'app-organizations-id-projectId',
+                name: 'app-labeling-id-projectId',
                 params: {
                   id: routeParamId,
                   projectId: item.UID
@@ -58,7 +58,7 @@ export default {
       crumbs: [
         {
           'name': 'Organizations',
-          'link': '/app/organizations',
+          'link': '/app/labeling',
         },
         {
           'name': 'Organization',
@@ -86,7 +86,7 @@ export default {
         let crumbs = Object.assign([], this.crumbs);
         crumbs[1] = {
           'name': ApolloQueryResult.data[key].name,
-          'link': '/app/organizations/' + ApolloQueryResult.data[key].UID,
+          'link': '/app/labeling/' + ApolloQueryResult.data[key].UID,
         }
         this.crumbs = crumbs;
       },

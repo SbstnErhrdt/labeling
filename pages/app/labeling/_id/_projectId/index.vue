@@ -29,7 +29,7 @@
             <li v-for="item in this.LabelingTasksSearch.results" :key="item.UID"
                 class="">
               <NuxtLink :to="{
-                name: 'app-organizations-id-projectId-taskId',
+                name: 'app-labeling-id-projectId-taskId',
                 params: {
                   id: routeParamId,
                   projectId: routeParamProjectId,
@@ -67,7 +67,7 @@ export default {
       crumbs: [
         {
           'name': 'Organizations',
-          'link': '/app/organizations',
+          'link': '/app/labeling',
         },
         {
           'name': 'Organization',
@@ -100,7 +100,7 @@ export default {
         let crumbs = Object.assign([], this.crumbs);
         crumbs[1] = {
           'name': ApolloQueryResult.data[key].name,
-          'link': '/app/organizations/' + ApolloQueryResult.data[key].UID,
+          'link': '/app/labeling/' + ApolloQueryResult.data[key].UID,
         }
         this.crumbs = crumbs;
       },
@@ -125,7 +125,7 @@ export default {
         let crumbs = Object.assign([], this.crumbs);
         crumbs[2] = {
           'name': ApolloQueryResult.data[key].name,
-          'link': '/app/organizations/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].UID,
+          'link': '/app/labeling/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].UID,
         }
         this.crumbs = crumbs;
       },
