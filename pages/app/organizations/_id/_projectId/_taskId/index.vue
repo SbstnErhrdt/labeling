@@ -2,6 +2,7 @@
   <div>
     <Navigation/>
     <Breadcrumbs home="/app" :crumbs="crumbs"/>
+    <SubNavigation :links="this.subNavigation"></SubNavigation>
     <main>
       <header class="bg-white shadow">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -178,6 +179,7 @@ export default {
           'link': null,
         },
       ],
+      subNavigation: [],
       keyword: '',
       routeParamId: this.$route.params.id,
       routeParamProjectId: this.$route.params.projectId,
@@ -261,6 +263,22 @@ export default {
           'link': '/app/organizations/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].projectUID + '/' + ApolloQueryResult.data[key].UID,
         }
         this.crumbs = crumbs;
+        let subNavigation = Object.assign([], this.subNavigation);
+
+        subNavigation[0] = {
+          'name': "Task",
+          'link': '/app/organizations/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].projectUID + '/' + ApolloQueryResult.data[key].UID,
+        }
+        subNavigation[1] = {
+          'name': "Search",
+          'link': '/app/organizations/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].projectUID + '/' + ApolloQueryResult.data[key].UID + '/search',
+        }
+        subNavigation[2] = {
+          'name': "Label",
+          'link': '/app/organizations/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].projectUID + '/' + ApolloQueryResult.data[key].UID+ '/label',
+        }
+        this.subNavigation = subNavigation;
+
       },
       error(error) {
         console.error(error.graphQLErrors)
@@ -274,8 +292,6 @@ export default {
     title: 'Task'
   }
 }
-
-
 </script>
 
 <style>

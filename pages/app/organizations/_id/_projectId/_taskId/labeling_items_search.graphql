@@ -1,0 +1,44 @@
+query LabelingItemsNerSearch($clientUID: String!, $projectUID: String!, $taskUID: String!) {
+  LabelingItemsNerSearch(clientUID: $clientUID, projectUID:$projectUID, taskUID: $taskUID) {
+    amount
+    results {
+      clientUID
+      projectUID
+      taskUID
+      UID
+      text
+      source
+      documentID
+      labels {
+        clientUID
+        taskUID
+        projectUID
+        itemUID
+        classUID
+        UID
+        confirmerUID
+        labelSource
+        representation {
+          text
+          start
+          end
+          indexEnd
+          indexStart
+        }
+      }
+    }
+  }
+  LabelingClassesSearch(clientUID: $clientUID, projectUID: $projectUID, taskUID: $taskUID) {
+    results {
+      UID
+      clientUID
+      projectUID
+      taskUID
+      name
+      shortName
+      description
+      color
+      keyboardKey
+    }
+  }
+}

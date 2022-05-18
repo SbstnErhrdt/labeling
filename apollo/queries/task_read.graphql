@@ -45,5 +45,6 @@ query LabelingTask(
       lastName
       email
     }
+    sources
   }
 }
