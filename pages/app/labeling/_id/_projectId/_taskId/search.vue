@@ -256,6 +256,19 @@ export default {
           })
         }
       });
+
+      // update item in list
+      let searchData = Object.assign({}, this.searchData);
+      // iterate over list
+      let i = searchData.results.length;
+      while(i--) {
+        if(searchData.results[i].UID === this.currentItem.UID) {
+          searchData.results[i] = this.currentItem;
+          break
+        }
+      }
+      this.searchData = searchData;
+
       this.loading = false;
     },
     handleDeleteLabels(obj) {
