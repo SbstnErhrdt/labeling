@@ -11,7 +11,7 @@
       </li>
       <li class="flex items-center" v-for="(item, index) in crumbs">
         <div v-if="showLoading(index)"
-             class="animate-shimmer bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-[length:400%_100%] h-5 w-20"></div>
+             class="animate-shimmer bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-[length:400%_100%] h-4 w-16"></div>
         <span v-if="!showLoading(index)">
           <NuxtLink :to="item.link" class="hover:text-gray-800">
             {{ item.name }}
