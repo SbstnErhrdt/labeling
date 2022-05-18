@@ -1,5 +1,5 @@
-query LabelingItemsNerSearch($clientUID: String!, $projectUID: String!, $taskUID: String!) {
-  LabelingItemsNerSearch(clientUID: $clientUID, projectUID:$projectUID, taskUID: $taskUID) {
+query LabelingItemsNerSearch($clientUID: String!, $projectUID: String!, $taskUID: String!, $keyword: String, $source:String, $documentID:String) {
+  LabelingItemsNerSearch(clientUID: $clientUID, projectUID:$projectUID, taskUID: $taskUID, keyword: $keyword, source: $source, documentID: $documentID) {
     amount
     results {
       clientUID

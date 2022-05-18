@@ -187,6 +187,20 @@ export default {
     }
   },
   async mounted() {
+    let subNavigation = Object.assign([], this.subNavigation);
+    subNavigation[0] = {
+      'name': 'Task',
+      'link': '/app/organizations/' + this.routeParamId + '/' + this.routeParamProjectId + '/' + this.routeParamTaskId,
+    }
+    subNavigation[1] = {
+      'name': 'Search',
+      'link': '/app/organizations/' + this.routeParamId + '/' +  this.routeParamProjectId + '/' + this.routeParamTaskId + '/search',
+    }
+    subNavigation[2] = {
+      'name': 'Label',
+      'link': '/app/organizations/' + this.routeParamId + '/' +  this.routeParamProjectId + '/' + this.routeParamTaskId + '/label',
+    }
+    this.subNavigation = subNavigation;
   },
   methods: {
     progress: function () {
@@ -263,22 +277,6 @@ export default {
           'link': '/app/organizations/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].projectUID + '/' + ApolloQueryResult.data[key].UID,
         }
         this.crumbs = crumbs;
-        let subNavigation = Object.assign([], this.subNavigation);
-
-        subNavigation[0] = {
-          'name': "Task",
-          'link': '/app/organizations/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].projectUID + '/' + ApolloQueryResult.data[key].UID,
-        }
-        subNavigation[1] = {
-          'name': "Search",
-          'link': '/app/organizations/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].projectUID + '/' + ApolloQueryResult.data[key].UID + '/search',
-        }
-        subNavigation[2] = {
-          'name': "Label",
-          'link': '/app/organizations/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].projectUID + '/' + ApolloQueryResult.data[key].UID+ '/label',
-        }
-        this.subNavigation = subNavigation;
-
       },
       error(error) {
         console.error(error.graphQLErrors)

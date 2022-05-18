@@ -5,42 +5,53 @@
     <SubNavigation :links="this.subNavigation"></SubNavigation>
     <main>
       <!-- This example requires Tailwind CSS v2.0+ -->
-      <div v-if="$apollo.loading">
+      <div v-if="$apollo.loading || !this.searchData || !this.classes">
         <Spinner></Spinner>
       </div>
-      <div v-if="this.LabelingTask">
+      <div v-if="this.LabelingTask && !$apollo.loading && this.searchData && this.classes">
         <div class="flex">
-          <div class="w-1/4">
-            <div v-if="!this.searchData || !this.classes">
-              <Spinner></Spinner>
-            </div>
+          <div class="w-1/4 shadow">
             <div v-if="this.searchData && this.classes">
-
-              <div class="grid grid-cols-1 gap-y-3 sm:grid-cols-2 sm:gap-x-8 px-3 py-3 bg-gray-50">
-                <div>
-                  <label for="first-name" class="block text-sm font-medium text-gray-700">Source</label>
-                  <div class="mt-1">
-                    <select id="documentSource" v-model="searchSource" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-app-500 focus:border-app-500 sm:text-sm rounded-md">
-                      <option disabled value="">Please select one</option>
-                      <option v-for="i in this.LabelingTask.sources" v-bind:value="i">{{i}}</option>
-                    </select>
+              <!-- Search Form -->
+              <form v-on:submit="submit">
+                <div class="grid grid-cols-1 gap-y-3 sm:grid-cols-2 sm:gap-x-8 px-3 py-3 bg-gray-50 border-b-2 border-gray-100">
+                  <div>
+                    <label for="first-name" class="block text-sm font-medium text-gray-700">Source</label>
+                    <div class="mt-1">
+                      <select id="documentSource" v-model="searchSource"
+                              class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-500 focus:outline-none focus:ring-app-500 focus:border-app-500 sm:text-sm rounded-md">
+                        <option disabled value="">Please select one</option>
+                        <option v-for="i in this.LabelingTask.sources" v-bind:value="i">{{ i }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label for="docId" class="block text-sm font-medium text-gray-700">Document ID</label>
+                    <div class="mt-1">
+                      <input type="text" v-model="searchDocumentID" name="docId" id="docId"
+                             class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-500 focus:outline-none focus:ring-app-500 focus:border-app-500 sm:text-sm rounded-md">
+                    </div>
+                  </div>
+                  <div class="col-span-2">
+                    <label for="keyword" class="block text-sm font-medium text-gray-700">Full-Text</label>
+                    <div class="mt-1">
+                      <input type="text" v-model="searchKeyword" name="keyword" id="keyword"
+                             class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-500 focus:outline-none focus:ring-app-500 focus:border-app-500 sm:text-sm rounded-md">
+                    </div>
+                  </div>
+                  <div class="col-span-2">
+                    <button type="submit" class="bg-app-600 hover:bg-app-800 text-white text-sm py-1 px-2 rounded">Search</button>
                   </div>
                 </div>
-                <div>
-                  <label for="docId" class="block text-sm font-medium text-gray-700">Document ID</label>
-                  <div class="mt-1">
-                    <input type="text"  v-model="searchText" name="docId" id="docId" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-app-500 focus:border-app-500 sm:text-sm rounded-md">
-                  </div>
-                </div>
+              </form>
 
-              </div>
-
-              <div class="px-3">
-                Amount: {{ this.searchData.amount }}
+              <div class="px-3 text-sm py-2 text-gray-500">
+                Search results: {{ this.searchData.amount }}
               </div>
               <div class="overflow-y-scroll px-3" style="height: 70vh">
                 <div v-for="(item, index) in this.searchData.results"
                      class="shadow mb-3 p-2 rounded hover:bg-gray-50 cursor-pointer"
+                     :class="{ 'bg-gray-100 ring-app-500': isActive(item) }"
                      @click="selectItem(item)"
                      :key="index">
                   <span class="text-sm font-mono">{{ item.source }} - {{ item.documentID }}</span>
@@ -49,27 +60,32 @@
               </div>
             </div>
           </div>
-          <div class="w-3/4">
-            {{ this.classes }}
-            <Annotator
-              v-if="currentItem"
-              :clientUID="this.routeParamId"
-              :projectUID="this.routeParamProjectId"
-              :taskUID="this.routeParamTaskId"
-              :classes="this.classes"
-              :text="this.currentItem.text"
-              :itemUID="this.currentItem.UID"
-              :labels="this.currentItem.labels"
-              :metadata="{
+          <div class="w-3/4 relative">
+            <div v-if="loading"
+                 class="absolute left-0 top-0 right-0 bottom-0 z-50 inset-0 bg-white bg-opacity-50 overflow-y-auto h-full w-full">
+              <Spinner></Spinner>
+            </div>
+            <div class="p-6">
+              <Annotator
+                v-if="currentItem"
+                :clientUID="this.routeParamId"
+                :projectUID="this.routeParamProjectId"
+                :taskUID="this.routeParamTaskId"
+                :classes="this.classes"
+                :text="this.currentItem.text"
+                :itemUID="this.currentItem.UID"
+                :labels="this.currentItem.labels"
+                :metadata="{
               'source':this.currentItem.source,
               'documentID':this.currentItem.documentID,
             }"
-              @results="handleResults"
-              @deleted="handleDeleteLabels"
-              @removeFlag="handleRemoveFlag"
-              @addFlag="handleAddFlag"
-            >
-            </Annotator>
+                @results="handleResults"
+                @deleted="handleDeleteLabels"
+                @removeFlag="handleRemoveFlag"
+                @addFlag="handleAddFlag"
+              >
+              </Annotator>
+            </div>
           </div>
         </div>
       </div>
@@ -98,8 +114,10 @@ export default {
   components: {Spinner},
   data() {
     return {
-      searchText: '',
-      searchSource: 'test',
+      loading: false,
+      searchKeyword: '',
+      searchSource: '',
+      searchDocumentID: '',
       searchData: null,
       classes: null,
       subNavigation: [],
@@ -133,13 +151,42 @@ export default {
     }
   },
   async mounted() {
+    let subNavigation = Object.assign([], this.subNavigation);
+    subNavigation[0] = {
+      'name': 'Task',
+      'link': '/app/organizations/' + this.routeParamId + '/' + this.routeParamProjectId + '/' + this.routeParamTaskId,
+    }
+    subNavigation[1] = {
+      'name': 'Search',
+      'link': '/app/organizations/' + this.routeParamId + '/' +  this.routeParamProjectId + '/' + this.routeParamTaskId + '/search',
+    }
+    subNavigation[2] = {
+      'name': 'Label',
+      'link': '/app/organizations/' + this.routeParamId + '/' +  this.routeParamProjectId + '/' + this.routeParamTaskId + '/label',
+    }
+    this.subNavigation = subNavigation;
+
     await this.search();
+
+
+
   },
   methods: {
+    isActive(item) {
+      if (this.currentItem === null) {
+        return false;
+      }
+      return this.currentItem && this.currentItem.UID === item.UID;
+    },
+    submit(e) {
+      e.preventDefault() // it prevents from page reload
+      this.search();
+    },
     selectItem(item) {
       this.currentItem = Object.assign({}, item);
     },
     async search() {
+      this.searchData = null;
       // submit create labels mutation
       try {
         const res = await this.$apollo.query({
@@ -149,6 +196,9 @@ export default {
             clientUID: this.$route.params.id,
             projectUID: this.$route.params.projectId,
             taskUID: this.$route.params.taskId,
+            source: this.searchSource,
+            documentID: this.searchDocumentID,
+            keyword: this.searchKeyword,
           }
         });
         this.searchData = res.data.LabelingItemsNerSearch;
@@ -178,6 +228,7 @@ export default {
           this.$toast.success('Saved', {
             duration: 1000,
           })
+          this.currentItem = Object.assign({}, currentItem)
         },
         error(error) {
           console.error('errors', error.graphQLErrors)
@@ -205,20 +256,6 @@ export default {
           })
         }
       });
-
-      // move the item from the todolist to done list
-      // or from done to done
-      this.addItemToDoneList(currentItem)
-
-      // re-fetch if array is empty
-      if (this.todoItems.length === 0) {
-        await this.$apollo.queries.LabelingItemsNerNext.refetch()
-      }
-      // set the first item to current
-      if (this.todoItems.length > 0) {
-        this.currentItem = this.todoItems[0];
-      }
-
       this.loading = false;
     },
     handleDeleteLabels(obj) {
@@ -284,38 +321,8 @@ export default {
     setItem(item) {
       this.currentItem = Object.assign({}, item);
     },
-    addItemToDoneList(item) {
-      // check if the item is already in the done list
-      let done = Object.assign([], this.doneItems)
-      let i = done.length;
-      // if the element was already in the done list
-      // replace the existing one
-      while (i--) {
-        if (done[i].UID === item.UID) {
-          done[i] = item
-          this.doneItems = done;
-          // go with the next item
-          this.nextItem();
-          return
-        }
-      }
-      // if it was new
-      // add it to the done list
-      this.doneItems.unshift(item);
-      // and pop it from the todolist
-      this.todoItems.splice(0, 1)
-      // go with the next item
-      this.nextItem();
-    },
-    nextItem() {
-      // update the current item
-      if (this.todoItems && this.todoItems.length > 0) {
-        this.currentItem = Object.assign({}, this.todoItems[0])
-      } else {
-        console.warn('no new item')
-        this.currentItem = null;
-      }
-    },
+  },
+  computed: {
   },
   apollo: {
     // Client
@@ -390,23 +397,8 @@ export default {
           'link': '/app/organizations/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].projectUID + '/' + ApolloQueryResult.data[key].UID + '/search',
         }
         this.crumbs = crumbs;
-
-        let subNavigation = Object.assign([], this.subNavigation);
-        subNavigation[0] = {
-          'name': 'Task',
-          'link': '/app/organizations/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].projectUID + '/' + ApolloQueryResult.data[key].UID,
-        }
-        subNavigation[1] = {
-          'name': 'Search',
-          'link': '/app/organizations/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].projectUID + '/' + ApolloQueryResult.data[key].UID + '/search',
-        }
-        subNavigation[2] = {
-          'name': 'Label',
-          'link': '/app/organizations/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].projectUID + '/' + ApolloQueryResult.data[key].UID + '/label',
-        }
-        this.subNavigation = subNavigation;
         // set sources
-        if ( ApolloQueryResult.data[key].sources &&  ApolloQueryResult.data[key].sources.length > 0) {
+        if (ApolloQueryResult.data[key].sources && ApolloQueryResult.data[key].sources.length > 0) {
           this.searchSource = ApolloQueryResult.data[key].sources[0];
         }
       },
