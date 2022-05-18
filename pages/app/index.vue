@@ -33,7 +33,7 @@ export default {
   },
   computed: {},
   head: {
-    title: 'Organizations'
+    title: 'Labeling'
   }
 }
 </script>

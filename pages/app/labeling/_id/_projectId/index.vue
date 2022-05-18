@@ -66,7 +66,7 @@ export default {
     return {
       crumbs: [
         {
-          'name': 'Organizations',
+          'name': 'Labeling',
           'link': '/app/labeling',
         },
         {

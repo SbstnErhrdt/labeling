@@ -49,7 +49,7 @@ export default {
       keyword: '',
       crumbs: [
         {
-          'name': 'Organizations',
+          'name': 'Labeling',
           'link': '/app/labeling',
         }
       ],
@@ -76,7 +76,7 @@ export default {
     }
   },
   head: {
-    title: 'Organizations'
+    title: 'Labeling'
   }
 }
 

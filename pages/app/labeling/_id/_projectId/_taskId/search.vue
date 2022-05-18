@@ -123,7 +123,7 @@ export default {
       subNavigation: [],
       crumbs: [
         {
-          'name': 'Organizations',
+          'name': 'Labeling',
           'link': '/app/labeling',
         },
         {
