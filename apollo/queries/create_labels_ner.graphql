@@ -6,5 +6,12 @@ mutation createLabelingLabelsNer($data: [LabelingLabelNerMutationObject]) {
     taskUID
     itemUID
     classUID
+    representation {
+      indexStart
+      indexEnd
+      end
+      start
+      text
+    }
   }
 }

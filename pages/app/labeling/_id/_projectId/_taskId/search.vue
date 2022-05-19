@@ -211,6 +211,7 @@ export default {
       }
     },
     async handleResults(obj) {
+      console.log("handleResults", obj);
       this.loading = true;
       let currentItem = Object.assign({}, this.currentItem)
       let res = Object.assign({}, obj);
@@ -225,19 +226,18 @@ export default {
         variables: {
           data: res.labels,
         },
-        update: (store, {data: {createLabelingLabelsNer}}) => {
-          this.$toast.success('Saved', {
-            duration: 1000,
-          })
-          this.currentItem = Object.assign({}, currentItem)
-        },
-        error(error) {
-          console.error('errors', error.graphQLErrors)
-          this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
-            duration: 4000,
-          })
-        }
-      });
+      }).then((data) => {
+        this.$toast.success('Saved', {
+          duration: 1000,
+        })
+        currentItem.labels = data.data.createLabelingLabelsNer;
+        this.currentItem = Object.assign({}, currentItem)
+      }).catch((error) => {
+        console.error('errors', error.graphQLErrors)
+        this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
+          duration: 4000,
+        })
+      })
 
       // send seen flag
       await this.$apollo.mutate({
@@ -251,12 +251,11 @@ export default {
         },
         update: (store, {data: {markLabelingItemAsSeen}}) => {
         },
-        error(error) {
-          console.error('errors', error.graphQLErrors)
-          this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
-            duration: 4000,
-          })
-        }
+      }).catch((error) => {
+        console.error('errors', error.graphQLErrors)
+        this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
+          duration: 4000,
+        })
       });
 
       // update item in list

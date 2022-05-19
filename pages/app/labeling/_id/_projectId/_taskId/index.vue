@@ -5,7 +5,7 @@
     <SubNavigation :links="this.subNavigation"></SubNavigation>
     <main>
       <header class="bg-white">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto pt-6 px-6">
           <h1 v-if="this.LabelingTask" class="text-3xl font-bold text-gray-900">
             {{ this.LabelingTask.name }}
           </h1>
@@ -19,7 +19,7 @@
         <Spinner></Spinner>
       </div>
       <div v-if="this.LabelingTask"
-           class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+           class="max-w-7xl mx-auto py-6 px-6">
 
         <LabelingInstruction v-if="this.LabelingTask.instruction" :instruction="this.LabelingTask.instruction"
                      class="py-5"></LabelingInstruction>
