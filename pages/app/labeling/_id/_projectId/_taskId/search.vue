@@ -20,7 +20,7 @@
                     <div class="mt-1">
                       <select id="documentSource" v-model="searchSource"
                               class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-500 focus:outline-none focus:ring-app-500 focus:border-app-500 sm:text-sm rounded-md">
-                        <option disabled value="">Please select one</option>
+                        <option value="">All sources</option>
                         <option v-for="i in this.LabelingTask.sources" v-bind:value="i">{{ i }}</option>
                       </select>
                     </div>
@@ -65,7 +65,7 @@
                  class="absolute left-0 top-0 right-0 bottom-0 z-50 inset-0 bg-white bg-opacity-50 overflow-y-auto h-full w-full">
               <Spinner></Spinner>
             </div>
-            <div class="p-6">
+            <div class="p-6 max-w-5xl mx-auto">
               <LabelingAnnotator
                 v-if="currentItem"
                 :clientUID="this.routeParamId"
@@ -410,10 +410,6 @@ export default {
           'link': '/app/labeling/' + ApolloQueryResult.data[key].clientUID + '/' + ApolloQueryResult.data[key].projectUID + '/' + ApolloQueryResult.data[key].UID + '/search',
         }
         this.crumbs = crumbs;
-        // set sources
-        if (ApolloQueryResult.data[key].sources && ApolloQueryResult.data[key].sources.length > 0) {
-          this.searchSource = ApolloQueryResult.data[key].sources[0];
-        }
       },
       error(error) {
         console.error(error.graphQLErrors)
