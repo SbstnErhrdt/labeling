@@ -4,7 +4,7 @@
     <Breadcrumbs home="/app" :crumbs="crumbs"/>
     <SubNavigation :links="this.subNavigation"></SubNavigation>
     <main>
-      <header class="bg-white shadow">
+      <header class="bg-white">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
           <h1 v-if="this.LabelingTask" class="text-3xl font-bold text-gray-900">
             {{ this.LabelingTask.name }}
@@ -15,7 +15,7 @@
         </div>
       </header>
       <!-- This example requires Tailwind CSS v2.0+ -->
-      <div v-if="$apollo.loading">
+      <div v-if="$apollo.loading || !this.LabelingTask">
         <Spinner></Spinner>
       </div>
       <div v-if="this.LabelingTask"
