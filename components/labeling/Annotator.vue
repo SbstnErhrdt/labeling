@@ -258,7 +258,7 @@
     <!-- Results -->
     <div>
       <ul role="list" class="divide-y divide-gray-200">
-        <li v-for="(item, index) in newLabels" v-bind:key="index" class="py-5">
+        <li v-for="(item, index) in newLabels.slice().reverse()" v-bind:key="index" class="py-5">
           <div class="relative">
             <h3 class="text-sm font-semibold text-gray-800">
               <span :style="{ 'color': getClassColor(item.classUID)}">{{ getClass(item.classUID).shortName }}</span> -
