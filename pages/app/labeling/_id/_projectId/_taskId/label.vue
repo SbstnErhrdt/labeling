@@ -57,6 +57,9 @@
         <Spinner></Spinner>
       </div>
       <div class="relative z-0">
+        <div v-if="this.LabelingTask && this.LabelingTask.stats.todo === 0" class="text-gray-700 mx-auto text-center pt-20">
+          <span class="inline-block pr-3">&#127881;</span> Task completed. Thank you.
+        </div>
         <div v-if="!$apollo.loading && this.currentItem"
              class="max-w-5xl mx-auto flex">
           <!-- Next list

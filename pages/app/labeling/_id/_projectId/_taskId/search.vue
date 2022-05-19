@@ -221,6 +221,7 @@ export default {
       // submit create labels mutation
       await this.$apollo.mutate({
         mutation: createLabelingLabelsNer,
+        fetchPolicy: 'no-cache',
         variables: {
           data: res.labels,
         },
@@ -241,6 +242,7 @@ export default {
       // send seen flag
       await this.$apollo.mutate({
         mutation: markLabelingItemAsSeen,
+        fetchPolicy: 'no-cache',
         variables: {
           clientUID: this.routeParamId,
           projectUID: this.routeParamProjectId,
