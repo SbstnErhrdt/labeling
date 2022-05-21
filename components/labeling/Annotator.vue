@@ -511,6 +511,7 @@ export default {
         this.addFlag(flagKey, flagValue);
       }
       this.newFlagsMap = flagMap;
+      this.showFlags = false;
     },
     addFlag: function (flagKey, flagValue) {
       this.$emit('addFlag', {
