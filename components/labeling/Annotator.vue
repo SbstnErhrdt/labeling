@@ -100,6 +100,19 @@
 
     <hr>
 
+    <!-- Settings -->
+    <div class="py-2">
+      <div class="flex">
+        <div class="flex items-center mr-4 border border-gray-100 bg-gray-50 rounded p-1 text-xs">
+          <input id="setting-snap" v-model="settingSnapToWords" type="checkbox"
+                 class="w-4 h-4 text-gray-500 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+          <label for="setting-snap" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Snap to words</label>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
     <!-- Text Box -->
     <div class="text-md pt-5" v-on:mouseup="selectText" style="min-height: 25vh">
       <div class="label-text" v-html="display"></div>
@@ -296,6 +309,7 @@
 export default {
   data() {
     return {
+      settingSnapToWords: true,
       note: '',
       showFlags: false,
       showFlagNote: false,
@@ -327,6 +341,39 @@ export default {
     metadata: {},
   },
   methods: {
+    isBreakingCharacter: function (char) {
+      const special = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+      return special.test(char);
+    },
+    snapToWordsStart: function (start){
+      for(let i = start; start > 0; i--) {
+        if(i === 0) {
+          return 0
+        }
+        // look left / backward
+        if(i-1>0 && this.isBreakingCharacter(this.text[i-1])) {
+          return i
+        }
+      }
+      return start
+    },
+    snapToWordsEnd: function (end){
+      // directly next char
+      if(this.isBreakingCharacter(this.text[end])) {
+        return end
+      }
+      for(let i = end; end < this.text.length; i++) {
+        // left edge
+        if(i === this.text.length-1) {
+          return this.text.length
+        }
+        // look right / forward
+        if(i+1<this.text.length && this.isBreakingCharacter(this.text[i+1])) {
+          return i+1
+        }
+      }
+      return end
+    },
     getClassColor: function (clsUID) {
       if (this.clsMap[clsUID] !== undefined) {
         return this.clsMap[clsUID].color || '#ccc';
@@ -510,7 +557,7 @@ export default {
       let selection = window.getSelection();
       let start = selection.anchorOffset;
       let end = selection.focusOffset;
-      // fip if its the wrong order
+      // fip if it is in the wrong order
       if (start > end) {
         let t = start;
         start = end;
@@ -545,16 +592,16 @@ export default {
         for (let i = 0; i < selection.anchorNode.parentNode.childNodes.length; i++) {
           let currentNode = selection.anchorNode.parentNode.childNodes[i];
 
-          // break if its the same node
+          // break if it is the same node
           if (currentNode === selection.anchorNode) {
             break;
           }
-          // if its a text node
+          // if it is a text node
           // count the length of the text
           if (currentNode.nodeType === document.TEXT_NODE) {
             offset = offset + currentNode.length;
           }
-          // if its a element node
+          // if it is an element node
           // count the length of the text of the element
           if (currentNode.nodeType === document.ELEMENT_NODE) {
             let childrenCursor = 0;
@@ -572,6 +619,12 @@ export default {
       // add the offset
       start = start + offset;
       end = end + offset;
+
+      if(this.settingSnapToWords) {
+        start = this.snapToWordsStart(start)
+        end = this.snapToWordsEnd(end)
+      }
+
       if (end !== start) {
         this.addLabel({
           'clientUID': this.clientUID,
