@@ -143,11 +143,11 @@ export default {
     async handleResults(obj) {
       this.loading = true;
       let currentItem = Object.assign({}, this.currentItem)
-      let res = Object.assign({}, obj);
+      let payload = Object.assign({}, obj);
       // copy the labels
-      currentItem.labels = res.labels;
+      currentItem.labels = payload.labels;
       // copy the flags
-      currentItem.flags = res.flags;
+      currentItem.flags = payload.flags;
       // submit create labels mutation
       await this.$apollo.mutate({
         mutation: createLabelingLabelsNer,
