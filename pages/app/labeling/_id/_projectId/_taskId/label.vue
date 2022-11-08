@@ -152,12 +152,16 @@ export default {
       await this.$apollo.mutate({
         mutation: createLabelingLabelsNer,
         variables: {
-          data: res.labels,
+          data: payload.labels,
         },
-      }).then((data) => {
+      }).then((response) => {
         this.$toast.success('Saved', {
           duration: 1000,
         })
+        // add the new labels with the id to the current item
+        if (response.data && response.data.createLabelingLabelsNer) {
+          currentItem.labels = Object.assign([], response.data.createLabelingLabelsNer)
+        }
       }).catch((error) => {
         console.error('errors', error.graphQLErrors)
         this.$toast.error(error.graphQLErrors.map(e => e['message'] + ' ' || '').join(''), {
